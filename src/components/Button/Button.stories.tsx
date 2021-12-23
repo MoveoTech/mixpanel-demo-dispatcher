@@ -2,10 +2,11 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import Button, { ButtonProps } from "./Button";
 import icon from '../../assets/icons/back.svg';
+import { BUTTON_SIZE, VARIANT } from "../../types";
 
 export default {
   component: Button,
-  title: "Components/Card",
+  title: "Components/Buttton",
 } as Meta;
 
 // args in TS way
@@ -18,9 +19,8 @@ const handleClick = () => {
 export const V1 = Template.bind({});
 V1.args = {
     onClick: handleClick,
-    color: "#0058B9",
-    hover: "#3379C7",
     icon: icon,
-    children: "Navigate to dispatch",
-    size: "small"
+    label: "button",
+    variant: VARIANT.primary,
+    size: BUTTON_SIZE.small
 };
