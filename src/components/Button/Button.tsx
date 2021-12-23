@@ -1,25 +1,25 @@
+
 import './style';
-import { Btn, Icon } from './style';
+import { Btn, Icon, Label } from './style';
+import { BUTTON_SIZE, VARIANT } from "../../types";
 
 export interface ButtonProps {
   onClick: () => void;
-  color: string;
-  hover: string;
-  icon: string;
-  children: any;
-  size: string;
+  icon?: string;
+  label: string;
+  size: BUTTON_SIZE;
+  variant: VARIANT;
 }
 
-const Button = ({onClick, color, hover, icon, children,size}: ButtonProps) => {
+const Button = (props: ButtonProps) => {
     return (
       <div>
-        <Btn
-          onClick={onClick}>
-          {children}
-          {size != "small" && <Icon src={icon} />}
+        <Btn {...props}
+          onClick={props.onClick} >
+          <Label>{props.label}</Label>
+          <Icon src={props.icon} />
         </Btn>
       </div>
-      
     );
   };
   
