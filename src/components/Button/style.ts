@@ -18,6 +18,10 @@ export const Btn = styled.button<ButtonProps>`
     }
 `;
 export const Label = styled.p`
+@font-face {
+    font-family: "Roboto";
+    src: url('../../assets/fonts/Roboto-Light.ttf') ;
+}
     text-align: center;
     white-space: pre;
     text-transform: uppercase;
@@ -26,7 +30,7 @@ export const Label = styled.p`
     letter-spacing: 0.25px;
 `
 export const Icon = styled.img`
-    width:50px;
+    width:30px;
     height:20px;
     transform: rotateY(180deg);
     filter:  invert(100%) sepia(13%) saturate(7488%) hue-rotate(182deg) brightness(121%) contrast(94%);
