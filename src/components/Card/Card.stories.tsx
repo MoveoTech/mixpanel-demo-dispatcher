@@ -12,10 +12,6 @@ export default {
 
 const Template: Story<CardProps> = (args) => <Card {...args} />;
 
-const handleClick = () => {
-  window.open("https://www.ynet.co.il/", "_blank");
-};
-
 export const Card1 = Template.bind({});
 Card1.args = {
     date: "2021-12-23T12:17:14Z",
@@ -28,7 +24,7 @@ Card1.args = {
     description: "An overnight fire and possible explosion at an ExxonMobil oil refinery in Baytown, Texas left several people injured early Thursday ",
     tags: ['#covid-19','Israel', 'umicorn', 'yarden'],
     button: {
-      onClick: handleClick,
+      onClick: () => {},
       icon: icon,
       label: "navigate to dispatach",
       variant: VARIANT.primary,
