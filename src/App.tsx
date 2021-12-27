@@ -15,7 +15,7 @@ const args = {
   },
   description:
     "An overnight fire and possible explosion at an ExxonMobil oil refinery in Baytown, Texas left several people injured early Thursday",
-  tags: ["#covid-19", "+2"],
+  tags: ["#covid-19", "umicorn",'yarden','umicorn','blabla'],
   button: {
     onClick: () => {},
     icon: icon,

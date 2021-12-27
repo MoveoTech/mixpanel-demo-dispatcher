@@ -1,4 +1,5 @@
 
+import { useMediaQuery } from 'react-responsive';
 import { Source } from '../../types';
 import { convertDate, renderTags } from '../../utils/utils';
 import { ButtonProps } from '../Button/Button';
@@ -15,6 +16,9 @@ export interface CardProps {
 }
 
 const Card = (props: CardProps) => {
+  const isMobileDevice = useMediaQuery({
+    query: '(max-width: 600px)'
+  })
     return (
       <CardStyled>
           <ImageCard src={props.image} />
@@ -23,8 +27,8 @@ const Card = (props: CardProps) => {
               <DateCard>{convertDate(props.date)}</DateCard>
               <TagsContainer>
                   {
-                    renderTags(props.tags).map((tag) => {
-                      return <Tag>{tag}</Tag>
+                    renderTags(props.tags, isMobileDevice).map((tag,index) => {
+                      return <Tag key={index}>{tag}</Tag>
                     })
                    }
               </TagsContainer>

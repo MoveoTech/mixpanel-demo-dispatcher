@@ -87,6 +87,7 @@ export const Description = styled.p`
     color: ${COLORS.purple_blue};
     margin:0;
     padding-top: 20px;
+    padding-bottom:15px;
 
     @media ${device.mobile} { 
         height: 100px;
@@ -94,9 +95,11 @@ export const Description = styled.p`
     }
 `
 export const CardBtn = styled(Button)`
-    position:absolute;
-    bottom:16px;
-    right:16px;
+    align-self:flex-end;
+    @media ${device.mobile} { 
+        align-self:center;
+        width:90%;
+    }
 `
 export const TagsContainer = styled.div`
    display:flex;
