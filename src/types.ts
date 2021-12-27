@@ -1,4 +1,4 @@
-export enum BUTTON_SIZE {
+export enum SIZE_TYPE {
     large = 'large',
     medium = 'medium',
     small = 'small'
@@ -7,4 +7,9 @@ export enum BUTTON_SIZE {
 export enum VARIANT {
     primary = 'primary',
     secondery = 'secondary'
+}
+
+export interface Source {
+    id: string,
+    name: string
 }

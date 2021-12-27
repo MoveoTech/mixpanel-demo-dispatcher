@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { colors } from "../../variables";
+import { SIZE_TYPE, VARIANT } from "../../types";
+import { COLORS } from "../../variables";
 import { ButtonProps } from "./Button";
 
-export const Btn = styled.button<ButtonProps>`
+export const ButtonStyled = styled.button<ButtonProps>`
     height: 36px;
-    width: ${props => ((props.size === 'small') ? `157px` : ((props.size === 'large') ? `714px` : '226px'))};
+    width: ${props => ((props.size === SIZE_TYPE.small) ? `157px` : ((props.size === SIZE_TYPE.large) ? `714px` : '226px'))};
     border-radius: 20px;
-    background: ${props => (props.variant === 'secondary' ? colors.secondary_grey : colors.primary_blue)};
+    background: ${props => (props.variant === VARIANT.secondery ? COLORS.secondary_grey : COLORS.primary_blue)};
     cursor: pointer;
     display:flex;
     justify-content: center;
@@ -14,25 +15,20 @@ export const Btn = styled.button<ButtonProps>`
     border: none;
     
     &:hover{
-        background: ${props => (props.variant === 'secondary' ? colors.secondary_grey_hover : colors.primary_blue_hover)};
+        background: ${props => (props.variant === VARIANT.secondery? COLORS.secondary_grey_hover : COLORS.primary_blue_hover)};
     }
 `;
 export const Label = styled.p`
-@font-face {
-    font-family: "Roboto";
-    src: url('../../assets/fonts/Roboto-Light.ttf') ;
-}
     text-align: center;
     white-space: pre;
     text-transform: uppercase;
     color: white;
     font-size: 14px;
     letter-spacing: 0.25px;
+    padding-right: 7px;
 `
 export const Icon = styled.img`
-    width:30px;
-    height:20px;
+    height: 17px;
     transform: rotateY(180deg);
-    filter:  invert(100%) sepia(13%) saturate(7488%) hue-rotate(182deg) brightness(121%) contrast(94%);
-]
+    filter: brightness(3);
 `
