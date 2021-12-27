@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../variables";
+import { SIZE_TYPE, VARIANT } from "../../types";
+import { COLORS } from "../../variables";
 import { ButtonProps } from "./Button";
 
 export const ButtonStyled = styled.button<ButtonProps>`
     height: 36px;
-    width: ${props => ((props.size === 'small') ? `157px` : ((props.size === 'large') ? `714px` : '226px'))};
+    width: ${props => ((props.size === SIZE_TYPE.small) ? `157px` : ((props.size === SIZE_TYPE.large) ? `714px` : '226px'))};
     border-radius: 20px;
-    background: ${props => (props.variant === 'secondary' ? COLORS.secondary_grey : COLORS.primary_blue)};
+    background: ${props => (props.variant === VARIANT.secondery ? COLORS.secondary_grey : COLORS.primary_blue)};
     cursor: pointer;
     display:flex;
     justify-content: center;
@@ -14,9 +15,8 @@ export const ButtonStyled = styled.button<ButtonProps>`
     border: none;
     
     &:hover{
-        background: ${props => (props.variant === 'secondary' ? COLORS.secondary_grey_hover : COLORS.primary_blue_hover)};
+        background: ${props => (props.variant === VARIANT.secondery? COLORS.secondary_grey_hover : COLORS.primary_blue_hover)};
     }
-
 `;
 export const Label = styled.p`
     text-align: center;

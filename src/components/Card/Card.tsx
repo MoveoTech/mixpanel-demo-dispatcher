@@ -1,5 +1,6 @@
 
-import { SIZE_TYPE, Source } from '../../types';
+import { Source } from '../../types';
+import { convertDate, renderTags } from '../../utils/utils';
 import { ButtonProps } from '../Button/Button';
 import { BodyCard, CardBtn, CardStyled, ImageCard, Description, Title, TagsContainer, Tag, Row, SourceCard, DateCard } from './style';
 
@@ -14,25 +15,18 @@ export interface CardProps {
 }
 
 const Card = (props: CardProps) => {
-    const convertDate = () => {
-        const date = new Date(props.date);
-        const day = date.toLocaleString("en-US", { "weekday": "long" });
-        const newDate = date.toDateString();
-        const arr = newDate.split(" ");
-        arr[0] = day;
-        arr[2]=arr[2]+',';
-        return (arr.join(' '))
-    }
     return (
       <CardStyled>
           <ImageCard src={props.image} />
           <BodyCard>
             <Row>
-              <DateCard>{convertDate()}</DateCard>
+              <DateCard>{convertDate(props.date)}</DateCard>
               <TagsContainer>
-                  {props.tags.map((tag) => {
-                     return <Tag>{tag}</Tag>
-                   })}
+                  {
+                    renderTags(props.tags).map((tag) => {
+                      return <Tag>{tag}</Tag>
+                    })
+                   }
               </TagsContainer>
             </Row> 
             <Title>{props.title}</Title>

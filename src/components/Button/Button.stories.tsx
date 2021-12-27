@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Meta, Story } from "@storybook/react";
 import Button, { ButtonProps } from "./Button";
 import icon from '../../assets/icons/back.svg';

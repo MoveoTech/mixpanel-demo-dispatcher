@@ -16,7 +16,7 @@ export const CardStyled = styled.div`
     align-items: center;
     position: relative;
     padding: 0px 16px 0px 0px; 
-
+    
     @media ${device.tablet} { 
         width:728px;
     }
@@ -38,17 +38,16 @@ export const ImageCard = styled.img`
     }
     @media ${device.mobile} { 
         width: 343px;
-        height: 450px;
+        height: 150px;
         border-radius: 20px 20px 0px 0px;
     }
-
 `
 export const BodyCard = styled.div`
     width: 988px;
     height: 242px;
     display:flex;
     flex-direction: column;
-    padding:16px;
+    padding-left:16px;
     font-size: 14px;
     
     @media ${device.tablet} { 
@@ -62,11 +61,13 @@ export const BodyCard = styled.div`
 `
 export const DateCard = styled.p`
    color: ${COLORS.text_lightblue};
-   margin:0px;
 `
 export const SourceCard = styled.p`
    color: ${COLORS.text_lightblue};
    margin:0px;
+   @media ${device.mobile} { 
+        padding-left:16px;
+    }
 `
 export const Title = styled.p`
     font-weight: bold;
@@ -79,16 +80,17 @@ export const Title = styled.p`
 
     @media ${device.mobile} { 
         width:310px;
+        padding:10px 16px 10px 16px;
     }
 `
 export const Description = styled.p`
     color: ${COLORS.purple_blue};
     margin:0;
     padding-top: 20px;
-    height: 50px;
 
     @media ${device.mobile} { 
         height: 100px;
+        padding:10px 16px 10px 16px;
     }
 `
 export const CardBtn = styled(Button)`
@@ -118,6 +120,6 @@ export const Row = styled.div`
     height:30px;
 
     @media ${device.mobile} { 
-        padding-top:9px;
+        padding:10px 16px 0px 16px;
    }
 `

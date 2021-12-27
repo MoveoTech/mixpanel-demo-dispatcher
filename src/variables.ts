@@ -10,8 +10,8 @@ export const COLORS = {
 }
 
 const size = {
-    mobile: '375px',
-    tablet: '768px',
+    mobile: '600px',
+    tablet: '990px',
   }
   export const device = {
     mobile: `(max-width: ${size.mobile})`,

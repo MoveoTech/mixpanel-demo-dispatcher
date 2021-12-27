@@ -25,8 +25,8 @@ Card1.args = {
         id: "nbc-news",
         name: "NBC News",
     },
-    description: "An overnight fire and possible explosion at an ExxonMobil oil refinery in Baytown, Texas left several people injured early Thursday",
-    tags: ['#covid-19','+2'],
+    description: "An overnight fire and possible explosion at an ExxonMobil oil refinery in Baytown, Texas left several people injured early Thursday ",
+    tags: ['#covid-19','Israel', 'umicorn', 'yarden'],
     button: {
       onClick: handleClick,
       icon: icon,
