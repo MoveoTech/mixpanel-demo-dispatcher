@@ -22,7 +22,7 @@ export const Label = styled.p`
     text-align: center;
     white-space: pre;
     text-transform: uppercase;
-    color: white;
+    color: ${COLORS.white};
     font-size: 14px;
     letter-spacing: 0.25px;
     padding-right: 7px;

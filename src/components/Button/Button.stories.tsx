@@ -11,15 +11,11 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
-const handleClick = () => {
-    window.open("https://www.ynet.co.il/", "_blank");
-  };
-
 export const Button1 = Template.bind({});
 Button1.args = {
-    onClick: handleClick,
+    onClick: () => {},
     icon: icon,
-    label: "button",
     variant: VARIANT.primary,
-    size: SIZE_TYPE.small
+    size: SIZE_TYPE.small,
+    children: "continue"
 };

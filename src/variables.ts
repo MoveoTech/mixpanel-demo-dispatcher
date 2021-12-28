@@ -7,6 +7,8 @@ export const COLORS = {
     text_lightblue: "#ACACC4",
     text_hover: "#D9DBE9",
     bright_purple_blue: "#F3F3FF",
+    grayscale: "#262146",
+    white: "#FFFFFF"
 }
 
 const size = {
@@ -17,3 +19,4 @@ const size = {
     mobile: `(max-width: ${size.mobile})`,
     tablet: `(max-width: ${size.tablet})`,
   };
+
