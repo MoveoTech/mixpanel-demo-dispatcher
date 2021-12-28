@@ -6,8 +6,8 @@ import Button from "../Button/Button";
 export const CardStyled = styled.div`
     width: 988px;
     height: 242px;
-    background: #FFFFFF;
-    border: 1px solid #D9DBE9;
+    background: ${COLORS.white};
+    border: 1px solid ${COLORS.text_hover};
     box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
     display: flex;
