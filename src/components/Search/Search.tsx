@@ -6,6 +6,7 @@ import searchIcon from '../../assets/icons/search.svg';
 import { Icon, Input, SearchInput } from './style';
 
 export interface SearchProps{
+  searchFunc: () => {}
 }
 
 const isNotEmpty = (value: string) => value.trim() !== '';
@@ -34,7 +35,7 @@ const Search: React.FC<SearchProps> = (props: SearchProps)=> {
         if (!inputIsValid) {
           return;
         }
-        console.log(searchValue);
+        props.searchFunc();
         resetSearch();
       };
     

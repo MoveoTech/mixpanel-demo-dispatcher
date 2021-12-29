@@ -21,7 +21,8 @@ export const Container = styled.div`
     }
 `
 export const Logo = styled.img`
-    height:170%;
+    height:70%;
+    padding-left:20px;
 `
 export const PersonalArea = styled.div`
     display:flex;
