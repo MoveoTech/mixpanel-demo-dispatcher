@@ -8,7 +8,8 @@ export const COLORS = {
     text_hover: "#D9DBE9",
     bright_purple_blue: "#F3F3FF",
     grayscale: "#262146",
-    white: "#FFFFFF"
+    white: "#FFFFFF",
+    option_hover: "#DFE0EB"
 }
 
 const size = {
