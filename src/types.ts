@@ -8,8 +8,3 @@ export enum VARIANT {
     primary = 'primary',
     secondery = 'secondary'
 }
-
-export interface Source {
-    id: string,
-    name: string
-}

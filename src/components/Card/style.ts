@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { device } from "../../variables";
-import { COLORS } from "../../variables";
+import { device } from "../../globalStyle";
+import { COLORS } from "../../globalStyle";
 import Button from "../Button/Button";
 
 export const CardStyled = styled.div`

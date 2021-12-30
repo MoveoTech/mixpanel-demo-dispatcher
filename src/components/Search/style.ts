@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../variables";
+import { COLORS, device } from "../../globalStyle";
 import Filter from "../Filter/Filter";
 
 export const SearchInput = styled.div`

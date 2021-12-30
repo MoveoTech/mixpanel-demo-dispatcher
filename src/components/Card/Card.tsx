@@ -1,11 +1,14 @@
 
 import { useMediaQuery } from 'react-responsive';
-import { Source } from '../../types';
 import { convertDate, renderTags } from '../../utils/utils';
 import { ButtonProps } from '../Button/Button';
 import { BodyCard, CardBtn, CardStyled, ImageCard, Description, Title, TagsContainer, Tag, Row, SourceCard, DateCard } from './style';
-import { device } from '../../variables';
+import { device } from '../../globalStyle';
 
+export interface Source {
+  id: string,
+  name: string
+}
 export interface CardProps {
   date: string;
   image: string;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { COLORS } from "../../variables";
+import { COLORS } from "../../globalStyle";
 import Button from "../Button/Button";
-import { device } from '../../variables';
+import { device } from '../../globalStyle';
 
 export const LoginContainer = styled.div`
     display: flex;

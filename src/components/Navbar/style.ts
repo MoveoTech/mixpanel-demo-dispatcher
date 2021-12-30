@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../variables";
+import { COLORS, device } from "../../globalStyle";
 
 export const NavbarContainer = styled.div`
     height: 75px;

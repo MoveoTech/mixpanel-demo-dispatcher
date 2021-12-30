@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { SIZE_TYPE, VARIANT } from "../../types";
-import { COLORS } from "../../variables";
+import { COLORS } from "../../globalStyle";
 import { ButtonProps } from "./Button";
 
 export const ButtonStyled = styled.button<ButtonProps>`
