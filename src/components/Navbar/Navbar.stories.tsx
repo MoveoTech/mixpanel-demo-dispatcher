@@ -12,5 +12,10 @@ const Template: Story<NavbarProps> = (args) => <Navbar {...args} />;
 
 export const Navbar1 = Template.bind({});
 Navbar1.args = {
-    children: 'AG',
+    children: 'YC',
+    filter: {
+        options: ['walla','ynet','Vanilla','chocolate','Strawberry','Vanilla','chocolate','Strawberry','Vanilla'],
+        name: "Top Headlines",
+        onChangeValue: () => {},
+    }
 };

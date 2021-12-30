@@ -2,7 +2,6 @@
 import { Meta, Story } from "@storybook/react";
 import Card, { CardProps } from "./Card";
 import { SIZE_TYPE } from "../../types";
-import icon from '../../assets/icons/back.svg';
 import { VARIANT } from "../../types";
 
 export default {
@@ -25,7 +24,7 @@ Card1.args = {
     tags: ['#covid-19','Israel', 'umicorn', 'yarden'],
     button: {
       onClick: () => {},
-      icon: icon,
+      icon: true,
       variant: VARIANT.primary,
       size: SIZE_TYPE.medium
     },

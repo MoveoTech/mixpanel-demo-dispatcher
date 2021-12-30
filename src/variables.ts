@@ -9,7 +9,8 @@ export const COLORS = {
     bright_purple_blue: "#F3F3FF",
     grayscale: "#262146",
     white: "#FFFFFF",
-    option_hover: "#DFE0EB"
+    option_hover: "#DFE0EB",
+    background_grey: "#F8F8FF"
 }
 
 const size = {

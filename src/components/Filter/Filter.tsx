@@ -1,27 +1,26 @@
 
 import { useState } from 'react';
-import './style';
 import { Content, Dropdown, Header, Item } from './style';
 import dropdownIcon from '../../assets/icons/dropdown.svg';
 
 export interface FilterProps{
     options: string[],
     name: string,
-    onChangeValue: (value: string) => void
+    onChangeValue: (value: string) => void,
 }
 
 const Filter: React.FC<FilterProps> = (props: FilterProps)=> {
-    const[isActive,setIsActive]=useState(false);
+    const[isActive,setIsActive] = useState(false);
     const[selected,setSelected] = useState(props.name);
 
-    const handleChange = (event: any) => {
-        setSelected(event.currentTarget.value); 
+    const handleChange = (value: string) => {
+        setSelected(value); 
         setIsActive(false);
         props.onChangeValue(selected);
-      }
+    }
     return (
         <Dropdown>
-            <Header onClick={(e)=> 
+            <Header onClick={()=> 
                 setIsActive(!isActive)}>
                     {selected}
                 <img src={dropdownIcon} />
@@ -32,9 +31,7 @@ const Filter: React.FC<FilterProps> = (props: FilterProps)=> {
                         <Item 
                         key={index}
                         onClick={(e) => {
-                            handleChange(e)
-                            setSelected(option); 
-                            setIsActive(false);
+                            handleChange(option)
                         }} 
                         className="dropdown-item">  
                         {option}
@@ -45,5 +42,4 @@ const Filter: React.FC<FilterProps> = (props: FilterProps)=> {
             </Dropdown>
     );
 }
-  
-  export default Filter;
+export default Filter;
