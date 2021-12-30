@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { COLORS } from "../../variables";
+import { COLORS, device } from "../../variables";
+import Filter from "../Filter/Filter";
 
 export const SearchInput = styled.div`
     width:423px;
@@ -10,12 +11,16 @@ export const SearchInput = styled.div`
     display:flex;
     flex-direction:row;
     background: ${COLORS.white};
+    padding:3px;
 `
-
+export const FilterSearch = styled(Filter)`
+    border:none;
+`
 export const Input = styled.input`
     width:220px;
-    border: 0px solid;
+    border: 0px;
     color: ${COLORS.text_lightblue};
+    border-right: 1px solid ${COLORS.text_hover};
     &:focus{
         outline:none;
     }
@@ -27,8 +32,12 @@ export const Input = styled.input`
         line-height: 22px;
         color: ${COLORS.text_lightblue};
     }
+    @media ${device.tablet} { 
+        border-right:none;
+    }
 `
 export const Icon = styled.input`
+
     width: 23px;
     height: 23px;
     padding: 15px 18px 15px 18px;

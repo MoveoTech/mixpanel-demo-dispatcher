@@ -8,20 +8,22 @@ import searchIcon from '../../assets/icons/search.svg';
 import { useMediaQuery } from 'react-responsive';
 import Search from '../Search/Search';
 import { device } from '../../variables';
+import { FilterProps } from '../Filter/Filter';
 
 export interface NavbarProps {
     children: string
+    filter?: FilterProps
 }
 
 const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
     const isMobileDevice = useMediaQuery({
         query: device.mobile
-      })
+    })
     return (
         <NavbarContainer>
             <Logo src={logo} />
             <Container>
-                {!isMobileDevice && <Search searchFunc={(async () => {})}/>}
+                {!isMobileDevice && <Search filter={props.filter} searchFunc={(async () => {})}/>}
                 <PersonalArea>
                     {
                         isMobileDevice && <Icon onClick={() => {}} src={searchIcon} />

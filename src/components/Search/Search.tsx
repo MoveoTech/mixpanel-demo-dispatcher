@@ -3,15 +3,18 @@ import React from 'react';
 import useInput from '../../hooks/useInput';
 import './style';
 import searchIcon from '../../assets/icons/search.svg';
-import { Icon, Input, SearchInput } from './style';
+import { FilterSearch, Icon, Input, SearchInput } from './style';
+import { FilterProps } from '../Filter/Filter';
 
 export interface SearchProps{
-  searchFunc: () => {}
+  searchFunc: () => void,
+  filter?: FilterProps
 }
 
 const isNotEmpty = (value: string) => value.trim() !== '';
 
 const Search: React.FC<SearchProps> = (props: SearchProps)=> {
+    
     const {
         value: searchValue,
         isValid: searchIsValid,
@@ -51,6 +54,7 @@ const Search: React.FC<SearchProps> = (props: SearchProps)=> {
                 placeholder="Search"
                 autoComplete="off">
             </Input>
+            { props.filter && <FilterSearch options={props.filter.options} name={props.filter.name} onChangeValue={() => {}}/>}
         </SearchInput>
       );
     };

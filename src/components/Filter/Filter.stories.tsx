@@ -13,5 +13,5 @@ export const Filter1 = Template.bind({});
 Filter1.args = {
   options: ['chocolate','Strawberry','Vanilla','chocolate','Strawberry','Vanilla','chocolate','Strawberry','Vanilla'],
   name: "country",
-  onChangeValue: (value: string) => {}
+  onChangeValue: () => {},
 };

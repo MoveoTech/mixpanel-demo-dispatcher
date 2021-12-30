@@ -12,5 +12,5 @@ const Template: Story<SearchProps> = (args) => <Search {...args} />;
 
 export const Search1 = Template.bind({});
 Search1.args = {
-
+  searchFunc: () => {}
 };
