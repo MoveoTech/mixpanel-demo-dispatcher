@@ -42,7 +42,7 @@ const Filter = (props: FilterProps) => {
             <Item
               key={index}
               onClick={(e) => {
-                handleChange(option.value);
+                handleChange(option.name);
               }}
             >
               {option.name}

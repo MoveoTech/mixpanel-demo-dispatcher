@@ -11,7 +11,15 @@ const Template: Story<FilterProps> = (args) => <Filter {...args} />;
 
 export const Filter1 = Template.bind({});
 Filter1.args = {
-  options: ['chocolate','Strawberry','Vanilla','chocolate','Strawberry','Vanilla','chocolate','Strawberry','Vanilla'],
-  name: "country",
+  name:'food',
+  options: [{
+    name:'chocolate',
+    value: 'ch'},
+    {
+      name:'Strawberry',
+      value: 'st'},
+      {
+        name:'Vanilla',
+        value: 'vn'}],
   onChangeValue: () => {},
 };
