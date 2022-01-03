@@ -5,7 +5,7 @@ import dropdownIcon from "../../assets/icons/dropdown.svg";
 
 interface Option {
   name: string;
-  value: number | string;
+  value: string;
 }
 export interface FilterProps {
   options: Option[];
@@ -42,10 +42,10 @@ const Filter = (props: FilterProps) => {
             <Item
               key={index}
               onClick={(e) => {
-                handleChange(option);
+                handleChange(option.value);
               }}
             >
-              {option}
+              {option.name}
             </Item>
           ))}
         </Content>
