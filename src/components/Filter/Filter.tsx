@@ -3,13 +3,17 @@ import { useRef, useState } from "react";
 import { Content, Dropdown, Header, Item } from "./style";
 import dropdownIcon from "../../assets/icons/dropdown.svg";
 
+interface Option {
+  name: string;
+  value: number | string;
+}
 export interface FilterProps {
-  options: string[];
+  options: Option[];
   name: string;
   onChangeValue: (value: string) => void;
 }
 
-const Filter: React.FC<FilterProps> = (props: FilterProps) => {
+const Filter = (props: FilterProps) => {
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState(props.name);
   const ref = useRef(null);
