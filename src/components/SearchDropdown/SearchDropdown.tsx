@@ -6,12 +6,14 @@ import {
   ExIcon,
   ItemContainer,
   Container,
+  ClearBtn,
 } from "./style";
 
 export interface SearchDropdownProps {
   items: string[];
   onChooseItem: (item: string) => void;
   onDeleteItem: (item: string) => void;
+  onClearItems: () => void;
 }
 
 const SearchDropdown: React.FC<SearchDropdownProps> = (
@@ -21,7 +23,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = (
     <Dropdown>
       <Header>
         <p>recent searches</p>
-        <p>clear</p>
+        <ClearBtn onClick={props.onClearItems}>clear</ClearBtn>
       </Header>
       <Container>
         {props.items.map((item, index) => (

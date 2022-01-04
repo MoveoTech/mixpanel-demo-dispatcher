@@ -5,25 +5,18 @@ import axios from "axios";
 
 export interface ResultsLineProps {
   results?: number;
+  requestFunc: () => void;
 }
 
 const ResultsLine = (props: ResultsLineProps) => {
-  const [location, setLocation] = useState();
-
-  useEffect(() => {
-    axios.get("https://ipapi.co/json/").then((response) => {
-      let data = response.data;
-      setLocation(data.country_name);
-    });
-  }, []);
   return (
-    <div>
+    <>
       {props.results ? (
         <Headline>{props.results} Total results</Headline>
       ) : (
-        <DefaultHeadline>Top Headlines in {location}</DefaultHeadline>
+        <DefaultHeadline>Top Headlnines i </DefaultHeadline>
       )}
-    </div>
+    </>
   );
 };
 

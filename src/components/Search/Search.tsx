@@ -69,6 +69,10 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
       setIsTouched(false);
     }
   };
+  const onClearRecentItems = () => {
+    setRecentItems([]);
+    setIsTouched(false);
+  };
 
   return (
     <SearchInput>
@@ -94,6 +98,7 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
           items={recentItems}
           onChooseItem={onChooseRecentItem}
           onDeleteItem={onDeleteRecentItem}
+          onClearItems={onClearRecentItems}
         />
       )}
       {props.filter && (

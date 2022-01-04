@@ -1,7 +1,7 @@
 
 import React from 'react';
 import logo from '../../assets/icons/logo.svg';
-import { SIZE_TYPE, VARIANT } from '../../types';
+import { SIZE_TYPE, VARIANT } from '../../../types';
 import { Body, BodyContainer, ButtonLogin, Description, Header, LoginContainer, Logo, Title } from './style';
 
 export interface LoginProps{
