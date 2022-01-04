@@ -21,6 +21,7 @@ import { useState } from "react";
 export interface NavbarProps {
   children: string;
   filter?: FilterProps;
+  signOutFunc: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
@@ -45,7 +46,9 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
           <Icon src={notifyIcon}></Icon>
           <Avatar onClick={() => openAvatarBox()}>
             {props.children}
-            {showSignoutBox && <SignoutBox>Sign Out</SignoutBox>}
+            {showSignoutBox && (
+              <SignoutBox onClick={props.signOutFunc}>Sign Out</SignoutBox>
+            )}
           </Avatar>
         </PersonalArea>
       </Container>
