@@ -61,8 +61,8 @@ export const Avatar = styled.div`
   font-size: 14px;
   line-height: 16px;
   position: relative;
-  pointer-events: none;
-  
+  cursor: pointer;
+
   @media ${device.mobile} {
     width: 35px;
     height: 35px;
@@ -76,7 +76,7 @@ export const SignoutBox = styled.div`
   color: ${COLORS.grayscale};
   background: ${COLORS.white};
   font-family: Mulish;
-  padding:10px;
+  padding: 10px;
   font-size: 12px;
   line-height: 16px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);

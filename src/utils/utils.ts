@@ -17,11 +17,14 @@ export const renderTags = (tags: string[], isMobileDevice: boolean) => {
     });
     console.log(newTagsArr);
   }
+  const MAX_TAGS_TABLET = 2;
+  const MAX_TAGS_MOBILE = 1;
+
   if (tags.length > 1 && isMobileDevice) {
-    const amount = tags.length - 1;
+    const amount = tags.length - MAX_TAGS_MOBILE;
     newTagsArr.push(`+${amount}`);
-  } else if (tags.length > 2 && !isMobileDevice) {
-    const amount = tags.length - 2;//change number
+  } else if (tags.length > MAX_TAGS_TABLET && !isMobileDevice) {
+    const amount = tags.length - MAX_TAGS_TABLET;
     newTagsArr.push(`+${amount}`);
   }
   return newTagsArr;

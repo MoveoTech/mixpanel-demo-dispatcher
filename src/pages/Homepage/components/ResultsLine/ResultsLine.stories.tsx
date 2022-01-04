@@ -11,4 +11,5 @@ const Template: Story<ResultsLineProps> = (args) => <ResultsLine {...args} />;
 export const ResultsLine1 = Template.bind({});
 ResultsLine1.args = {
   results: 12,
+  location: 'Israel'
 };

@@ -1,11 +1,9 @@
 import "./style";
 import { DefaultHeadline, Headline } from "./style";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 export interface ResultsLineProps {
   results?: number;
-  requestFunc: () => void;
+  location: string;
 }
 
 const ResultsLine = (props: ResultsLineProps) => {
@@ -14,7 +12,7 @@ const ResultsLine = (props: ResultsLineProps) => {
       {props.results ? (
         <Headline>{props.results} Total results</Headline>
       ) : (
-        <DefaultHeadline>Top Headlnines i </DefaultHeadline>
+        <DefaultHeadline>Top Headlnines in {props.location} </DefaultHeadline>
       )}
     </>
   );
