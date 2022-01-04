@@ -21,7 +21,7 @@ export const renderTags = (tags: string[], isMobileDevice: boolean) => {
     const amount = tags.length - 1;
     newTagsArr.push(`+${amount}`);
   } else if (tags.length > 2 && !isMobileDevice) {
-    const amount = tags.length - 2;
+    const amount = tags.length - 2;//change number
     newTagsArr.push(`+${amount}`);
   }
   return newTagsArr;
