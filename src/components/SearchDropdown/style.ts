@@ -61,3 +61,6 @@ export const ItemContainer = styled.div`
 export const Item = styled.div`
   width: 90%;
 `;
+export const ClearBtn = styled.p`
+  cursor:pointer;
+`
