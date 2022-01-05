@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import useInput from "../../hooks/useInput";
 import "./style";
 import searchIcon from "../../assets/icons/search.svg";
 import { FilterSearch, Icon, Input, SearchInput } from "./style";
 import { FilterProps } from "../Filter/Filter";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
+import { useOnClickOutside } from "usehooks-ts";
 
 export interface SearchProps {
   searchFunc: () => void;
@@ -23,6 +24,8 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     isTouched,
     setIsTouched,
   } = useInput(isNotEmpty);
+
+  const ref = useRef(null);
 
   const [recentItems, setRecentItems] = useState<string[]>([]);
 
@@ -49,14 +52,14 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     props.searchFunc();
     resetSearch();
   };
+  const handleClickOutside = () => {
+    setIsTouched(false);
+  };
 
   const setOnFocus = () => {
     if (recentItems.length) {
       setIsTouched(true);
     }
-  };
-  const setOnBlur = () => {
-    setIsTouched(false);
   };
   const onChooseRecentItem = (item: string) => {
     setEnteredValue(item);
@@ -73,9 +76,9 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     setRecentItems([]);
     setIsTouched(false);
   };
-
+  useOnClickOutside(ref, handleClickOutside);
   return (
-    <SearchInput>
+    <SearchInput ref={ref}>
       <Icon
         onClick={submitHandler}
         type="image"
@@ -88,7 +91,6 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
         value={searchValue}
         onChange={searchChangeHandler}
         onFocus={setOnFocus}
-        // onBlur={setOnBlur}
         placeholder="Search"
         autoComplete="off"
         onKeyDown={keyDownHandler}
