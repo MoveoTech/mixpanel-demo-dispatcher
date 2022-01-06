@@ -69,8 +69,8 @@ export const Avatar = styled.div`
   }
 `;
 export const SignoutBox = styled.div`
-  width: 100px;
-  height: 32px;
+  width: 80px;
+  height: 15px;
   position: absolute;
   top: 115%;
   color: ${COLORS.grayscale};

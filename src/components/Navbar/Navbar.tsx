@@ -8,6 +8,7 @@ import {
   Icon,
   SignoutBox,
 } from "./style";
+import OutsideClickHandler from "react-outside-click-handler";
 import logo from "../../assets/icons/logo.svg";
 import settingsIcon from "../../assets/icons/settings.svg";
 import notifyIcon from "../../assets/icons/notifications.svg";
@@ -29,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
-  const openAvatarBox = () => {
+  const handleAvatarBox = () => {
     setShowSignoutBox(!showSignoutBox);
   };
 
@@ -44,12 +45,14 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
           {isMobileDevice && <Icon onClick={() => {}} src={searchIcon} />}
           <Icon src={settingsIcon}></Icon>
           <Icon src={notifyIcon}></Icon>
-          <Avatar onClick={() => openAvatarBox()}>
-            {props.children}
-            {showSignoutBox && (
-              <SignoutBox onClick={props.signOutFunc}>Sign Out</SignoutBox>
-            )}
-          </Avatar>
+          <OutsideClickHandler onOutsideClick={() => setShowSignoutBox(false)}>
+            <Avatar onClick={() => handleAvatarBox()}>
+              {props.children}
+              {showSignoutBox && (
+                <SignoutBox onClick={props.signOutFunc}>Sign Out</SignoutBox>
+              )}
+            </Avatar>
+          </OutsideClickHandler>
         </PersonalArea>
       </Container>
     </NavbarContainer>
