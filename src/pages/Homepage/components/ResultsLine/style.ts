@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "../../../../globalStyle";
+import { COLORS } from "../../../../theme";
 
 export const DefaultHeadline = styled.div`
   color: ${COLORS.grayscale};

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, COLORS_DOUGHNUT } from "../../../globalStyle";
+import { COLORS, COLORS_DOUGHNUT } from "../../../theme";
 
 export const DataContainer = styled.div`
   width: 330px;

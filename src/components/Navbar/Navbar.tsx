@@ -15,9 +15,9 @@ import notifyIcon from "../../assets/icons/notifications.svg";
 import searchIcon from "../../assets/icons/search.svg";
 import { useMediaQuery } from "react-responsive";
 import Search from "../Search/Search";
-import { device } from "../../globalStyle";
 import { FilterProps } from "../Filter/Filter";
 import { useState } from "react";
+import { device } from "../../theme";
 
 export interface NavbarProps {
   children: string;

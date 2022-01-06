@@ -1,34 +1,40 @@
-export const COLORS = {
-  primary_blue: "#0058B9",
-  primary_blue_hover: "#3379C7",
-  light_blue: "#00B9FF",
-  secondary_grey: "#D9DBE9",
-  secondary_grey_hover: "#E1E2ED",
-  purple_blue: "#5A5A89",
-  text_lightblue: "#ACACC4",
-  text_hover: "#D9DBE9",
-  bright_purple_blue: "#F3F3FF",
-  grayscale: "#262146",
-  white: "#FFFFFF",
-  black: "#030035",
-  option_hover: "#DFE0EB",
-  background_grey: "#F8F8FF",
-};
+import { createGlobalStyle } from "styled-components";
+import { COLORS } from "./theme";
 
-export const COLORS_DOUGHNUT = {
-  darkblue: "#343A6E",
-  black: "#030035",
-  lightblue: "#DDF3FE",
-  orange: "#FF9800",
-  lightgrey: "#E8E8E8",
-  gray:"#9FA2B4",
-};
+export default createGlobalStyle`
 
-const size = {
-  mobile: "600px",
-  tablet: "990px",
-};
-export const device = {
-  mobile: `(max-width: ${size.mobile})`,
-  tablet: `(max-width: ${size.tablet})`,
-};
+.react-datepicker{
+    position:absolute !important;
+    top: 115%;
+    border: 1px solid ${COLORS.secondary_grey};
+    box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
+}
+.react-datepicker__header {
+    background-color: ${COLORS.grayscale};
+    color:white !important;
+}
+.react-datepicker__month{
+    background-color:${COLORS.bright_purple_blue};
+}
+.react-datepicker__day-name,
+.react-datepicker__current-month{
+    color:${COLORS.white};
+}
+.react-datepicker__day{
+    color: ${COLORS.purple_blue};
+    :hover{
+        background-color:${COLORS.grayscale};
+        color:${COLORS.white};
+    }
+}
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--selected,
+.react-datepicker__day--in-range{
+    background-color:${COLORS.grayscale} !important;
+    color:${COLORS.white} !important;
+}
+.react-datepicker__day--in-selecting-range{
+    background-color:${COLORS.grayscale} !important;
+    color:${COLORS.white};
+}
+`;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "../../globalStyle";
+import { COLORS } from "../../theme";
 
 export const Dropdown = styled.div`
   width: 175px;

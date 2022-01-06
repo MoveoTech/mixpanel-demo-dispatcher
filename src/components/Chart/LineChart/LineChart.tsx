@@ -1,5 +1,5 @@
 import { AreaChart, Area, XAxis } from "recharts";
-import { COLORS } from "../../../globalStyle";
+import { COLORS } from "../../../theme";
 import { DataChart } from "../../../types";
 import Chart from "../Chart";
 

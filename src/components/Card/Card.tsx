@@ -1,4 +1,5 @@
 import { useMediaQuery } from "react-responsive";
+import { device } from "../../theme";
 import { convertDate, renderTags } from "../../utils/utils";
 import { ButtonProps } from "../Button/Button";
 import {
@@ -14,7 +15,6 @@ import {
   SourceCard,
   DateCard,
 } from "./style";
-import { device } from "../../globalStyle";
 
 export interface Source {
   id: string;

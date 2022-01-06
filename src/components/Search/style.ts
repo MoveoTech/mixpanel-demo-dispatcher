@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../globalStyle";
+import { COLORS, device } from "../../theme";
 import Filter from "../Filter/Filter";
 
 export const SearchInput = styled.div`
@@ -22,7 +22,7 @@ export const Input = styled.input`
   width: 240px;
   border: 0;
   color: ${COLORS.text_lightblue};
-  border-right: 1px solid ${COLORS.text_hover};
+  border-right: 1px solid ${COLORS.secondary_grey};
   outline: none;
   transition: width 0.35s ease-in-out;
   &:focus {
