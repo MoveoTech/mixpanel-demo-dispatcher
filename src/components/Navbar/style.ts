@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../globalStyle";
+import { COLORS, device } from "../../theme";
 
 export const NavbarContainer = styled.div`
   height: 75px;
@@ -75,7 +75,7 @@ export const SignoutBox = styled.div`
   top: 115%;
   color: ${COLORS.grayscale};
   background: ${COLORS.white};
-  font-family: Mulish;
+  font-family: "Mulish";
   padding: 10px;
   font-size: 12px;
   line-height: 16px;

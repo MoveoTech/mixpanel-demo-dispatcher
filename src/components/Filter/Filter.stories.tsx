@@ -1,4 +1,3 @@
-
 import { Meta, Story } from "@storybook/react";
 import Filter, { FilterProps } from "./Filter";
 
@@ -11,15 +10,20 @@ const Template: Story<FilterProps> = (args) => <Filter {...args} />;
 
 export const Filter1 = Template.bind({});
 Filter1.args = {
-  name:'food',
-  options: [{
-    name:'chocolate',
-    value: 'ch'},
+  name: "Date",
+  options: [
     {
-      name:'Strawberry',
-      value: 'st'},
-      {
-        name:'Vanilla',
-        value: 'vn'}],
+      name: "chocolate",
+      value: "ch",
+    },
+    {
+      name: "Strawberry",
+      value: "st",
+    },
+    {
+      name: "Vanilla",
+      value: "vn",
+    },
+  ],
   onChangeValue: () => {},
 };

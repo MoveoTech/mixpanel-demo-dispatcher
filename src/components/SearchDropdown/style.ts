@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "../../globalStyle";
+import { COLORS } from "../../theme";
 
 export const Dropdown = styled.div`
   position: absolute;
@@ -62,5 +62,5 @@ export const Item = styled.div`
   width: 90%;
 `;
 export const ClearBtn = styled.p`
-  cursor:pointer;
-`
+  cursor: pointer;
+`;
