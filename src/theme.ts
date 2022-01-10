@@ -12,6 +12,7 @@ export const COLORS = {
   black: "#030035",
   option_hover: "#DFE0EB",
   background_grey: "#F8F8FF",
+  grey: "#A0A3BD",
 };
 export const COLORS_DOUGHNUT = {
   darkblue: "#343A6E",
@@ -19,8 +20,8 @@ export const COLORS_DOUGHNUT = {
   lightblue: "#DDF3FE",
   orange: "#FF9800",
   lightgrey: "#E8E8E8",
-  gray: "#9FA2B4",
-}
+  grey: "#9FA2B4",
+};
 
 const size = {
   mobile: "600px",

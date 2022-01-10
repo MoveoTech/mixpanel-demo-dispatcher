@@ -3,7 +3,6 @@ import { COLORS, device } from "../../theme";
 import Button from "../Button/Button";
 
 export const CardStyled = styled.div`
-  width: 988px;
   height: 242px;
   background: ${COLORS.white};
   border: 1px solid ${COLORS.secondary_grey};
@@ -15,6 +14,7 @@ export const CardStyled = styled.div`
   align-items: center;
   position: relative;
   padding: 0px 16px 0px 0px;
+  margin-right: 10px;;
 
   @media ${device.tablet} {
     width: 728px;
@@ -27,8 +27,8 @@ export const CardStyled = styled.div`
   }
 `;
 export const ImageCard = styled.img`
-  height: 242px;
-  width: 244px;
+  height: 100%;
+  width: 242px;
   border-radius: 20px 0px 0px 20px;
   object-fit: cover;
 
@@ -42,8 +42,6 @@ export const ImageCard = styled.img`
   }
 `;
 export const BodyCard = styled.div`
-  width: 988px;
-  height: 242px;
   display: flex;
   flex-direction: column;
   padding-left: 16px;
@@ -75,7 +73,7 @@ export const Title = styled.p`
   margin: 0;
   padding-top: 10px;
   padding-bottom: 10px;
-  width: 470px;
+  width: 100%;
 
   @media ${device.mobile} {
     width: 310px;
@@ -87,6 +85,7 @@ export const Description = styled.p`
   margin: 0;
   padding-top: 20px;
   padding-bottom: 15px;
+  height: 100%;
 
   @media ${device.mobile} {
     height: 100px;
@@ -95,6 +94,7 @@ export const Description = styled.p`
 `;
 export const CardBtn = styled(Button)`
   align-self: flex-end;
+  margin-bottom:10px ;
   @media ${device.mobile} {
     align-self: center;
     width: 90%;

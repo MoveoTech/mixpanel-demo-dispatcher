@@ -38,6 +38,6 @@ export const SourceName = styled.div`
   color: ${COLORS.black};
 `;
 export const Precentage = styled.div`
-  color: ${COLORS_DOUGHNUT.gray};
+  color: ${COLORS_DOUGHNUT.grey};
   letter-spacing: 0.3px;
 `;
