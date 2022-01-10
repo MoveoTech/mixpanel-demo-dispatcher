@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { COLORS } from "../../../../theme";
 
 export const DefaultHeadline = styled.div`
+  padding-top:20px;
+  padding-bottom:20px;
   color: ${COLORS.grayscale};
   font-weight: 500;
   font-size: 24px;

@@ -5,6 +5,7 @@ export default createGlobalStyle`
 
 .react-datepicker{
     position:absolute !important;
+    z-index:2;
     top: 115%;
     border: 1px solid ${COLORS.secondary_grey};
     box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);

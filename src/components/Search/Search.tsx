@@ -50,7 +50,6 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     }
     setIsTouched(false);
     props.searchFunc();
-    resetSearch();
   };
   const handleClickOutside = () => {
     setIsTouched(false);

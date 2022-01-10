@@ -10,6 +10,7 @@ export const Dropdown = styled.div`
   border: 1px solid rgba(223, 224, 235, 0.41);
   font-size: 12px;
   line-height: 16px;
+  z-index: 2;
 `;
 export const Container = styled.div`
   overflow: scroll;

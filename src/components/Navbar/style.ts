@@ -69,7 +69,7 @@ export const Avatar = styled.div`
   }
 `;
 export const SignoutBox = styled.div`
-  width: 80px;
+  width: 140%;
   height: 15px;
   position: absolute;
   top: 115%;

@@ -2,14 +2,13 @@ import styled from "styled-components";
 import { COLORS } from "../../theme";
 
 export const Container = styled.div`
-  width: 412px;
-  height: 410px;
   box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   border: 1px solid ${COLORS.secondary_grey};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: ${COLORS.white};
 `;
 export const Body = styled.div`
   display: flex;
