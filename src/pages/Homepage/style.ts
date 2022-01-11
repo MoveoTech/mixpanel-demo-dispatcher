@@ -41,15 +41,16 @@ export const FilterContainer = styled.div`
 export const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left:5px;
-  margin-right:5px;
+  margin-left: 5px;
+  margin-right: 5px;
 
   @media ${device.mobile} {
-    align-items:center;
+    align-items: center;
   }
 `;
 export const ArticleContainer = styled.div`
   height: 1220px;
+  width: 70%;
   display: flex;
   flex-direction: column;
   overflow: scroll;

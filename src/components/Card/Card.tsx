@@ -1,6 +1,7 @@
 import { useMediaQuery } from "react-responsive";
 import { device } from "../../theme";
-import { convertDate, renderTags } from "../../utils/utils";
+import { Source } from "../../types";
+import { convertDateFromUrl, renderTags } from "../../utils/utils";
 import { ButtonProps } from "../Button/Button";
 import {
   BodyCard,
@@ -16,10 +17,6 @@ import {
   DateCard,
 } from "./style";
 
-export interface Source {
-  id: string;
-  name: string;
-}
 export interface CardProps {
   date: string;
   image: string;
@@ -39,7 +36,7 @@ const Card = (props: CardProps) => {
       <ImageCard src={props.image} />
       <BodyCard>
         <Row>
-          <DateCard>{convertDate(props.date)}</DateCard>
+          <DateCard>{convertDateFromUrl(props.date)}</DateCard>
           <TagsContainer>
             {renderTags(props.tags, isMobileDevice).map((tag, index) => {
               return <Tag key={index}>{tag}</Tag>;

@@ -1,39 +1,30 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import useInput from "../../hooks/useInput";
 import "./style";
 import searchIcon from "../../assets/icons/search.svg";
 import { FilterSearch, Icon, Input, SearchInput } from "./style";
 import { FilterProps } from "../Filter/Filter";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
-import { useOnClickOutside } from "usehooks-ts";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { isNotEmpty } from "../../utils/utils";
 
 export interface SearchProps {
-  searchFunc: () => void;
+  searchFunc: (value: string) => void;
   filter?: FilterProps;
 }
-
-const isNotEmpty = (value: string) => value.trim() !== "";
 
 const Search: React.FC<SearchProps> = (props: SearchProps) => {
   const {
     value: searchValue,
     setEnteredValue,
-    isValid: searchIsValid,
     valueChangeHandler: searchChangeHandler,
-    reset: resetSearch,
     isTouched,
     setIsTouched,
-  } = useInput(isNotEmpty);
+  } = useInput("");
 
   const ref = useRef(null);
-
-  const [recentItems, setRecentItems] = useState<string[]>([]);
-
-  let inputIsValid = false;
-
-  if (searchIsValid) {
-    inputIsValid = true;
-  }
+  const [recentItems, setRecentItems] = useLocalStorage<string[]>("items", []);
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
@@ -41,15 +32,11 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     }
   };
   const submitHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (!inputIsValid) {
-      return;
-    }
-    if (!recentItems.includes(searchValue)) {
+    if (!recentItems.includes(searchValue) && isNotEmpty(searchValue)) {
       setRecentItems((recentItems) => [...recentItems, searchValue]);
     }
     setIsTouched(false);
-    props.searchFunc();
+    props.searchFunc(searchValue);
   };
   const handleClickOutside = () => {
     setIsTouched(false);
@@ -76,14 +63,10 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     setIsTouched(false);
   };
   useOnClickOutside(ref, handleClickOutside);
+
   return (
     <SearchInput ref={ref}>
-      <Icon
-        onClick={submitHandler}
-        type="image"
-        src={searchIcon}
-        disabled={!inputIsValid}
-      />
+      <Icon onClick={submitHandler} type="image" src={searchIcon} />
       <Input
         type="text"
         id="search"
@@ -106,7 +89,10 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
         <FilterSearch
           options={props.filter.options}
           name={props.filter.name}
-          onChangeValue={() => {}}
+          onChangeValue={(value: string) => {
+            props.filter?.onChangeValue(value);
+          }}
+
         />
       )}
     </SearchInput>
