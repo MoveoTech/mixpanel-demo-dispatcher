@@ -10,6 +10,7 @@ interface Option {
 export interface FilterProps {
   options?: Option[];
   name: string;
+  // disabled: (value: boolean) => {};
   onChangeValue: (value: string) => void;
 }
 
@@ -22,10 +23,10 @@ const Filter = (props: FilterProps) => {
     setIsActive(false);
   };
 
-  const handleChange = (value: string) => {
-    setSelected(value);
+  const handleChange = (option: Option) => {
+    setSelected(option.name);
     setIsActive(false);
-    props.onChangeValue(selected);
+    props.onChangeValue(option.value);
   };
 
   useOnClickOutside(ref, handleClickOutside);
@@ -42,7 +43,7 @@ const Filter = (props: FilterProps) => {
             <Item
               key={index}
               onClick={(e) => {
-                handleChange(option.name);
+                handleChange(option);
               }}
             >
               {option.name}

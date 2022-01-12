@@ -22,6 +22,7 @@ import { device } from "../../theme";
 export interface NavbarProps {
   children: string;
   filter?: FilterProps;
+  searchFunc: (value: string) => void;
   signOutFunc: () => void;
 }
 
@@ -39,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
       <Logo src={logo} />
       <Container>
         {!isMobileDevice && (
-          <Search filter={props.filter} searchFunc={async () => {}} />
+          <Search filter={props.filter} searchFunc={(value) => {props.searchFunc(value)}} />
         )}
         <PersonalArea>
           {isMobileDevice && <Icon onClick={() => {}} src={searchIcon} />}

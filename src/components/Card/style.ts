@@ -12,9 +12,8 @@ export const CardStyled = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  position: relative;
   padding: 0px 16px 0px 0px;
-  margin-right: 10px;;
+  margin-right: 10px;
 
   @media ${device.tablet} {
     width: 728px;
@@ -94,7 +93,7 @@ export const Description = styled.p`
 `;
 export const CardBtn = styled(Button)`
   align-self: flex-end;
-  margin-bottom:10px ;
+  margin-bottom: 10px;
   @media ${device.mobile} {
     align-self: center;
     width: 90%;
