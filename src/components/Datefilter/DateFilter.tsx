@@ -8,12 +8,16 @@ import { convertDateFromUi } from "../../utils/utils";
 
 export interface DateFilterProps {
   name: string;
-  onChangeValue: (startDate: any, EndDate: any) => void;
+  onChangeValue: (
+    startDate: string | undefined,
+    EndDate: string | undefined
+  ) => void;
 }
+type dateType = null | Date;
 
 const DateFilter = (props: DateFilterProps) => {
-  const [startDate, setStartDate] = useState<any>('');
-  const [endDate, setEndDate] = useState<any>('');
+  const [startDate, setStartDate] = useState<dateType>();
+  const [endDate, setEndDate] = useState<dateType>();
   const ref = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const handleClickOutside = () => {
@@ -22,20 +26,11 @@ const DateFilter = (props: DateFilterProps) => {
 
   useOnClickOutside(ref, handleClickOutside);
 
-  function handleDateChange(date: any) {
+  function handleDateChange(date: dateType[]) {
     setStartDate(date[0]);
     setEndDate(date[1]);
-    let start, end;
-    if(date[0]){
-      start = convertDateFromUi((date[0]).toString());
-    } else {
-      start ='';
-    }
-    if(date[1]){
-      end = convertDateFromUi((date[1]).toString());
-    }else {
-      end='';
-    }
+    const start = date[0] ? convertDateFromUi(date[0].toString()) : "";
+    const end = date[1] ? convertDateFromUi(date[1].toString()) : "";
     props.onChangeValue(start, end);
   }
 
@@ -48,7 +43,7 @@ const DateFilter = (props: DateFilterProps) => {
       {isActive && (
         <DatePicker
           selectsRange
-          onChange={handleDateChange}
+          onChange={(e) => handleDateChange(e)}
           selectsStart={true}
           selected={startDate}
           startDate={startDate}

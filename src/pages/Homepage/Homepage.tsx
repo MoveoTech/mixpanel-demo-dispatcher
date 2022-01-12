@@ -44,8 +44,8 @@ const Homepage = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [whereToSearch, setWhereToSearch] = useState<string>("Top headlines");
   const [source, setSource] = useState<string>("");
-  const [dateFrom, setDateFrom] = useState<string>("");
-  const [dateTo, setDateTo] = useState<string>("");
+  const [dateFrom, setDateFrom] = useState<string | undefined>("");
+  const [dateTo, setDateTo] = useState<string | undefined>("");
   const [language, setLanguage] = useState<string>("");
   const [sortBy, setSortBy] = useState<string>("");
   const [country, setCountry] = useState<string>("il");
@@ -137,7 +137,10 @@ const Homepage = () => {
               ></Filter>
               <DateFilter
                 name={"Dates"}
-                onChangeValue={(startDate, endDate) => {
+                onChangeValue={(
+                  startDate: string | undefined,
+                  endDate: string | undefined
+                ) => {
                   setDateFrom(startDate);
                   setDateTo(endDate);
                 }}
