@@ -3,7 +3,6 @@ import { DefaultHeadline, Headline } from "./style";
 
 export interface ResultsLineProps {
   content: number | string;
-
 }
 
 const ResultsLine = (props: ResultsLineProps) => {
