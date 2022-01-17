@@ -2,18 +2,18 @@ import "./style";
 import { DefaultHeadline, Headline } from "./style";
 
 export interface ResultsLineProps {
-  results: number;
-  location: string;
+  content: number | string;
+
 }
 
 const ResultsLine = (props: ResultsLineProps) => {
   return (
     <>
-      {props.results !== 0 ? (
-        <Headline>{props.results} Total results</Headline>
-      ) : (
-        <DefaultHeadline>Top Headlnines in {props.location} </DefaultHeadline>
-      )}
+      { typeof props.content === "number" ? (
+        <Headline>{props.content} Total results</Headline>
+      ) : ( typeof props.content !== "undefined" )? 
+        <DefaultHeadline>Top Headlnines in {props.content} </DefaultHeadline>
+       : <DefaultHeadline>No data</DefaultHeadline>}
     </>
   );
 };

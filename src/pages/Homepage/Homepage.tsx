@@ -31,6 +31,7 @@ import {
   MainLayout,
   DataContainer,
 } from "./style";
+import useHttp from "../../hooks/useHttp";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -52,55 +53,77 @@ const Homepage = () => {
   const [category, setCategory] = useState<string>("");
   const [results, setResults] = useState(0);
 
-  const { data: dataLocation, fetchError: errorLocation } = useFetch(
-    "https://ipapi.co/json/"
-  );
+  // const urlEverything = `https://newsapi.org/v2/everything?q=${searchValue}&sources=${source}&from=${dateFrom}&to=${dateTo}&language=${language}&sortBy=${sortBy}&apiKey=2fe52557b5b44b6e9abd6666a5079799`;
 
-  const urlEverything = `https://newsapi.org/v2/everything?q=${searchValue}&sources=${source}&from=${dateFrom}&to=${dateTo}&language=${language}&sortBy=${sortBy}&apiKey=2fe52557b5b44b6e9abd6666a5079799`;
-
-  //handle source query
-  const urlTopHeadlines = `https://newsapi.org/v2/top-headlines?q=${searchValue}&country=${country}&category=${category}&apiKey=2fe52557b5b44b6e9abd6666a5079799`;
+  // //handle source query
+  // const urlTopHeadlines = `https://newsapi.org/v2/top-headlines?q=${searchValue}&country=${country}&category=${category}&apiKey=2fe52557b5b44b6e9abd6666a5079799`;
 
   //handle errors
   const { data: dataArticles, fetchError, isLoading } = useFetch(url);
+  const {
+    isLoading: isLoadingLocation,
+    error: isErrorLocation,
+    sendRequest: dataLocation,
+  } = useHttp();
+
+  const content = !articles.length ? undefined : results  ? results : location.name;
+  
 
   useEffect(() => {
-    if (dataLocation) {
+    const transformData = (data: any) => {
       const valueCountry = countryOptions.find(
-        ({ name }) => name === dataLocation.country_name
+        ({ name }) => name === data.country_name
       );
       setLocation(valueCountry);
-      if (location && country === "") {
-        setCountry(location.value);
-      }
-    }
-    if (dataArticles.articles) {
-      setArticles(dataArticles.articles.slice(0, 10));
-    }
+    };
+    dataLocation(
+      {
+        url: "https://ipapi.co/json/",
+      },
+      transformData
+    );
+    return () => {
+      setLocation({});
+    };
   }, [dataLocation]);
 
-  useEffect(() => {
-    if (whereToSearch === "Everything") {
-      setUrl(urlEverything);
-    } else {
-      setUrl(urlTopHeadlines);
-    }
-    if (dataArticles.articles) {
-      setArticles(dataArticles.articles.slice(0, 10));
-      setResults(dataArticles.totalResults);
-    }
-  }, [
-    whereToSearch,
-    source,
-    dateTo,
-    dateFrom,
-    sortBy,
-    country,
-    category,
-    language,
-    searchValue,
-    dataArticles,
-  ]);
+  // useEffect(() => {
+  //   if (dataLocation) {
+  //     const valueCountry = countryOptions.find(
+  //       ({ name }) => name === dataLocation.country_name
+  //     );
+  //     setLocation(valueCountry);
+  //     if (location && country === "") {
+  //       setCountry(location.value);
+  //     }
+  //   }
+  //   if (dataArticles.articles) {
+  //     setArticles(dataArticles.articles.slice(0, 10));
+  //   }
+  // }, [dataLocation]);
+
+  // useEffect(() => {
+  //   if (whereToSearch === "Everything") {
+  //     setUrl(urlEverything);
+  //   } else {
+  //     setUrl(urlTopHeadlines);
+  //   }
+  //   if (dataArticles.articles) {
+  //     setArticles(dataArticles.articles.slice(0, 10));
+  //     setResults(dataArticles.totalResults);
+  //   }
+  // }, [
+  //   whereToSearch,
+  //   source,
+  //   dateTo,
+  //   dateFrom,
+  //   sortBy,
+  //   country,
+  //   category,
+  //   language,
+  //   searchValue,
+  //   dataArticles,
+  // ]);
 
   return (
     <HomepageContainer>
@@ -181,7 +204,7 @@ const Homepage = () => {
             </FilterContainer>
           ))}
         <BodyContainer>
-          <ResultsLine results={results} location={location?.name} />
+          <ResultsLine content={content} />
           <DataContainer>
             <ArticleContainer>
               {articles &&
