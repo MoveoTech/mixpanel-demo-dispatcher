@@ -6,25 +6,25 @@ import { ArticleContainer } from "./style";
 const Articles = (props: any) => {
   return (
     <ArticleContainer>
-      {props.articles.map((el: Article, i: Key) => {
+      {props.articles.map((article: Article, i: Key) => {
         return (
           <Card
             key={i}
-            image={el.urlToImage}
-            title={el.title}
-            source={el.source}
-            description={el.description}
+            image={article.urlToImage}
+            title={article.title}
+            source={article.source}
+            description={article.description}
             tags={[]}
             button={{
               onClick: () => {
-                window.open(el.url, "_blank");
+                window.open(article.url, "_blank");
               },
               icon: true,
               variant: VARIANT.primary,
               size: SIZE_TYPE.medium,
               children: "Navigate to Dispatch",
             }}
-            date={el.publishedAt}
+            date={article.publishedAt}
           ></Card>
         );
       })}

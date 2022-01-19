@@ -1,11 +1,13 @@
+import { ENDPOINTS } from "../utils/types";
+
 export const filterNavbarOptions = [
   {
     name: "Everything",
-    value: "everything",
+    value: ENDPOINTS.everything,
   },
   {
     name: "Top Headlines",
-    value: "top-headlines",
+    value: ENDPOINTS.topheadlines,
   },
 ];
 export const sourcesOptions = [

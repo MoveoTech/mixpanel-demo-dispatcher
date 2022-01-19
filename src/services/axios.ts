@@ -6,13 +6,13 @@ const locationAxios = axios.create({
 
 
 const articlesAxios = axios.create({
-  baseURL: `https://newsapi.org/v2/`,
+  baseURL: `https://cryptic-headland-94862.herokuapp.com/https://newsapi.org/v2/`,
   timeout: 10000,
   headers: { "api-key": `${process.env.REACT_APP_API_KEY}` },
 });
 
-export const urlRequest = async (filtersState: any) => {
-  return articlesAxios({
-    url: `${filtersState.endpoint}?q=${filtersState.searchInput}&=country=${filtersState.country}&category=${filtersState.category}&sources=${filtersState.source}&from=${filtersState.dateFrom}&to=${filtersState.dateTo}&language=${filtersState.language}&sortBy=${filtersState.sortBy}&`,
+export const getArticlesFromApi = async (filtersState: any) => {
+  return await articlesAxios({
+    url: `${filtersState.endpoint}?q=${filtersState.searchInput}&country=${filtersState.country}&category=${filtersState.category}&sources=${filtersState.source}&from=${filtersState.dateFrom}&to=${filtersState.dateTo}&language=${filtersState.language}&sortBy=${filtersState.sortBy}&`,
   });
 };

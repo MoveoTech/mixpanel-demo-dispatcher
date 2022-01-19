@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import Card from "../../components/Card/Card";
 import DoughnutChart from "../../components/Chart/DoughnutChart/DoughnutChart";
 import HorizontalChart from "../../components/Chart/HorizontalChart/HorizontalChart";
 import LineChart from "../../components/Chart/LineChart/LineChart";
@@ -33,7 +32,7 @@ import {
 } from "./style";
 import { RootState } from "../../store";
 import Articles from "./components/Articles/Articles";
-import { urlRequest } from "../../services/axios";
+import { getArticlesFromApi } from "../../services/axios";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -46,14 +45,13 @@ const Homepage = () => {
   const [location, setLocation] = useState<any>({});
   const [results, setResults] = useState(0);
 
-  console.log(urlRequest(filtersState));
-
-  // const { data: dataArticles, fetchError, isLoading } = useFetch(url);
-  // const {
-  //   isLoading: isLoadingLocation,
-  //   error: isErrorLocation,
-  //   sendRequest: dataLocation,
-  // } = useHttp();
+  useEffect(() => {
+    try {
+      getArticlesFromApi(filtersState).then((res) => {
+        console.log(res.data);
+      });
+    } catch (error) {}
+  }, [filtersState]);
 
   // useEffect(() => {
   //   const transformData = (data: any) => {
@@ -73,23 +71,9 @@ const Homepage = () => {
   //   };
   // }, [dataLocation]);
 
-  // useEffect(() => {
-  //   if (dataArticles.articles) {
+
   //     setArticles(dataArticles.articles.slice(0, 10));
   //     setResults(dataArticles.totalResults);
-  //   }
-  // }, [
-  //   whereToSearch,
-  //   source,
-  //   dateTo,
-  //   dateFrom,
-  //   sortBy,
-  //   country,
-  //   category,
-  //   language,
-  //   searchValue,
-  //   dataArticles,
-  // ]);
 
   const content = !articles.length
     ? undefined
@@ -103,7 +87,7 @@ const Homepage = () => {
       {!isTabletDevice ? (
         <Navbar
           filter={{
-            name: ENDPOINTS.topheadlines,
+            name: "Top Headlines",
             options: filterNavbarOptions,
             onChangeValue: (value) =>
               dispatch(filtersActions.changeEndpoint(value)),
@@ -127,17 +111,17 @@ const Homepage = () => {
       )}
       <MainLayout>
         {!isTabletDevice &&
-          (filtersState.endpoint === "everything" ? (
+          (filtersState.endpoint === ENDPOINTS.everything ? (
             <FilterContainer>
               <Filter
-                name={"Sort By"}
+                name="Sort By"
                 options={sortByOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setSortBy(value));
                 }}
               ></Filter>
               <DateFilter
-                name={"Dates"}
+                name="Dates"
                 onChangeValue={(
                   startDate: string | undefined,
                   endDate: string | undefined
@@ -147,13 +131,13 @@ const Homepage = () => {
                 }}
               ></DateFilter>
               <Filter
-                name={"Sources"}
+                name="Sources"
                 onChangeValue={(value) =>
                   dispatch(filtersActions.setSource(value))
                 }
               ></Filter>
               <Filter
-                name={"Language"}
+                name="Language"
                 options={languageOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setLanguage(value));
@@ -163,21 +147,21 @@ const Homepage = () => {
           ) : (
             <FilterContainer>
               <Filter
-                name={"Country"}
+                name="Country"
                 options={countryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCountry(value));
                 }}
               ></Filter>
               <Filter
-                name={"Category"}
+                name="Category"
                 options={categoryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCategory(value));
                 }}
               ></Filter>
               <Filter
-                name={"Sources"}
+                name="Sources"
                 onChangeValue={(value) =>
                   dispatch(filtersActions.setSource(value))
                 }
@@ -193,12 +177,12 @@ const Homepage = () => {
               <ChartContainer>
                 <DoughnutChart
                   DoughnutChartData={DoughnutChartData}
-                  ChartTitle={"Sources"}
+                  ChartTitle="Sources"
                 ></DoughnutChart>
-                <LineChart LineChartData={LineChartData} ChartTitle={"Dates"} />
+                <LineChart LineChartData={LineChartData} ChartTitle="Dates" />
                 <HorizontalChart
                   HorizontalChartData={HorizontalChartData}
-                  ChartTitle={"Tags"}
+                  ChartTitle="Tags"
                 ></HorizontalChart>
               </ChartContainer>
             )}

@@ -18,17 +18,17 @@ const filtersSlice = createSlice({
   reducers: {
     changeEndpoint(state, action) {
       switch (action.payload) {
-        case "top-headlines":
+        case ENDPOINTS.topheadlines:
           return (state = {
             ...initialState,
-            endpoint: "top-headlines",
+            endpoint: ENDPOINTS.topheadlines,
             source: state.source,
             searchInput: state.searchInput,
           });
-        case "everything":
+        case ENDPOINTS.everything:
           return (state = {
             ...initialState,
-            endpoint: "everything",
+            endpoint: ENDPOINTS.everything,
             source: state.source,
             searchInput: state.searchInput,
           });
