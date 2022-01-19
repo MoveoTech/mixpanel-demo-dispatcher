@@ -33,7 +33,7 @@ import {
 } from "./style";
 import { RootState } from "../../store";
 import Articles from "./components/Articles/Articles";
-import locationAxios, { urlRequest } from "../../services/axios";
+import { urlRequest } from "../../services/axios";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
