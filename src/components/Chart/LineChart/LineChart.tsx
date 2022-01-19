@@ -1,6 +1,6 @@
 import { AreaChart, Area, XAxis } from "recharts";
-import { COLORS } from "../../../theme";
-import { DataChart } from "../../../types";
+import { theme } from "../../../globalStyle/theme";
+import { DataChart } from "../../../utils/types";
 import Chart from "../Chart";
 
 export interface LineChartProps {
@@ -18,12 +18,12 @@ const LineChart = (props: LineChartProps) => {
             <linearGradient id="colorUv" x1="1" y1="0.1" x2="0.3" y2="1.5">
               <stop
                 offset="5%"
-                stopColor={COLORS.primary_blue}
+                stopColor={theme.colors.primary_blue}
                 stopOpacity={0.3}
               />
               <stop
                 offset="95%"
-                stopColor={COLORS.light_blue}
+                stopColor={theme.colors.light_blue}
                 stopOpacity={0}
               />
             </linearGradient>
@@ -31,7 +31,7 @@ const LineChart = (props: LineChartProps) => {
           <Area
             type="monotone"
             dataKey="value"
-            stroke={COLORS.primary_blue}
+            stroke={theme.colors.primary_blue}
             strokeWidth={5}
             fillOpacity={4}
             fill="url(#colorUv)"
@@ -42,7 +42,7 @@ const LineChart = (props: LineChartProps) => {
             dataKey="name"
             tick={{
               fontSize: 13,
-              fill: `${COLORS.purple_blue}`,
+              fill: `${theme.colors.purple_blue}`,
               fontWeight: 700,
             }}
           />

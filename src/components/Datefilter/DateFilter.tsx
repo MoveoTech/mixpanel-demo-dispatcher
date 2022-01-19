@@ -3,8 +3,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Dropdown, Header } from "../Filter/style";
 import dateIcon from "../../assets/icons/date.svg";
-import { useOnClickOutside } from "usehooks-ts";
 import { convertDateFromUi } from "../../utils/utils";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export interface DateFilterProps {
   name: string;

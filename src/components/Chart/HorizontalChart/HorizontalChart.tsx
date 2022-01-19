@@ -1,4 +1,4 @@
-import { DataChart } from "../../../types";
+import { DataChart } from "../../../utils/types";
 import Chart from "../Chart";
 import { Data, DataContainer, Precentage, Row, SourceName } from "./style";
 import { ProgressBar, ProgressBarUsed } from "./style";

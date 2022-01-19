@@ -8,7 +8,6 @@ import {
   Icon,
   SignoutBox,
 } from "./style";
-import OutsideClickHandler from "react-outside-click-handler";
 import logo from "../../assets/icons/logo.svg";
 import settingsIcon from "../../assets/icons/settings.svg";
 import notifyIcon from "../../assets/icons/notifications.svg";
@@ -17,7 +16,8 @@ import { useMediaQuery } from "react-responsive";
 import Search from "../Search/Search";
 import { FilterProps } from "../Filter/Filter";
 import { useState } from "react";
-import { device } from "../../theme";
+import { device } from "../../globalStyle/theme";
+import OutsideClickHandler from "react-outside-click-handler";
 
 export interface NavbarProps {
   children: string;
@@ -40,7 +40,12 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
       <Logo src={logo} />
       <Container>
         {!isMobileDevice && (
-          <Search filter={props.filter} searchFunc={(value) => {props.searchFunc(value)}} />
+          <Search
+            filter={props.filter}
+            searchFunc={(value) => {
+              props.searchFunc(value);
+            }}
+          />
         )}
         <PersonalArea>
           {isMobileDevice && <Icon onClick={() => {}} src={searchIcon} />}

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../theme";
+import { theme, device } from "../../globalStyle/theme";
 
 export const HomepageContainer = styled.div`
-  background-color: ${COLORS.bright_purple_blue};
+  background-color: ${theme.colors.bright_purple_blue};
   min-width: 1225px;
 
   @media ${device.tablet} {
@@ -48,31 +48,7 @@ export const BodyContainer = styled.div`
     align-items: center;
   }
 `;
-export const ArticleContainer = styled.div`
-  height: 1220px;
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  overflow-x: hidden;
-  & > div:not(:last-child) {
-    margin-bottom: 24px;
-  }
 
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: ${COLORS.grey};
-  }
-  ::-webkit-scrollbar-track {
-    padding: 10px;
-  }
-
-  @media ${device.tablet} {
-    align-self: center;
-  }
-`;
 export const DataContainer = styled.div`
   display: flex;
   flex-direction: row;

@@ -1,13 +1,13 @@
-import { SIZE_TYPE, VARIANT } from "../types";
+import { ENDPOINTS } from "../utils/types";
 
 export const filterNavbarOptions = [
   {
     name: "Everything",
-    value: "Everything",
+    value: ENDPOINTS.everything,
   },
   {
     name: "Top Headlines",
-    value: "Top Headlines",
+    value: ENDPOINTS.topheadlines,
   },
 ];
 export const sourcesOptions = [
@@ -23,7 +23,7 @@ export const sourcesOptions = [
     name: "google",
     value: "google",
   },
-]
+];
 export const countryOptions = [
   {
     name: "UAE",

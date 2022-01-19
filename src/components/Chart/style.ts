@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { COLORS } from "../../theme";
+import { theme } from "../../globalStyle/theme";
 
 export const Container = styled.div`
   box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
-  border: 1px solid ${COLORS.secondary_grey};
+  border: 1px solid ${theme.colors.secondary_grey};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: ${COLORS.white};
+  background-color: ${theme.colors.white};
 `;
 export const Body = styled.div`
   display: flex;
@@ -17,7 +17,7 @@ export const Body = styled.div`
   justify-content: center;
 `;
 export const BoldLine = styled.div`
-  border: 2px solid ${COLORS.purple_blue};
+  border: 2px solid ${theme.colors.purple_blue};
   width: 20px;
   border-radius: 5px;
 `;

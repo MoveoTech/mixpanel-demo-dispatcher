@@ -2,7 +2,7 @@
 import './style';
 import icon from '../../assets/icons/back.svg';
 import { ButtonStyled, Icon, Label } from './style';
-import { SIZE_TYPE, VARIANT } from "../../types";
+import { SIZE_TYPE, VARIANT } from "../../utils/types";
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   icon: boolean;

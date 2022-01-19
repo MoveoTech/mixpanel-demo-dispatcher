@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../theme";
+import { theme, device } from "../../globalStyle/theme";
 import Button from "../Button/Button";
 
 export const CardStyled = styled.div`
   height: 242px;
-  background: ${COLORS.white};
-  border: 1px solid ${COLORS.secondary_grey};
+  background: ${theme.colors.white};
+  border: 1px solid ${theme.colors.secondary_grey};
   box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
   border-radius: 20px;
   display: flex;
@@ -56,10 +56,10 @@ export const BodyCard = styled.div`
   }
 `;
 export const DateCard = styled.p`
-  color: ${COLORS.text_lightblue};
+  color: ${theme.colors.text_lightblue};
 `;
 export const SourceCard = styled.p`
-  color: ${COLORS.text_lightblue};
+  color: ${theme.colors.text_lightblue};
   margin: 0px;
   @media ${device.mobile} {
     padding-left: 16px;
@@ -80,7 +80,7 @@ export const Title = styled.p`
   }
 `;
 export const Description = styled.p`
-  color: ${COLORS.purple_blue};
+  color: ${theme.colors.purple_blue};
   margin: 0;
   padding-top: 20px;
   padding-bottom: 15px;
@@ -104,8 +104,8 @@ export const TagsContainer = styled.div`
   flex-direction: row;
 `;
 export const Tag = styled.p`
-  color: ${COLORS.purple_blue};
-  background: ${COLORS.bright_purple_blue};
+  color: ${theme.colors.purple_blue};
+  background: ${theme.colors.bright_purple_blue};
   border-radius: 10px;
   padding: 3px 10px;
   margin-left: 10px;

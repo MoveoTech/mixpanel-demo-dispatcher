@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/icons/logo.svg";
-import { SIZE_TYPE, VARIANT } from "../../types";
+import { SIZE_TYPE, VARIANT } from "../../utils/types";
 import {
   Body,
   BodyContainer,

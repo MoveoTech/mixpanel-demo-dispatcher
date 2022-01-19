@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { COLORS, device } from "../../theme";
+import { theme, device } from "../../globalStyle/theme";
 
 export const NavbarContainer = styled.div`
   height: 75px;
   width: 100%;
-  background: ${COLORS.grayscale};
+  background: ${theme.colors.grayscale};
   border: none;
   display: flex;
   justify-content: space-between;
@@ -50,14 +50,14 @@ export const Icon = styled.img`
   }
 `;
 export const Avatar = styled.div`
-  background: ${COLORS.primary_blue};
+  background: ${theme.colors.primary_blue};
   border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50px;
   height: 50px;
-  color: ${COLORS.white};
+  color: ${theme.colors.white};
   font-size: 14px;
   line-height: 16px;
   position: relative;
@@ -73,8 +73,8 @@ export const SignoutBox = styled.div`
   height: 15px;
   position: absolute;
   top: 115%;
-  color: ${COLORS.grayscale};
-  background: ${COLORS.white};
+  color: ${theme.colors.grayscale};
+  background: ${theme.colors.white};
   font-family: "Mulish";
   padding: 10px;
   font-size: 12px;

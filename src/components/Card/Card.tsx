@@ -1,6 +1,6 @@
 import { useMediaQuery } from "react-responsive";
-import { device } from "../../theme";
-import { Source } from "../../types";
+import { device } from "../../globalStyle/theme";
+import { Source } from "../../utils/types";
 import { convertDateFromUrl, renderTags } from "../../utils/utils";
 import { ButtonProps } from "../Button/Button";
 import {

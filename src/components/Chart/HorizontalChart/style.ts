@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import { COLORS } from "../../../theme";
+import { theme } from "../../../globalStyle/theme";
 
 export const ProgressBar = styled.div`
   width: 190px;
   height: 12px;
-  background-color: ${COLORS.bright_purple_blue};
+  background-color: ${theme.colors.bright_purple_blue};
   border-radius: 6px;
   margin: 10px 0;
 `;
 export const ProgressBarUsed = styled.span`
   display: block;
-  background: ${COLORS.primary_blue};
+  background: ${theme.colors.primary_blue};
   width: 30px;
   height: 100%;
   border-radius: 6px;
@@ -29,7 +29,7 @@ export const DataContainer = styled.div`
     width: 5px;
   }
   ::-webkit-scrollbar-thumb {
-    background: ${COLORS.purple_blue};
+    background: ${theme.colors.purple_blue};
   }
   ::-webkit-scrollbar-track {
     padding: 10px;
@@ -40,7 +40,7 @@ export const Row = styled.div`
   flex-direction: row;
   width: 100%;
   align-items: center;
-  color: ${COLORS.purple_blue};
+  color: ${theme.colors.purple_blue};
 `;
 export const Data = styled.div`
   padding: 8px;

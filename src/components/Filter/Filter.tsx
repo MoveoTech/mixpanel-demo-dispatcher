@@ -1,7 +1,7 @@
-import { useOnClickOutside } from "usehooks-ts";
 import { useRef, useState } from "react";
 import { Content, Dropdown, Header, Item } from "./style";
 import dropdownIcon from "../../assets/icons/dropdown.svg";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 interface Option {
   name: string;

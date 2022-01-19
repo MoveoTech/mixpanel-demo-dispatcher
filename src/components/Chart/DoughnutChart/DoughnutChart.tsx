@@ -1,6 +1,6 @@
 import { PieChart, Pie, Cell, Label } from "recharts";
-import { COLORS_DOUGHNUT } from "../../../theme";
-import { DataChart } from "../../../types";
+import { theme } from "../../../globalStyle/theme";
+import { DataChart } from "../../../utils/types";
 import Chart from "../Chart";
 import {
   Data,
@@ -18,7 +18,7 @@ export interface DoughnutChartProps {
 }
 
 const DoughnutChart = (props: DoughnutChartProps) => {
-  const COLORS = Object.values(COLORS_DOUGHNUT);
+  const COLORS = Object.values(theme.chartsColors.doughnut);
   return (
     <Chart>
       <Chart.Header>{props.ChartTitle}</Chart.Header>
