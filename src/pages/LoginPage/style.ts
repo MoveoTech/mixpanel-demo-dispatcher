@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../../components/Button/Button";
-import { COLORS, device } from "../../theme";
+import { theme, device } from "../../globalStyle/theme";
 
 export const LoginContainer = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ export const LoginContainer = styled.div`
   }
 `;
 export const Header = styled.div`
-  background: ${COLORS.grayscale};
+  background: ${theme.colors.grayscale};
   width: 35%;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@ export const Logo = styled.img`
 `;
 export const Body = styled.div`
   width: 65%;
-  background: ${COLORS.background_grey};
+  background: ${theme.colors.background_grey};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -57,7 +57,7 @@ export const BodyContainer = styled.div`
   }
 `;
 export const Title = styled.div`
-  color: ${COLORS.purple_blue};
+  color: ${theme.colors.purple_blue};
   font-weight: 300;
   font-size: 32px;
   padding-bottom: 16px;
@@ -69,7 +69,7 @@ export const Description = styled.div`
   font-weight: 100;
   font-size: 24px;
   padding-bottom: 48px;
-  color: ${COLORS.purple_blue};
+  color: ${theme.colors.purple_blue};
   border-bottom: 1px solid #d9dbe9;
   line-height: 45px;
   @media ${device.tablet} {

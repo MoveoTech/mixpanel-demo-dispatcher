@@ -1,7 +1,7 @@
 
 import { Meta, Story } from "@storybook/react";
 import Button, { ButtonProps } from "./Button";
-import { SIZE_TYPE, VARIANT } from "../../types";
+import { SIZE_TYPE, VARIANT } from "../../utils/types";
 
 export default {
   component: Button,

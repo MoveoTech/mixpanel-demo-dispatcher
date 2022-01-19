@@ -1,13 +1,11 @@
-import { SIZE_TYPE, VARIANT } from "../types";
-
 export const filterNavbarOptions = [
   {
     name: "Everything",
-    value: "Everything",
+    value: "everything",
   },
   {
     name: "Top Headlines",
-    value: "Top Headlines",
+    value: "top-headlines",
   },
 ];
 export const sourcesOptions = [
@@ -23,7 +21,7 @@ export const sourcesOptions = [
     name: "google",
     value: "google",
   },
-]
+];
 export const countryOptions = [
   {
     name: "UAE",

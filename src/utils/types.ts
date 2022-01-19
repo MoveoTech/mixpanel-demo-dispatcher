@@ -3,10 +3,13 @@ export enum SIZE_TYPE {
   medium = "medium",
   small = "small",
 }
-
+export enum ENDPOINTS {
+  topheadlines = "top-Headlines",
+  everything = "everything",
+}
 export enum VARIANT {
   primary = "primary",
-  secondery = "secondary",
+  secondery = "secondery",
 }
 export interface DataChart {
   name: string;

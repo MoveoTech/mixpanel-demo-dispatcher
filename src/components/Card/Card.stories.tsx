@@ -1,8 +1,8 @@
 
 import { Meta, Story } from "@storybook/react";
 import Card, { CardProps } from "./Card";
-import { SIZE_TYPE } from "../../types";
-import { VARIANT } from "../../types";
+import { SIZE_TYPE } from "../../utils/types";
+import { VARIANT } from "../../utils/types";
 
 export default {
   component: Card,

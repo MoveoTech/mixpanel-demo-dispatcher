@@ -1,4 +1,4 @@
-import { Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import Card from "../../components/Card/Card";
 import DoughnutChart from "../../components/Chart/DoughnutChart/DoughnutChart";
@@ -8,9 +8,10 @@ import DateFilter from "../../components/Datefilter/DateFilter";
 import Filter from "../../components/Filter/Filter";
 import Navbar from "../../components/Navbar/Navbar";
 import ResultsLine from "./components/ResultsLine/ResultsLine";
-import useFetch from "../../hooks/useFetch";
-import { device } from "../../theme";
-import { Article, SIZE_TYPE, VARIANT } from "../../types";
+import { device } from "../../globalStyle/theme";
+import { Article, ENDPOINTS } from "../../utils/types";
+import { filtersActions } from "../../store/slicers/filtersSlice";
+import { useDispatch, useSelector } from "react-redux";
 import {
   DoughnutChartData,
   countryOptions,
@@ -24,90 +25,55 @@ import {
 } from "../MockData";
 import {
   BodyContainer,
-  ArticleContainer,
   ChartContainer,
   FilterContainer,
   HomepageContainer,
   MainLayout,
   DataContainer,
 } from "./style";
-import useHttp from "../../hooks/useHttp";
+import { RootState } from "../../store";
+import Articles from "./components/Articles/Articles";
+import locationAxios, { urlRequest } from "../../services/axios";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
     query: device.tablet,
   });
+  const dispatch = useDispatch();
+  const filtersState = useSelector((state: RootState) => state.filters);
 
-  //convert to redux
   const [articles, setArticles] = useState<Article[]>([]);
   const [location, setLocation] = useState<any>({});
-  const [url, setUrl] = useState("");
-  const [searchValue, setSearchValue] = useState<string>("");
-  const [whereToSearch, setWhereToSearch] = useState<string>("Top headlines");
-  const [source, setSource] = useState<string>("");
-  const [dateFrom, setDateFrom] = useState<string | undefined>("");
-  const [dateTo, setDateTo] = useState<string | undefined>("");
-  const [language, setLanguage] = useState<string>("");
-  const [sortBy, setSortBy] = useState<string>("");
-  const [country, setCountry] = useState<string>("il");
-  const [category, setCategory] = useState<string>("");
   const [results, setResults] = useState(0);
 
-  // const urlEverything = `https://newsapi.org/v2/everything?q=${searchValue}&sources=${source}&from=${dateFrom}&to=${dateTo}&language=${language}&sortBy=${sortBy}&apiKey=2fe52557b5b44b6e9abd6666a5079799`;
+  console.log(urlRequest(filtersState));
 
-  // //handle source query
-  // const urlTopHeadlines = `https://newsapi.org/v2/top-headlines?q=${searchValue}&country=${country}&category=${category}&apiKey=2fe52557b5b44b6e9abd6666a5079799`;
-
-  //handle errors
-  const { data: dataArticles, fetchError, isLoading } = useFetch(url);
-  const {
-    isLoading: isLoadingLocation,
-    error: isErrorLocation,
-    sendRequest: dataLocation,
-  } = useHttp();
-
-  const content = !articles.length ? undefined : results  ? results : location.name;
-  
-
-  useEffect(() => {
-    const transformData = (data: any) => {
-      const valueCountry = countryOptions.find(
-        ({ name }) => name === data.country_name
-      );
-      setLocation(valueCountry);
-    };
-    dataLocation(
-      {
-        url: "https://ipapi.co/json/",
-      },
-      transformData
-    );
-    return () => {
-      setLocation({});
-    };
-  }, [dataLocation]);
+  // const { data: dataArticles, fetchError, isLoading } = useFetch(url);
+  // const {
+  //   isLoading: isLoadingLocation,
+  //   error: isErrorLocation,
+  //   sendRequest: dataLocation,
+  // } = useHttp();
 
   // useEffect(() => {
-  //   if (dataLocation) {
+  //   const transformData = (data: any) => {
   //     const valueCountry = countryOptions.find(
-  //       ({ name }) => name === dataLocation.country_name
+  //       ({ name }) => name === data.country_name
   //     );
   //     setLocation(valueCountry);
-  //     if (location && country === "") {
-  //       setCountry(location.value);
-  //     }
-  //   }
-  //   if (dataArticles.articles) {
-  //     setArticles(dataArticles.articles.slice(0, 10));
-  //   }
+  //   };
+  //   dataLocation(
+  //     {
+  //       url: "https://ipapi.co/json/",
+  //     },
+  //     transformData
+  //   );
+  //   return () => {
+  //     setLocation({});
+  //   };
   // }, [dataLocation]);
 
   // useEffect(() => {
-  //   if (whereToSearch === "Everything") {
-  //     setUrl(urlEverything);
-  //   } else {
-  //     setUrl(urlTopHeadlines);
-  //   }
   //   if (dataArticles.articles) {
   //     setArticles(dataArticles.articles.slice(0, 10));
   //     setResults(dataArticles.totalResults);
@@ -125,23 +91,35 @@ const Homepage = () => {
   //   dataArticles,
   // ]);
 
+  const content = !articles.length
+    ? undefined
+    : results
+    ? results
+    : location.name;
+  console.log(filtersState);
+
   return (
     <HomepageContainer>
       {!isTabletDevice ? (
         <Navbar
           filter={{
-            name: whereToSearch,
+            name: ENDPOINTS.topheadlines,
             options: filterNavbarOptions,
-            onChangeValue: (value) => setWhereToSearch(value),
+            onChangeValue: (value) =>
+              dispatch(filtersActions.changeEndpoint(value)),
           }}
-          searchFunc={(value: string) => setSearchValue(value)}
+          searchFunc={(value: string) =>
+            dispatch(filtersActions.setSearchInput(value))
+          }
           signOutFunc={() => {}}
         >
           YC
         </Navbar>
       ) : (
         <Navbar
-          searchFunc={(value: string) => setSearchValue(value)}
+          searchFunc={(value: string) =>
+            dispatch(filtersActions.setSearchInput(value))
+          }
           signOutFunc={() => {}}
         >
           YC
@@ -149,13 +127,13 @@ const Homepage = () => {
       )}
       <MainLayout>
         {!isTabletDevice &&
-          (whereToSearch === "Everything" ? (
+          (filtersState.endpoint === "everything" ? (
             <FilterContainer>
               <Filter
                 name={"Sort By"}
                 options={sortByOptions}
                 onChangeValue={(value) => {
-                  setSortBy(value);
+                  dispatch(filtersActions.setSortBy(value));
                 }}
               ></Filter>
               <DateFilter
@@ -164,19 +142,21 @@ const Homepage = () => {
                   startDate: string | undefined,
                   endDate: string | undefined
                 ) => {
-                  setDateFrom(startDate);
-                  setDateTo(endDate);
+                  dispatch(filtersActions.setDateFrom(startDate));
+                  dispatch(filtersActions.setDateTo(endDate));
                 }}
               ></DateFilter>
               <Filter
                 name={"Sources"}
-                onChangeValue={(value) => setSource(value)}
+                onChangeValue={(value) =>
+                  dispatch(filtersActions.setSource(value))
+                }
               ></Filter>
               <Filter
                 name={"Language"}
                 options={languageOptions}
                 onChangeValue={(value) => {
-                  setLanguage(value);
+                  dispatch(filtersActions.setLanguage(value));
                 }}
               ></Filter>
             </FilterContainer>
@@ -186,19 +166,21 @@ const Homepage = () => {
                 name={"Country"}
                 options={countryOptions}
                 onChangeValue={(value) => {
-                  setCountry(value);
+                  dispatch(filtersActions.setCountry(value));
                 }}
               ></Filter>
               <Filter
                 name={"Category"}
                 options={categoryOptions}
                 onChangeValue={(value) => {
-                  setCategory(value);
+                  dispatch(filtersActions.setCategory(value));
                 }}
               ></Filter>
               <Filter
                 name={"Sources"}
-                onChangeValue={(value) => setSource(value)}
+                onChangeValue={(value) =>
+                  dispatch(filtersActions.setSource(value))
+                }
                 options={sourcesOptions}
               ></Filter>
             </FilterContainer>
@@ -206,31 +188,7 @@ const Homepage = () => {
         <BodyContainer>
           <ResultsLine content={content} />
           <DataContainer>
-            <ArticleContainer>
-              {articles &&
-                articles.map((el: Article, i: Key) => {
-                  return (
-                    <Card
-                      key={i}
-                      image={el.urlToImage}
-                      title={el.title}
-                      source={el.source}
-                      description={el.description}
-                      tags={[]}
-                      button={{
-                        onClick: () => {
-                          window.open(el.url, "_blank");
-                        },
-                        icon: true,
-                        variant: VARIANT.primary,
-                        size: SIZE_TYPE.medium,
-                        children: "Navigate to Dispatch",
-                      }}
-                      date={el.publishedAt}
-                    ></Card>
-                  );
-                })}
-            </ArticleContainer>
+            {articles && <Articles articles={articles} />}
             {!isTabletDevice && (
               <ChartContainer>
                 <DoughnutChart

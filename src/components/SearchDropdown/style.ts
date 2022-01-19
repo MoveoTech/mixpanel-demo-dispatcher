@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { COLORS } from "../../theme";
+import { theme } from "../../globalStyle/theme";
 
 export const Dropdown = styled.div`
   position: absolute;
   top: 115%;
   width: 100%;
-  background: ${COLORS.white};
+  background: ${theme.colors.white};
   border-radius: 10px;
   border: 1px solid rgba(223, 224, 235, 0.41);
   font-size: 12px;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     width: 3px;
   }
   ::-webkit-scrollbar-thumb {
-    background: ${COLORS.purple_blue};
+    background: ${theme.colors.purple_blue};
   }
   ::-webkit-scrollbar-track {
     padding: 10px;
@@ -33,7 +33,7 @@ export const Header = styled.div`
   font-weight: bold;
   font-size: 14px;
   line-height: 22px;
-  color: ${COLORS.purple_blue};
+  color: ${theme.colors.purple_blue};
   padding: 0px 16px 0px 16px;
   text-transform: uppercase;
 `;

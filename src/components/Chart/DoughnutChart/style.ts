@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS, COLORS_DOUGHNUT } from "../../../theme";
+import { theme } from "../../../globalStyle/theme";
 
 export const DataContainer = styled.div`
   width: 330px;
@@ -35,9 +35,9 @@ export const Data = styled.div`
 `;
 export const SourceName = styled.div`
   letter-spacing: 0.2px;
-  color: ${COLORS.black};
+  color: ${theme.colors.black};
 `;
 export const Precentage = styled.div`
-  color: ${COLORS_DOUGHNUT.grey};
+  color: ${theme.colors.grey};
   letter-spacing: 0.3px;
 `;

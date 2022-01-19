@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { COLORS } from "./theme";
+import { theme } from "./theme";
 
 export default createGlobalStyle`
 
@@ -7,35 +7,35 @@ export default createGlobalStyle`
     position:absolute !important;
     z-index:2;
     top: 115%;
-    border: 1px solid ${COLORS.secondary_grey};
+    border: 1px solid ${theme.colors.secondary_grey};
     box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
 }
 .react-datepicker__header {
-    background-color: ${COLORS.grayscale};
+    background-color: ${theme.colors.grayscale};
     color:white !important;
 }
 .react-datepicker__month{
-    background-color:${COLORS.bright_purple_blue};
+    background-color:${theme.colors.bright_purple_blue};
 }
 .react-datepicker__day-name,
 .react-datepicker__current-month{
-    color:${COLORS.white};
+    color:${theme.colors.white};
 }
 .react-datepicker__day{
-    color: ${COLORS.purple_blue};
+    color: ${theme.colors.purple_blue};
     :hover{
-        background-color:${COLORS.grayscale};
-        color:${COLORS.white};
+        background-color:${theme.colors.grayscale};
+        color:${theme.colors.white};
     }
 }
 .react-datepicker__day--keyboard-selected,
 .react-datepicker__day--selected,
 .react-datepicker__day--in-range{
-    background-color:${COLORS.grayscale} !important;
-    color:${COLORS.white} !important;
+    background-color:${theme.colors.grayscale} !important;
+    color:${theme.colors.white} !important;
 }
 .react-datepicker__day--in-selecting-range{
-    background-color:${COLORS.grayscale} !important;
-    color:${COLORS.white};
+    background-color:${theme.colors.grayscale} !important;
+    color:${theme.colors.white};
 }
 `;
