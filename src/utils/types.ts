@@ -4,7 +4,7 @@ export enum SIZE_TYPE {
   small = "small",
 }
 export enum ENDPOINTS {
-  topheadlines = "top-Headlines",
+  topheadlines = "top-headlines",
   everything = "everything",
 }
 export enum VARIANT {

@@ -3,7 +3,6 @@ import { theme, device } from "../../globalStyle/theme";
 import Button from "../Button/Button";
 
 export const CardStyled = styled.div`
-  height: 242px;
   background: ${theme.colors.white};
   border: 1px solid ${theme.colors.secondary_grey};
   box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);

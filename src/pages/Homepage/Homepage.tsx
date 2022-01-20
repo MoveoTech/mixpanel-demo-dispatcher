@@ -20,7 +20,6 @@ import {
   sortByOptions,
   LineChartData,
   filterNavbarOptions,
-  sourcesOptions,
 } from "../MockData";
 import {
   BodyContainer,
@@ -32,7 +31,8 @@ import {
 } from "./style";
 import { RootState } from "../../store";
 import Articles from "./components/Articles/Articles";
-import { getArticlesFromApi } from "../../services/axios";
+import { getArticlesFromApi } from "../../services/getArticlesAxios";
+import { getlocationFromApi } from "../../services/getLocationAxios";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -43,44 +43,48 @@ const Homepage = () => {
 
   const [articles, setArticles] = useState<Article[]>([]);
   const [location, setLocation] = useState<any>({});
-  const [results, setResults] = useState(0);
+  const [sourcesOptions, setSourcesOptions] = useState<
+    { value: string; name: string }[]
+  >([]);
 
   useEffect(() => {
     try {
-      getArticlesFromApi(filtersState).then((res) => {
-        console.log(res.data);
+      getlocationFromApi().then((res) => {
+        const valueCountry = countryOptions.find(
+          ({ name }) => name === res.data.country_name
+        );
+        setLocation(valueCountry);
       });
     } catch (error) {}
-  }, [filtersState]);
+  }, [location]);
+
+  useEffect(() => {
+    try {
+      getArticlesFromApi(filtersState, location.value).then((res) => {
+        setArticles(res.data.articles.slice(0, 10));
+        dispatch(filtersActions.setResults(res.data.totalResults));
+      });
+    } catch (error) {
+      setArticles([]);
+    }
+  }, [filtersState, location]);
 
   // useEffect(() => {
-  //   const transformData = (data: any) => {
-  //     const valueCountry = countryOptions.find(
-  //       ({ name }) => name === data.country_name
-  //     );
-  //     setLocation(valueCountry);
-  //   };
-  //   dataLocation(
-  //     {
-  //       url: "https://ipapi.co/json/",
-  //     },
-  //     transformData
-  //   );
-  //   return () => {
-  //     setLocation({});
-  //   };
-  // }, [dataLocation]);
-
-
-  //     setArticles(dataArticles.articles.slice(0, 10));
-  //     setResults(dataArticles.totalResults);
-
-  const content = !articles.length
-    ? undefined
-    : results
-    ? results
-    : location.name;
-  console.log(filtersState);
+  //   axios
+  //     .get(
+  //       `https://newsapi.org/v2/top-headlines/sources?country=${filtersState.country}&category=${filtersState.category}&language=${filtersState.language}&apiKey=${process.env.REACT_APP_API_KEY}`
+  //     )
+  //     .then((res) => {
+  //       setSourcesOptions([]);
+  //       res.data.sources.forEach((source: any) => {
+  //         setSourcesOptions((recentItems) => [
+  //           ...recentItems,
+  //           { value: `${source.id}`, name: `${source.name}` },
+  //         ]);
+  //       });
+  //     });
+  //   console.log(sourcesOptions);
+  // }, [filtersState.language, filtersState.country, filtersState.category]);
 
   return (
     <HomepageContainer>
@@ -89,6 +93,7 @@ const Homepage = () => {
           filter={{
             name: "Top Headlines",
             options: filterNavbarOptions,
+            disabled: false,
             onChangeValue: (value) =>
               dispatch(filtersActions.changeEndpoint(value)),
           }}
@@ -113,13 +118,6 @@ const Homepage = () => {
         {!isTabletDevice &&
           (filtersState.endpoint === ENDPOINTS.everything ? (
             <FilterContainer>
-              <Filter
-                name="Sort By"
-                options={sortByOptions}
-                onChangeValue={(value) => {
-                  dispatch(filtersActions.setSortBy(value));
-                }}
-              ></Filter>
               <DateFilter
                 name="Dates"
                 onChangeValue={(
@@ -130,11 +128,13 @@ const Homepage = () => {
                   dispatch(filtersActions.setDateTo(endDate));
                 }}
               ></DateFilter>
+
               <Filter
                 name="Sources"
                 onChangeValue={(value) =>
                   dispatch(filtersActions.setSource(value))
                 }
+                options={sourcesOptions}
               ></Filter>
               <Filter
                 name="Language"
@@ -143,11 +143,19 @@ const Homepage = () => {
                   dispatch(filtersActions.setLanguage(value));
                 }}
               ></Filter>
+              <Filter
+                name="Sort By"
+                options={sortByOptions}
+                onChangeValue={(value) => {
+                  dispatch(filtersActions.setSortBy(value));
+                }}
+              ></Filter>
             </FilterContainer>
           ) : (
             <FilterContainer>
               <Filter
                 name="Country"
+                disabled={filtersState.source ? true : false}
                 options={countryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCountry(value));
@@ -155,6 +163,7 @@ const Homepage = () => {
               ></Filter>
               <Filter
                 name="Category"
+                disabled={filtersState.source ? true : false}
                 options={categoryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCategory(value));
@@ -162,6 +171,9 @@ const Homepage = () => {
               ></Filter>
               <Filter
                 name="Sources"
+                disabled={
+                  filtersState.country || filtersState.category ? true : false
+                }
                 onChangeValue={(value) =>
                   dispatch(filtersActions.setSource(value))
                 }
@@ -170,7 +182,7 @@ const Homepage = () => {
             </FilterContainer>
           ))}
         <BodyContainer>
-          <ResultsLine content={content} />
+          <ResultsLine location={location.name} />
           <DataContainer>
             {articles && <Articles articles={articles} />}
             {!isTabletDevice && (

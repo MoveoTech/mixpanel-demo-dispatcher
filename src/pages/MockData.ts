@@ -10,20 +10,6 @@ export const filterNavbarOptions = [
     value: ENDPOINTS.topheadlines,
   },
 ];
-export const sourcesOptions = [
-  {
-    name: "ynet",
-    value: "ynet",
-  },
-  {
-    name: "walla",
-    value: "walla",
-  },
-  {
-    name: "google",
-    value: "google",
-  },
-];
 export const countryOptions = [
   {
     name: "UAE",

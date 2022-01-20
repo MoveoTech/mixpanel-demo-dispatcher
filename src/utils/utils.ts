@@ -29,7 +29,7 @@ export const renderTags = (tags: string[], isMobileDevice: boolean) => {
     newTagsArr.push(tags[0]);
   } else if (tags) {
     tags.slice(0, 2).map((tag) => {
-      newTagsArr.push(tag);
+      return newTagsArr.push(tag);
     });
   }
   const MAX_TAGS_TABLET = 2;

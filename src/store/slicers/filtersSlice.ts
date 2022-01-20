@@ -11,6 +11,7 @@ const initialState = {
   sortBy: "",
   country: "",
   category: "",
+  results: 0,
 };
 const filtersSlice = createSlice({
   name: "filters",
@@ -33,6 +34,9 @@ const filtersSlice = createSlice({
             searchInput: state.searchInput,
           });
       }
+    },
+    setResults(state, action) {
+      state.results = action.payload;
     },
     setCategory(state, action) {
       state.category = action.payload;
