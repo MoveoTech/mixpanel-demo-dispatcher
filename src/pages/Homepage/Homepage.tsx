@@ -31,7 +31,10 @@ import {
 } from "./style";
 import { RootState } from "../../store";
 import Articles from "./components/Articles/Articles";
-import { getArticlesFromApi } from "../../services/getArticlesAxios";
+import {
+  getArticlesFromApi,
+  getSourcesFromApi,
+} from "../../services/getNewsApiAxios";
 import { getlocationFromApi } from "../../services/getLocationAxios";
 
 const Homepage = () => {
@@ -69,22 +72,21 @@ const Homepage = () => {
     }
   }, [filtersState, location]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       `https://newsapi.org/v2/top-headlines/sources?country=${filtersState.country}&category=${filtersState.category}&language=${filtersState.language}&apiKey=${process.env.REACT_APP_API_KEY}`
-  //     )
-  //     .then((res) => {
-  //       setSourcesOptions([]);
-  //       res.data.sources.forEach((source: any) => {
-  //         setSourcesOptions((recentItems) => [
-  //           ...recentItems,
-  //           { value: `${source.id}`, name: `${source.name}` },
-  //         ]);
-  //       });
-  //     });
-  //   console.log(sourcesOptions);
-  // }, [filtersState.language, filtersState.country, filtersState.category]);
+  useEffect(() => {
+    try {
+      getSourcesFromApi(filtersState).then((res) => {
+        setSourcesOptions([]);
+        res.data.sources.forEach((source: any) => {
+          setSourcesOptions((recentItems) => [
+            ...recentItems,
+            { value: `${source.id}`, name: `${source.name}` },
+          ]);
+        });
+      });
+    } catch (error) {
+      setSourcesOptions([]);
+    }
+  }, [filtersState.language, filtersState.country, filtersState.category]);
 
   return (
     <HomepageContainer>
