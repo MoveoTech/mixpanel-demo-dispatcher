@@ -4,7 +4,7 @@ import { FilterProps } from "./Filter";
 import { FilterItemProps } from "./FilterItem";
 
 export const Dropdown = styled.div<FilterProps>`
-  width: 175px;
+  min-width: 175px;
   position: relative;
   background: ${theme.colors.white};
   color: ${theme.colors.purple_blue};

@@ -15,6 +15,10 @@ export interface DataChart {
   name: string;
   value: number;
 }
+export interface ProcessEnv {
+  [key: string]: string | undefined;
+}
+
 export interface Source {
   id: string;
   name: string;

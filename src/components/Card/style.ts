@@ -13,6 +13,8 @@ export const CardStyled = styled.div`
   align-items: center;
   padding: 0px 16px 0px 0px;
   margin-right: 10px;
+  height:270px;
+  margin-bottom: 15px;
 
   @media ${device.tablet} {
     width: 728px;
@@ -26,7 +28,7 @@ export const CardStyled = styled.div`
 `;
 export const ImageCard = styled.img`
   height: 100%;
-  width: 242px;
+  width: 35%;
   border-radius: 20px 0px 0px 20px;
   object-fit: cover;
 
@@ -44,6 +46,7 @@ export const BodyCard = styled.div`
   flex-direction: column;
   padding-left: 16px;
   font-size: 14px;
+  width: 65%;
 
   @media ${device.tablet} {
     width: 728px;

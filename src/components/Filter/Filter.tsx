@@ -11,7 +11,7 @@ interface Option {
 export interface FilterProps {
   options?: Option[];
   name: string;
-  border? : boolean;
+  border?: boolean;
   disabled?: boolean;
   onChangeValue: (value: string) => void;
 }
@@ -24,7 +24,7 @@ const Filter = (props: FilterProps) => {
   useEffect(() => {
     setSelected(props.name);
   }, [props.options]);
-  
+
   const handleClickOutside = () => {
     setIsActive(false);
   };
@@ -46,7 +46,7 @@ const Filter = (props: FilterProps) => {
     <Dropdown {...props} ref={ref}>
       <Header {...props} onClick={() => setIsActive(!isActive)}>
         {selected}
-        <img alt="" src={dropdownIcon} />
+        <img style={{ paddingLeft: "10px" }} alt="" src={dropdownIcon} />
       </Header>
       {isActive && !props.disabled && (
         <Content>

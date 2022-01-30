@@ -64,7 +64,7 @@ export const calculateSourcesChart = (articles: Article[]) => {
   });
   sourcesChart.forEach((source) => {
     source.name = source.name.split(".")[0];
-    source.value = (source.value * 100) / articles.length;
+    source.value = Math.round((source.value * 100) / articles.length);
   });
   return sourcesChart;
 };

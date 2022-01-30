@@ -3,11 +3,11 @@ import { device, theme } from "../../../../globalStyle/theme";
 
 export const ArticleContainer = styled.div`
   height: 1220px;
-  width: 70%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
+  flex-direction: column-reverse;
   & > div:not(:last-child) {
     margin-bottom: 24px;
   }

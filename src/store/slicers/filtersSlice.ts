@@ -11,7 +11,6 @@ const initialState = {
   sortBy: "",
   country: "",
   category: "",
-  results: 0,
 };
 const filtersSlice = createSlice({
   name: "filters",
@@ -35,9 +34,7 @@ const filtersSlice = createSlice({
           });
       }
     },
-    setResults(state, action) {
-      state.results = action.payload;
-    },
+   
     setCategory(state, action) {
       state.category = action.payload;
     },
@@ -61,7 +58,7 @@ const filtersSlice = createSlice({
     },
     setSource(state, action) {
       state.source = action.payload;
-    },
+    }
   },
 });
 
