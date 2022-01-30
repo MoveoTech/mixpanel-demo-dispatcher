@@ -220,13 +220,6 @@ export const categoryOptions = [
     value: "technology",
   },
 ];
-
-export const DoughnutChartData = [
-  { name: "NBC", value: 10 },
-  { name: "Vulture", value: 15 },
-  { name: "CNN", value: 30 },
-  { name: "ESPN", value: 48 },
-];
 export const HorizontalChartData = [
   { name: "Crypto", value: 10 },
   { name: "China", value: 15 },

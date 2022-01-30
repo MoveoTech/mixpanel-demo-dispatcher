@@ -13,7 +13,7 @@ export const Dropdown = styled.div`
   z-index: 2;
 `;
 export const Container = styled.div`
-  overflow: scroll;
+  overflow: auto;
   max-height: 130px;
   ::-webkit-scrollbar {
     width: 3px;

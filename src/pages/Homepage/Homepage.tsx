@@ -7,19 +7,20 @@ import DateFilter from "../../components/Datefilter/DateFilter";
 import Filter from "../../components/Filter/Filter";
 import Navbar from "../../components/Navbar/Navbar";
 import ResultsLine from "./components/ResultsLine/ResultsLine";
+import Articles from "./components/Articles/Articles";
 import { device } from "../../globalStyle/theme";
 import { Article, ENDPOINTS } from "../../utils/types";
 import { filtersActions } from "../../store/slicers/filtersSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
 import {
-  DoughnutChartData,
   countryOptions,
   languageOptions,
   categoryOptions,
   HorizontalChartData,
   sortByOptions,
-  LineChartData,
   filterNavbarOptions,
+  LineChartData,
 } from "../MockData";
 import {
   BodyContainer,
@@ -29,13 +30,12 @@ import {
   MainLayout,
   DataContainer,
 } from "./style";
-import { RootState } from "../../store";
-import Articles from "./components/Articles/Articles";
 import {
   getArticlesFromApi,
   getSourcesFromApi,
 } from "../../services/getNewsApiAxios";
 import { getlocationFromApi } from "../../services/getLocationAxios";
+import { calculateDatesChart, calculateSourcesChart } from "../../utils/utils";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -43,7 +43,6 @@ const Homepage = () => {
   });
   const dispatch = useDispatch();
   const filtersState = useSelector((state: RootState) => state.filters);
-
   const [articles, setArticles] = useState<Article[]>([]);
   const [location, setLocation] = useState<any>({});
   const [sourcesOptions, setSourcesOptions] = useState<
@@ -71,7 +70,7 @@ const Homepage = () => {
       setArticles([]);
     }
   }, [filtersState, location]);
-
+  
   useEffect(() => {
     try {
       getSourcesFromApi(filtersState).then((res) => {
@@ -190,7 +189,7 @@ const Homepage = () => {
             {!isTabletDevice && (
               <ChartContainer>
                 <DoughnutChart
-                  DoughnutChartData={DoughnutChartData}
+                  DoughnutChartData={calculateSourcesChart(articles)}
                   ChartTitle="Sources"
                 ></DoughnutChart>
                 <LineChart LineChartData={LineChartData} ChartTitle="Dates" />

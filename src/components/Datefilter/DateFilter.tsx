@@ -38,7 +38,7 @@ const DateFilter = (props: DateFilterProps) => {
     <Dropdown ref={ref}>
       <Header onClick={() => setIsActive(!isActive)}>
         {props.name}
-        <img alt="" src={dateIcon} />
+        <img alt="dateIcon" src={dateIcon} />
       </Header>
       {isActive && (
         <DatePicker

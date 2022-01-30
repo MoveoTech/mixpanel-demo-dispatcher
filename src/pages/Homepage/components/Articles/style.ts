@@ -17,6 +17,7 @@ export const ArticleContainer = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     background: ${theme.colors.grey};
+    border-radius: 40px;
   }
   ::-webkit-scrollbar-track {
     padding: 10px;

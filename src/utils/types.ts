@@ -13,7 +13,7 @@ export enum VARIANT {
 }
 export interface DataChart {
   name: string;
-  value: string | number;
+  value: number;
 }
 export interface Source {
   id: string;
@@ -26,4 +26,5 @@ export interface Article {
   description: string;
   publishedAt: string;
   url: string;
+  tags?: string[];
 }

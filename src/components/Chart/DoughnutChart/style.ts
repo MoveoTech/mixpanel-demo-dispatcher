@@ -6,6 +6,18 @@ export const DataContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 15px 10px 15px;
+  height: 160px;
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.colors.purple_blue};
+  }
+  ::-webkit-scrollbar-track {
+    padding: 10px;
+  }
 `;
 export const PieContainer = styled.div`
   display: flex;

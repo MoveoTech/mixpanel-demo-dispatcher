@@ -28,7 +28,7 @@ export const Content = styled.div`
   top: 115%;
   width: 100%;
   max-height: 126px;
-  overflow: scroll;
+  overflow: auto;
   background: ${theme.colors.white};
   border-radius: 10px;
   border: 1px solid rgba(223, 224, 235, 0.41);
@@ -41,6 +41,7 @@ export const Content = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     background: ${theme.colors.purple_blue};
+    border-radius: 50px;
   }
   ::-webkit-scrollbar-track {
     padding: 10px;
