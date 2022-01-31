@@ -6,11 +6,11 @@ import { DefaultHeadline, Headline } from "./style";
 
 export interface ResultsLineProps {
   location: string;
+  results: number;
 }
 
 const ResultsLine = (props: ResultsLineProps) => {
   const filtersState = useSelector((state: RootState) => state.filters);
-  const articesState = useSelector((state: RootState) => state.articles);
   return (
     <>
       {filtersState.country ||
@@ -22,10 +22,10 @@ const ResultsLine = (props: ResultsLineProps) => {
       filtersState.sortBy ||
       filtersState.searchInput ||
       filtersState.endpoint === ENDPOINTS.everything ? (
-        <Headline>{articesState.results} Total results</Headline>
+        <Headline>{props.results} Total results</Headline>
       ) : (
         props.location &&
-        articesState.results &&
+        props.results &&
         filtersState.endpoint === ENDPOINTS.topheadlines && (
           <DefaultHeadline>Top Headlnines in {props.location} </DefaultHeadline>
         )

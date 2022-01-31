@@ -36,7 +36,6 @@ import {
 } from "../../services/getNewsApiAxios";
 import { getlocationFromApi } from "../../services/getLocationAxios";
 import { calculateDatesChart, calculateSourcesChart } from "../../utils/utils";
-import { articlesActions } from "../../store/slicers/articlesSlice";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -44,7 +43,8 @@ const Homepage = () => {
   });
   const dispatch = useDispatch();
   const filtersState = useSelector((state: RootState) => state.filters);
-  const articlesState = useSelector((state: RootState) => state.articles);
+  const [results, setResults] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [articles, setArticles] = useState<Article[]>([]);
   const [location, setLocation] = useState<any>({});
   const [hasMore, setHasMore] = useState(true);
@@ -66,13 +66,13 @@ const Homepage = () => {
 
   useEffect(() => {
     try {
-      dispatch(articlesActions.setPageNumber(1));
+      setPageNumber(1);
       getArticlesFromApi(filtersState, location.value, 1).then((res) => {
         setHasMore(true);
         setArticles(res.data.articles);
         setFirstLoad(false);
-        dispatch(articlesActions.setPageNumber(2));
-        dispatch(articlesActions.setResults(res.data.articles.length));
+        setPageNumber(2);
+       setResults(res.data.articles.length);
       });
     } catch (error) {
       setArticles([]);
@@ -81,27 +81,21 @@ const Homepage = () => {
 
   const fetchArticles = () => {
     try {
-      getArticlesFromApi(
-        filtersState,
-        location.value,
-        articlesState.pageNumber
-      ).then((res) => {
-        res.data.articles && setHasMore(true);
-        setArticles((prevArticles: Article[]) => [
-          ...prevArticles,
-          ...res.data.articles,
-        ]);
-        dispatch(articlesActions.setPageNumber(articlesState.pageNumber + 1));
-        console.log(articlesState.pageNumber);
-
-        dispatch(
-          articlesActions.setResults(articlesState.results + articles.length)
-        );
-        if (res.data.articles.length === 0) {
-          setHasMore(false);
-          dispatch(articlesActions.setPageNumber(1));
+      getArticlesFromApi(filtersState, location.value, pageNumber).then(
+        (res) => {
+          res.data.articles && setHasMore(true);
+          setArticles((prevArticles: Article[]) => [
+            ...prevArticles,
+            ...res.data.articles,
+          ]);
+          setPageNumber(pageNumber + 1);
+          setResults(results + articles.length);
+          if (res.data.articles.length === 0) {
+            setHasMore(false);
+            setPageNumber(1);
+          }
         }
-      });
+      );
     } catch (error) {
       setArticles([]);
     }
@@ -219,7 +213,7 @@ const Homepage = () => {
             </FilterContainer>
           ))}
         <BodyContainer>
-          <ResultsLine location={location.name} />
+          <ResultsLine location={location.name} results={results}/>
           <DataContainer>
             {articles && (
               <Articles

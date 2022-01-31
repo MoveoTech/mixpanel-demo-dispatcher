@@ -17,7 +17,7 @@ const Articles = (props: any) => {
         dataLength={props.articles.length}
         next={props.fetchMoreData}
         hasMore={props.hasMore}
-        loader={<h4>Loading...</h4>}
+        loader={<h4>Loading...</h4>} // add skeleton
         scrollThreshold="100%"
         height={1220}
         endMessage={
