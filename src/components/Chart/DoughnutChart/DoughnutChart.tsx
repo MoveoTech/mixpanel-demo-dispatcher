@@ -34,16 +34,25 @@ const DoughnutChart = (props: DoughnutChartProps) => {
               dataKey="value"
             >
               {props.DoughnutChartData.map((entry, index) => (
-                <Cell key={index} fill={COLORS[index]} />
+                <Cell
+                  key={index}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
-              <Label value="Sum" position="center" />
+              <Label value={props.DoughnutChartData.length} position="center" />
             </Pie>
           </PieChart>
           <DataContainer>
             {props.DoughnutChartData.map((entry, index) => {
               return (
                 <Row key={index}>
-                  <Dot style={{ backgroundColor: `${COLORS[index]}` }}></Dot>
+                  <Dot
+                    style={{
+                      backgroundColor: `${
+                        COLORS[index % COLORS.length]
+                      }`,
+                    }}
+                  ></Dot>
                   <Data>
                     <SourceName>{entry.name}</SourceName>
                     <Precentage>{entry.value}%</Precentage>

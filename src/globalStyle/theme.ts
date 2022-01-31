@@ -14,6 +14,7 @@ export const theme = {
     option_hover: "#DFE0EB",
     background_grey: "#F8F8FF",
     grey: "#A0A3BD",
+    hover_option: "rgba(223, 224, 235, 0.41)"
   },
   chartsColors: {
     doughnut : [ "#343A6E","#030035", "#DDF3FE","#FF9800","#E8E8E8","#9FA2B4"]

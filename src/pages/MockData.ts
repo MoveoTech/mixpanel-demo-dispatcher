@@ -10,20 +10,6 @@ export const filterNavbarOptions = [
     value: ENDPOINTS.topheadlines,
   },
 ];
-export const sourcesOptions = [
-  {
-    name: "ynet",
-    value: "ynet",
-  },
-  {
-    name: "walla",
-    value: "walla",
-  },
-  {
-    name: "google",
-    value: "google",
-  },
-];
 export const countryOptions = [
   {
     name: "UAE",
@@ -233,13 +219,6 @@ export const categoryOptions = [
     name: "technology",
     value: "technology",
   },
-];
-
-export const DoughnutChartData = [
-  { name: "NBC", value: 10 },
-  { name: "Vulture", value: 15 },
-  { name: "CNN", value: 30 },
-  { name: "ESPN", value: 48 },
 ];
 export const HorizontalChartData = [
   { name: "Crypto", value: 10 },

@@ -34,6 +34,7 @@ const filtersSlice = createSlice({
           });
       }
     },
+   
     setCategory(state, action) {
       state.category = action.payload;
     },
@@ -57,7 +58,7 @@ const filtersSlice = createSlice({
     },
     setSource(state, action) {
       state.source = action.payload;
-    },
+    }
   },
 });
 

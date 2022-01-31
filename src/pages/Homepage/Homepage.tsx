@@ -7,20 +7,20 @@ import DateFilter from "../../components/Datefilter/DateFilter";
 import Filter from "../../components/Filter/Filter";
 import Navbar from "../../components/Navbar/Navbar";
 import ResultsLine from "./components/ResultsLine/ResultsLine";
+import Articles from "./components/Articles/Articles";
 import { device } from "../../globalStyle/theme";
 import { Article, ENDPOINTS } from "../../utils/types";
 import { filtersActions } from "../../store/slicers/filtersSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
 import {
-  DoughnutChartData,
   countryOptions,
   languageOptions,
   categoryOptions,
   HorizontalChartData,
   sortByOptions,
-  LineChartData,
   filterNavbarOptions,
-  sourcesOptions,
+  LineChartData,
 } from "../MockData";
 import {
   BodyContainer,
@@ -30,9 +30,12 @@ import {
   MainLayout,
   DataContainer,
 } from "./style";
-import { RootState } from "../../store";
-import Articles from "./components/Articles/Articles";
-import { getArticlesFromApi } from "../../services/axios";
+import {
+  getArticlesFromApi,
+  getSourcesFromApi,
+} from "../../services/getNewsApiAxios";
+import { getlocationFromApi } from "../../services/getLocationAxios";
+import { calculateDatesChart, calculateSourcesChart } from "../../utils/utils";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -40,47 +43,79 @@ const Homepage = () => {
   });
   const dispatch = useDispatch();
   const filtersState = useSelector((state: RootState) => state.filters);
-
+  const [results, setResults] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [articles, setArticles] = useState<Article[]>([]);
   const [location, setLocation] = useState<any>({});
-  const [results, setResults] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [sourcesOptions, setSourcesOptions] = useState<
+    { value: string; name: string }[]
+  >([]);
 
   useEffect(() => {
     try {
-      getArticlesFromApi(filtersState).then((res) => {
-        console.log(res.data);
+      getlocationFromApi().then((res) => {
+        const valueCountry = countryOptions.find(
+          ({ name }) => name === res.data.country_name
+        );
+        setLocation(valueCountry);
       });
     } catch (error) {}
-  }, [filtersState]);
+  }, [location]);
 
-  // useEffect(() => {
-  //   const transformData = (data: any) => {
-  //     const valueCountry = countryOptions.find(
-  //       ({ name }) => name === data.country_name
-  //     );
-  //     setLocation(valueCountry);
-  //   };
-  //   dataLocation(
-  //     {
-  //       url: "https://ipapi.co/json/",
-  //     },
-  //     transformData
-  //   );
-  //   return () => {
-  //     setLocation({});
-  //   };
-  // }, [dataLocation]);
+  useEffect(() => {
+    try {
+      setPageNumber(1);
+      getArticlesFromApi(filtersState, location.value, 1).then((res) => {
+        setHasMore(true);
+        setArticles(res.data.articles);
+        setFirstLoad(false);
+        setPageNumber(2);
+       setResults(res.data.articles.length);
+      });
+    } catch (error) {
+      setArticles([]);
+    }
+  }, [filtersState, location]);
 
+  const fetchArticles = () => {
+    try {
+      getArticlesFromApi(filtersState, location.value, pageNumber).then(
+        (res) => {
+          res.data.articles && setHasMore(true);
+          setArticles((prevArticles: Article[]) => [
+            ...prevArticles,
+            ...res.data.articles,
+          ]);
+          setPageNumber(pageNumber + 1);
+          setResults(results + articles.length);
+          if (res.data.articles.length === 0) {
+            setHasMore(false);
+            setPageNumber(1);
+          }
+        }
+      );
+    } catch (error) {
+      setArticles([]);
+    }
+  };
 
-  //     setArticles(dataArticles.articles.slice(0, 10));
-  //     setResults(dataArticles.totalResults);
-
-  const content = !articles.length
-    ? undefined
-    : results
-    ? results
-    : location.name;
-  console.log(filtersState);
+  useEffect(() => {
+    try {
+      getSourcesFromApi(filtersState).then((res) => {
+        setSourcesOptions([]);
+        res.data.sources.forEach((source: any) => {
+          setSourcesOptions((recentItems) => [
+            ...recentItems,
+            { value: `${source.id}`, name: `${source.name}` },
+          ]);
+        });
+      });
+    } catch (error) {
+      setSourcesOptions([]);
+    }
+  }, [filtersState.language, filtersState.country, filtersState.category]);
 
   return (
     <HomepageContainer>
@@ -89,6 +124,7 @@ const Homepage = () => {
           filter={{
             name: "Top Headlines",
             options: filterNavbarOptions,
+            disabled: false,
             onChangeValue: (value) =>
               dispatch(filtersActions.changeEndpoint(value)),
           }}
@@ -113,13 +149,6 @@ const Homepage = () => {
         {!isTabletDevice &&
           (filtersState.endpoint === ENDPOINTS.everything ? (
             <FilterContainer>
-              <Filter
-                name="Sort By"
-                options={sortByOptions}
-                onChangeValue={(value) => {
-                  dispatch(filtersActions.setSortBy(value));
-                }}
-              ></Filter>
               <DateFilter
                 name="Dates"
                 onChangeValue={(
@@ -130,11 +159,13 @@ const Homepage = () => {
                   dispatch(filtersActions.setDateTo(endDate));
                 }}
               ></DateFilter>
+
               <Filter
                 name="Sources"
                 onChangeValue={(value) =>
                   dispatch(filtersActions.setSource(value))
                 }
+                options={sourcesOptions}
               ></Filter>
               <Filter
                 name="Language"
@@ -143,11 +174,19 @@ const Homepage = () => {
                   dispatch(filtersActions.setLanguage(value));
                 }}
               ></Filter>
+              <Filter
+                name="Sort By"
+                options={sortByOptions}
+                onChangeValue={(value) => {
+                  dispatch(filtersActions.setSortBy(value));
+                }}
+              ></Filter>
             </FilterContainer>
           ) : (
             <FilterContainer>
               <Filter
                 name="Country"
+                disabled={filtersState.source ? true : false}
                 options={countryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCountry(value));
@@ -155,6 +194,7 @@ const Homepage = () => {
               ></Filter>
               <Filter
                 name="Category"
+                disabled={filtersState.source ? true : false}
                 options={categoryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCategory(value));
@@ -162,6 +202,9 @@ const Homepage = () => {
               ></Filter>
               <Filter
                 name="Sources"
+                disabled={
+                  filtersState.country || filtersState.category ? true : false
+                }
                 onChangeValue={(value) =>
                   dispatch(filtersActions.setSource(value))
                 }
@@ -170,13 +213,20 @@ const Homepage = () => {
             </FilterContainer>
           ))}
         <BodyContainer>
-          <ResultsLine content={content} />
+          <ResultsLine location={location.name} results={results}/>
           <DataContainer>
-            {articles && <Articles articles={articles} />}
+            {articles && (
+              <Articles
+                firstLoad={firstLoad}
+                hasMore={hasMore}
+                fetchMoreData={fetchArticles}
+                articles={articles}
+              />
+            )}
             {!isTabletDevice && (
               <ChartContainer>
                 <DoughnutChart
-                  DoughnutChartData={DoughnutChartData}
+                  DoughnutChartData={calculateSourcesChart(articles)}
                   ChartTitle="Sources"
                 ></DoughnutChart>
                 <LineChart LineChartData={LineChartData} ChartTitle="Dates" />

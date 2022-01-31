@@ -1,18 +1,35 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store";
+import { ENDPOINTS } from "../../../../utils/types";
 import "./style";
 import { DefaultHeadline, Headline } from "./style";
 
 export interface ResultsLineProps {
-  content: number | string;
+  location: string;
+  results: number;
 }
 
 const ResultsLine = (props: ResultsLineProps) => {
+  const filtersState = useSelector((state: RootState) => state.filters);
   return (
     <>
-      { typeof props.content === "number" ? (
-        <Headline>{props.content} Total results</Headline>
-      ) : ( typeof props.content !== "undefined" )? 
-        <DefaultHeadline>Top Headlnines in {props.content} </DefaultHeadline>
-       : <DefaultHeadline>No data</DefaultHeadline>}
+      {filtersState.country ||
+      filtersState.category ||
+      filtersState.source ||
+      filtersState.dateFrom ||
+      filtersState.dateTo ||
+      filtersState.language ||
+      filtersState.sortBy ||
+      filtersState.searchInput ||
+      filtersState.endpoint === ENDPOINTS.everything ? (
+        <Headline>{props.results} Total results</Headline>
+      ) : (
+        props.location &&
+        props.results &&
+        filtersState.endpoint === ENDPOINTS.topheadlines && (
+          <DefaultHeadline>Top Headlnines in {props.location} </DefaultHeadline>
+        )
+      )}
     </>
   );
 };

@@ -2,8 +2,8 @@ import React, { useRef } from "react";
 import useInput from "../../hooks/useInput";
 import "./style";
 import searchIcon from "../../assets/icons/search.svg";
-import { FilterSearch, Icon, Input, SearchInput } from "./style";
-import { FilterProps } from "../Filter/Filter";
+import { Icon, Input, SearchInput } from "./style";
+import Filter, { FilterProps } from "../Filter/Filter";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -52,7 +52,7 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     setIsTouched(false);
   };
   const onDeleteRecentItem = (item: string) => {
-    const newArray = recentItems.filter((element) => element != item);
+    const newArray = recentItems.filter((element) => element !== item);
     setRecentItems(newArray);
     if (!newArray.length) {
       setIsTouched(false);
@@ -86,13 +86,13 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
         />
       )}
       {props.filter && (
-        <FilterSearch
+        <Filter
+          border={false}
           options={props.filter.options}
           name={props.filter.name}
           onChangeValue={(value: string) => {
             props.filter?.onChangeValue(value);
           }}
-
         />
       )}
     </SearchInput>

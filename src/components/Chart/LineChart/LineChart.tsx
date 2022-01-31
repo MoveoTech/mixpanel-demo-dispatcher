@@ -39,6 +39,7 @@ const LineChart = (props: LineChartProps) => {
           <XAxis
             tickLine={false}
             axisLine={false}
+            interval="preserveStartEnd"
             dataKey="name"
             tick={{
               fontSize: 13,

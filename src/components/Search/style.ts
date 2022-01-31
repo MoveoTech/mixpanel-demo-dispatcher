@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { theme, device } from "../../globalStyle/theme";
-import Filter from "../Filter/Filter";
 
 export const SearchInput = styled.div`
   height: 50px;
@@ -13,10 +12,6 @@ export const SearchInput = styled.div`
   padding: 3px;
   position: relative;
   font-family: "Roboto";
-`;
-export const FilterSearch = styled(Filter)`
-  width: 160px;
-  border: none;
 `;
 export const Input = styled.input`
   width: 240px;

@@ -4,7 +4,7 @@ export enum SIZE_TYPE {
   small = "small",
 }
 export enum ENDPOINTS {
-  topheadlines = "top-Headlines",
+  topheadlines = "top-headlines",
   everything = "everything",
 }
 export enum VARIANT {
@@ -13,8 +13,12 @@ export enum VARIANT {
 }
 export interface DataChart {
   name: string;
-  value: string | number;
+  value: number;
 }
+export interface ProcessEnv {
+  [key: string]: string | undefined;
+}
+
 export interface Source {
   id: string;
   name: string;
@@ -26,4 +30,5 @@ export interface Article {
   description: string;
   publishedAt: string;
   url: string;
+  tags?: string[];
 }

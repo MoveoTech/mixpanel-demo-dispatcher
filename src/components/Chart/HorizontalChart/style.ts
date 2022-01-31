@@ -44,7 +44,7 @@ export const Row = styled.div`
 `;
 export const Data = styled.div`
   padding: 8px;
-  width: 100%;
+  width: 65%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -53,7 +53,7 @@ export const Data = styled.div`
   line-height: 20px;
 `;
 export const SourceName = styled.div`
-  width: 30%;
+  width: 35%;
   letter-spacing: 0.2px;
 `;
 export const Precentage = styled.div`
