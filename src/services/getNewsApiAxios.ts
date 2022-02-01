@@ -8,7 +8,11 @@ const apiAxios = axios.create({
 });
 const apiKey: any = process.env.REACT_APP_API_KEY;
 
-export const getArticlesFromApi = async (filtersState: any, location: any, pageNumber : number) => {
+export const getArticlesFromApi = async (
+  filtersState: any,
+  location: any,
+  pageNumber: number
+) => {
   let country = "";
   if (filtersState.endpoint === ENDPOINTS.topheadlines) {
     country = filtersState.country
@@ -20,7 +24,7 @@ export const getArticlesFromApi = async (filtersState: any, location: any, pageN
   // axios.interceptors.request.use((config:any) => {
   //   config.url = urlJoin(apiKey, config.url);
   // })
-  
+
   const url = `${filtersState.endpoint}?q=${filtersState.searchInput}&pageSize=10&page=${pageNumber}&country=${country}&category=${filtersState.category}&sources=${filtersState.source}&from=${filtersState.dateFrom}&to=${filtersState.dateTo}&language=${filtersState.language}&sortBy=${filtersState.sortBy}&apiKey=${apiKey}`;
   return await apiAxios.get(url);
 };

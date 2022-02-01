@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import { ENDPOINTS } from "../../../../utils/types";
 import "./style";
-import { DefaultHeadline, Headline } from "./style";
+import { ContainerResultsLine, DefaultHeadline, Headline } from "./style";
 
 export interface ResultsLineProps {
   location: string;
@@ -12,7 +12,7 @@ export interface ResultsLineProps {
 const ResultsLine = (props: ResultsLineProps) => {
   const filtersState = useSelector((state: RootState) => state.filters);
   return (
-    <>
+    <ContainerResultsLine>
       {filtersState.country ||
       filtersState.category ||
       filtersState.source ||
@@ -23,14 +23,14 @@ const ResultsLine = (props: ResultsLineProps) => {
       filtersState.searchInput ||
       filtersState.endpoint === ENDPOINTS.everything ? (
         <Headline>{props.results} Total results</Headline>
-      ) : (
-        props.location &&
+      ) : props.location &&
         props.results &&
-        filtersState.endpoint === ENDPOINTS.topheadlines && (
-          <DefaultHeadline>Top Headlnines in {props.location} </DefaultHeadline>
-        )
+        filtersState.endpoint === ENDPOINTS.topheadlines ? (
+        <DefaultHeadline>Top Headlnines in {props.location} </DefaultHeadline>
+      ) : (
+        ""
       )}
-    </>
+    </ContainerResultsLine>
   );
 };
 

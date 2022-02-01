@@ -15,10 +15,10 @@ export interface DataChart {
   name: string;
   value: number;
 }
-export interface ProcessEnv {
-  [key: string]: string | undefined;
+export interface ErrorType {
+  number: Number;
+  message: string;
 }
-
 export interface Source {
   id: string;
   name: string;

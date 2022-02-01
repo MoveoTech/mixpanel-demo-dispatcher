@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { theme, device } from "../../globalStyle/theme";
 
-export const SearchInput = styled.div`
+export const SearchForm = styled.form<{ hasFocus: boolean }>`
+  min-width: 480px;
   height: 50px;
   border-radius: 10px;
   border-style: solid;
@@ -12,17 +13,15 @@ export const SearchInput = styled.div`
   padding: 3px;
   position: relative;
   font-family: "Roboto";
+  transition: all 0.45s ease-in-out;
+  flex-grow: ${({ hasFocus }) => hasFocus && 0.3};
 `;
 export const Input = styled.input`
-  width: 240px;
+  width: 60%;
   border: 0;
   color: ${theme.colors.text_lightblue};
   border-right: 1px solid ${theme.colors.secondary_grey};
   outline: none;
-  transition: width 0.35s ease-in-out;
-  &:focus {
-    width: 500px;
-  }
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
   }
@@ -36,7 +35,10 @@ export const Input = styled.input`
   }
 `;
 export const Icon = styled.input`
-  width: 23px;
+  width: 5%;
   height: 23px;
   padding: 15px 18px 15px 18px;
+`;
+export const FilterContainer = styled.div`
+  width: 175px;
 `;

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import useInput from "../../hooks/useInput";
 import "./style";
 import searchIcon from "../../assets/icons/search.svg";
-import { Icon, Input, SearchInput } from "./style";
+import { FilterContainer, Icon, Input, SearchForm } from "./style";
 import Filter, { FilterProps } from "../Filter/Filter";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
@@ -22,8 +22,8 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     isTouched,
     setIsTouched,
   } = useInput("");
-
-  const ref = useRef(null);
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const searchFormRef = useRef(null);
   const [recentItems, setRecentItems] = useLocalStorage<string[]>("items", []);
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -32,14 +32,13 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     }
   };
   const submitHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (!recentItems.includes(searchValue) && isNotEmpty(searchValue)) {
       setRecentItems((recentItems) => [...recentItems, searchValue]);
     }
     setIsTouched(false);
+    searchInputRef.current?.blur();
     props.searchFunc(searchValue);
-  };
-  const handleClickOutside = () => {
-    setIsTouched(false);
   };
 
   const setOnFocus = () => {
@@ -47,6 +46,10 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
       setIsTouched(true);
     }
   };
+  const filterRecentItems = recentItems.filter(
+    (search) => search.includes(searchValue) && searchValue !== search
+  );
+
   const onChooseRecentItem = (item: string) => {
     setEnteredValue(item);
     setIsTouched(false);
@@ -60,14 +63,14 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
   };
   const onClearRecentItems = () => {
     setRecentItems([]);
-    setIsTouched(false);
   };
-  useOnClickOutside(ref, handleClickOutside);
+  useOnClickOutside(searchFormRef, () => setIsTouched(false));
 
   return (
-    <SearchInput ref={ref}>
+    <SearchForm hasFocus={isTouched} ref={searchFormRef}>
       <Icon onClick={submitHandler} type="image" src={searchIcon} />
       <Input
+        ref={searchInputRef}
         type="text"
         id="search"
         value={searchValue}
@@ -79,23 +82,25 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
       ></Input>
       {isTouched && (
         <SearchDropdown
-          items={recentItems}
+          items={filterRecentItems}
           onChooseItem={onChooseRecentItem}
           onDeleteItem={onDeleteRecentItem}
           onClearItems={onClearRecentItems}
         />
       )}
       {props.filter && (
-        <Filter
-          border={false}
-          options={props.filter.options}
-          name={props.filter.name}
-          onChangeValue={(value: string) => {
-            props.filter?.onChangeValue(value);
-          }}
-        />
+        <FilterContainer>
+          <Filter
+            border={false}
+            options={props.filter.options}
+            name={props.filter.name}
+            onChangeValue={(value: string) => {
+              props.filter?.onChangeValue(value);
+            }}
+          />
+        </FilterContainer>
       )}
-    </SearchInput>
+    </SearchForm>
   );
 };
 export default Search;

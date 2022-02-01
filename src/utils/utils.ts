@@ -1,5 +1,31 @@
 import { Article, DataChart } from "./types";
 
+export const handleError = (error: any) => {
+  switch (error.response.status) {
+    case 429:
+      return {
+        number: 429,
+        message: "You have made too many requests recently",
+      };
+    case 500:
+      return {
+        number: 500,
+        message: "Something went wrong on API server side",
+      };
+    case 400:
+      return { number: 400, message: "Please enter query search or source" };
+    case 426:
+      return {
+        number: 400,
+        message: "You are trying to request results too far in the past",
+      };
+    default:
+      return {
+        number: error.response.status,
+        message: "Something went wrong please try again",
+      };
+  }
+};
 export const convertDateFromUrl = (propsDate: string) => {
   const date = new Date(propsDate);
   const day = date.toLocaleString("en-US", { weekday: "long" });
@@ -69,20 +95,29 @@ export const calculateSourcesChart = (articles: Article[]) => {
   return sourcesChart;
 };
 export const calculateDatesChart = (articles: Article[]) => {
-  const datesChart: DataChart[] = [];
+  const datesChart: { name: string; value: number }[] = [
+    { name: "SUN", value: 0 },
+    { name: "MON", value: 0 },
+    { name: "TUE", value: 0 },
+    { name: "WED", value: 0 },
+    { name: "THU", value: 0 },
+    { name: "FRI", value: 0 },
+    { name: "SAT", value: 0 },
+  ];
   articles.forEach((article) => {
-    const month = convertDateFromUrl(article.publishedAt)
-      .split(" ")[1]
-      .toUpperCase();
-    const index = datesChart.findIndex(({ name }) => name === month);
+    const day = convertDateFromUrl(article.publishedAt)
+      .split(" ")[0]
+      .toUpperCase()
+      .slice(0, 3);
+    const index = datesChart.findIndex(({ name }) => name === day);
     if (index !== -1) {
       datesChart[index].value++;
     } else {
-      datesChart.push({ name: month, value: 1 });
+      datesChart.push({ name: day, value: 1 });
     }
   });
-  datesChart.forEach((month) => {
-    month.value = (month.value * 100) / articles.length;
+  datesChart.forEach((day) => {
+    day.value = (day.value * 100) / articles.length;
   });
   return datesChart;
 };

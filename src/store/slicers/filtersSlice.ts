@@ -18,23 +18,21 @@ const filtersSlice = createSlice({
   reducers: {
     changeEndpoint(state, action) {
       switch (action.payload) {
-        case ENDPOINTS.topheadlines:
+        case ENDPOINTS.topheadlines: {
           return (state = {
             ...initialState,
             endpoint: ENDPOINTS.topheadlines,
-            source: state.source,
             searchInput: state.searchInput,
           });
+        }
         case ENDPOINTS.everything:
           return (state = {
             ...initialState,
             endpoint: ENDPOINTS.everything,
-            source: state.source,
             searchInput: state.searchInput,
           });
       }
     },
-   
     setCategory(state, action) {
       state.category = action.payload;
     },
@@ -58,7 +56,7 @@ const filtersSlice = createSlice({
     },
     setSource(state, action) {
       state.source = action.payload;
-    }
+    },
   },
 });
 

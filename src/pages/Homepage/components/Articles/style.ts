@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { device, theme } from "../../../../globalStyle/theme";
 
 export const ArticleContainer = styled.div`
-  height: 1220px;
   width: 100%;
   display: flex;
   overflow: auto;
@@ -26,4 +25,17 @@ export const ArticleContainer = styled.div`
   @media ${device.tablet} {
     align-self: center;
   }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+export const Text = styled.p`
+  color: ${theme.colors.purple_blue};
+  font-size: 14px;
+  text-align: center;
 `;

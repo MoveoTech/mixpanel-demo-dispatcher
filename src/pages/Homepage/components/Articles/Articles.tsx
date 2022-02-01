@@ -1,30 +1,44 @@
 import { Key } from "react";
 import Card from "../../../../components/Card/Card";
 import { Article, SIZE_TYPE, VARIANT } from "../../../../utils/types";
-import { ArticleContainer } from "./style";
+import { ArticleContainer, Container, Text } from "./style";
 import InfiniteScroll from "react-infinite-scroll-component";
+import notFoundIcon from "../../../../assets/icons/not-found.svg";
+import SkeletonCard from "../Skeleton/SkeletonCard";
 
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+export interface ArticlesProps {
+  error: string;
+  firstLoad: boolean;
+  results: number;
+  articles: Article[];
+  hasMore: boolean;
+  fetchMoreData: () => void;
+}
 
-const Articles = (props: any) => {
-  return (
+const Articles = (props: ArticlesProps) => {
+  const cards = new Array(4);
+  for (let i = 0; i < 4; i++) {
+    cards.push(<SkeletonCard key={i} />);
+  }
+  return props.error ? (
+    <Container>
+      <Text>{props.error} </Text>
+    </Container>
+  ) : props.firstLoad ? (
     <ArticleContainer>
-      {
-        props.firstLoad && <Skeleton width={50} height={100}/>
-      }
+      {cards.map((card) => card)}
+      <SkeletonCard />
+    </ArticleContainer>
+  ) : props.results ? (
+    <ArticleContainer>
       <InfiniteScroll
         dataLength={props.articles.length}
         next={props.fetchMoreData}
         hasMore={props.hasMore}
-        loader={<h4>Loading...</h4>} // add skeleton
+        loader={<SkeletonCard />}
         scrollThreshold="100%"
         height={1220}
-        endMessage={
-          <p style={{ textAlign: "center" }}>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
+        endMessage={<Text>You have seen it all!</Text>}
       >
         {props.articles.map((article: Article, i: Key) => {
           return (
@@ -50,7 +64,12 @@ const Articles = (props: any) => {
         })}
       </InfiniteScroll>
     </ArticleContainer>
-  );
+  ) : !props.firstLoad ? (
+    <Container>
+      <img alt="not-found-img" src={notFoundIcon}></img>
+      <Text>We couldn't find any matches for your query</Text>
+    </Container>
+  ) : null;
 };
 
 export default Articles;

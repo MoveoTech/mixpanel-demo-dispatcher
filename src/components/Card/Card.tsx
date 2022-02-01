@@ -37,11 +37,6 @@ const Card = (props: CardProps) => {
       <BodyCard>
         <Row>
           <DateCard>{convertDateFromUrl(props.date)}</DateCard>
-          <TagsContainer>
-            {renderTags(props.tags, isMobileDevice).map((tag, index) => {
-              return <Tag key={index}>{tag}</Tag>;
-            })}
-          </TagsContainer>
         </Row>
         <Title>{props.title}</Title>
         <SourceCard>{props.source.name}</SourceCard>
