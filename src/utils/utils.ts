@@ -95,6 +95,7 @@ export const calculateSourcesChart = (articles: Article[]) => {
   return sourcesChart;
 };
 export const calculateDatesChart = (articles: Article[]) => {
+  let isEmpty = true;
   const datesChart: { name: string; value: number }[] = [
     { name: "SUN", value: 0 },
     { name: "MON", value: 0 },
@@ -117,9 +118,12 @@ export const calculateDatesChart = (articles: Article[]) => {
     }
   });
   datesChart.forEach((day) => {
+    if (day.value > 0) {
+      isEmpty = false;
+    }
     day.value = (day.value * 100) / articles.length;
   });
-  return datesChart;
+  return isEmpty ? [] : datesChart;
 };
 export const calculateTagsChart = (articles: Article[]) => {
   const tagsChart: DataChart[] = [];

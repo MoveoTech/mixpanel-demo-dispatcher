@@ -16,9 +16,11 @@ const LineChart = (props: LineChartProps) => {
     <Chart>
       <Chart.Header>{props.ChartTitle}</Chart.Header>
       <Chart.Body>
-        {props.firstLoad && !props.error && !props.LineChartData.length ? (
+        {props.error ? (
+          <Chart.NoData />
+        ) : props.firstLoad ? (
           <SkeletonLineChart />
-        ) : !props.LineChartData.length || props.error ? (
+        ) : !props.LineChartData.length ? (
           <Chart.NoData />
         ) : (
           <AreaChart width={370} height={300} data={props.LineChartData}>

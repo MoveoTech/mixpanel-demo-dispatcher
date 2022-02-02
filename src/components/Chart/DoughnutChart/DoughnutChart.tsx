@@ -28,9 +28,11 @@ const DoughnutChart = (props: DoughnutChartProps) => {
     <Chart>
       <Chart.Header>{props.ChartTitle}</Chart.Header>
       <Chart.Body>
-        {props.firstLoad && !props.error && !props.DoughnutChartData.length ? (
+        {props.error ? (
+          <Chart.NoData />
+        ) : props.firstLoad ? (
           <SkeletonDoughnutChart />
-        ) : !props.DoughnutChartData.length || props.error ? (
+        ) : !props.DoughnutChartData.length ? (
           <Chart.NoData />
         ) : (
           <PieContainer>
