@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { theme } from "../../../../globalStyle/theme";
 
 export const DefaultHeadline = styled.div`
-  padding-top:20px;
-  padding-bottom:20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   color: ${theme.colors.grayscale};
   font-weight: 500;
   font-size: 24px;
@@ -15,4 +15,7 @@ export const Headline = styled.div`
   line-height: 22px;
   padding-top: 12px;
   padding-bottom: 12px;
+`;
+export const ContainerResultsLine = styled.div`
+  height: 70px;
 `;

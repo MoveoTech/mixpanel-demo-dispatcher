@@ -54,6 +54,7 @@ export const ItemContainer = styled.div`
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.1px;
+  color: ${theme.colors.purple_blue};
 
   &:hover {
     background: rgba(223, 224, 235, 0.41);

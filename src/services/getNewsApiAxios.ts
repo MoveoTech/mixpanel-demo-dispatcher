@@ -8,7 +8,11 @@ const apiAxios = axios.create({
 });
 const apiKey: any = process.env.REACT_APP_API_KEY;
 
-export const getArticlesFromApi = async (filtersState: any, location: any, pageNumber : number) => {
+export const getArticlesFromApi = async (
+  filtersState: any,
+  location: any,
+  pageNumber: number
+) => {
   let country = "";
   if (filtersState.endpoint === ENDPOINTS.topheadlines) {
     country = filtersState.country
@@ -17,15 +21,16 @@ export const getArticlesFromApi = async (filtersState: any, location: any, pageN
       ? location
       : "";
   }
-  // axios.interceptors.request.use((config:any) => {
-  //   config.url = urlJoin(apiKey, config.url);
-  // })
-  
-  const url = `${filtersState.endpoint}?q=${filtersState.searchInput}&pageSize=10&page=${pageNumber}&country=${country}&category=${filtersState.category}&sources=${filtersState.source}&from=${filtersState.dateFrom}&to=${filtersState.dateTo}&language=${filtersState.language}&sortBy=${filtersState.sortBy}&apiKey=${apiKey}`;
-  return await apiAxios.get(url);
+  apiAxios.interceptors.request.use((config: any) => {
+    config.url = config.url + `&apiKey=${apiKey}`;
+    return config;
+  });
+
+  const url = `${filtersState.endpoint}?q=${filtersState.searchInput}&pageSize=10&page=${pageNumber}&country=${country}&category=${filtersState.category}&sources=${filtersState.source}&from=${filtersState.dateFrom}&to=${filtersState.dateTo}&language=${filtersState.language}&sortBy=${filtersState.sortBy}`;
+  return await apiAxios(url);
 };
 
 export const getSourcesFromApi = async (filtersState: any) => {
-  const url = `top-headlines/sources?country=${filtersState.country}&category=${filtersState.category}&language=${filtersState.language}&&apiKey=${apiKey}`;
+  const url = `top-headlines/sources?country=${filtersState.country}&category=${filtersState.category}&language=${filtersState.language}`;
   return await apiAxios(url);
 };

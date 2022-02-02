@@ -9,12 +9,16 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: ${theme.colors.white};
+  height: 410px;
+  width: 380px;
 `;
 export const Body = styled.div`
   display: flex;
   height: 90%;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  color: ${theme.colors.purple_blue};
+  font-size: 14px;
 `;
 export const BoldLine = styled.div`
   border: 2px solid ${theme.colors.purple_blue};
@@ -32,4 +36,5 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   padding: 25px 25px 5px 25px;
+  height: 10%;
 `;

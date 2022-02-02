@@ -23,6 +23,7 @@ export const PieContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
 `;
 export const Row = styled.div`
   display: flex;

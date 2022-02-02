@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import DoughnutChart from "../../components/Chart/DoughnutChart/DoughnutChart";
-import HorizontalChart from "../../components/Chart/HorizontalChart/HorizontalChart";
 import LineChart from "../../components/Chart/LineChart/LineChart";
 import DateFilter from "../../components/Datefilter/DateFilter";
 import Filter from "../../components/Filter/Filter";
@@ -9,7 +8,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import ResultsLine from "./components/ResultsLine/ResultsLine";
 import Articles from "./components/Articles/Articles";
 import { device } from "../../globalStyle/theme";
-import { Article, ENDPOINTS } from "../../utils/types";
+import { Article, ENDPOINTS, ErrorType } from "../../utils/types";
 import { filtersActions } from "../../store/slicers/filtersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -17,7 +16,6 @@ import {
   countryOptions,
   languageOptions,
   categoryOptions,
-  HorizontalChartData,
   sortByOptions,
   filterNavbarOptions,
   LineChartData,
@@ -35,7 +33,11 @@ import {
   getSourcesFromApi,
 } from "../../services/getNewsApiAxios";
 import { getlocationFromApi } from "../../services/getLocationAxios";
-import { calculateDatesChart, calculateSourcesChart } from "../../utils/utils";
+import {
+  calculateDatesChart,
+  calculateSourcesChart,
+  handleError,
+} from "../../utils/utils";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -49,6 +51,7 @@ const Homepage = () => {
   const [location, setLocation] = useState<any>({});
   const [hasMore, setHasMore] = useState(true);
   const [firstLoad, setFirstLoad] = useState(true);
+  const [error, setError] = useState<ErrorType>({ number: 0, message: "" });
   const [sourcesOptions, setSourcesOptions] = useState<
     { value: string; name: string }[]
   >([]);
@@ -65,40 +68,46 @@ const Homepage = () => {
   }, [location]);
 
   useEffect(() => {
-    try {
-      setPageNumber(1);
-      getArticlesFromApi(filtersState, location.value, 1).then((res) => {
-        setHasMore(true);
+    articles.length && setFirstLoad(false);
+  }, [articles]);
+
+  useEffect(() => {
+    setPageNumber(1);
+    getArticlesFromApi(filtersState, location.value, 1)
+      .then((res) => {
+        setError({ number: 0, message: "" });
+        setResults(res.data.articles.length);
+        res.data.articles.length < 10 ? setHasMore(false) : setHasMore(true);
         setArticles(res.data.articles);
-        setFirstLoad(false);
         setPageNumber(2);
-       setResults(res.data.articles.length);
+      })
+      .catch((error: any) => {
+        setArticles([]);
+        setResults(0);
+        setError(handleError(error));
       });
-    } catch (error) {
-      setArticles([]);
-    }
   }, [filtersState, location]);
 
   const fetchArticles = () => {
-    try {
-      getArticlesFromApi(filtersState, location.value, pageNumber).then(
-        (res) => {
-          res.data.articles && setHasMore(true);
-          setArticles((prevArticles: Article[]) => [
-            ...prevArticles,
-            ...res.data.articles,
-          ]);
-          setPageNumber(pageNumber + 1);
-          setResults(results + articles.length);
-          if (res.data.articles.length === 0) {
-            setHasMore(false);
-            setPageNumber(1);
-          }
+    getArticlesFromApi(filtersState, location.value, pageNumber)
+      .then((res) => {
+        setError({ number: 0, message: "" });
+        res.data.articles.length < 10 ? setHasMore(false) : setHasMore(true);
+        setArticles((prevArticles: Article[]) => [
+          ...prevArticles,
+          ...res.data.articles,
+        ]);
+        setPageNumber(pageNumber + 1);
+        setResults((prev) => prev + res.data.articles.length);
+        if (res.data.articles.length === 0) {
+          setPageNumber(1);
         }
-      );
-    } catch (error) {
-      setArticles([]);
-    }
+      })
+      .catch((error: Error) => {
+        setError(handleError(error));
+        setArticles([]);
+        setResults(0);
+      });
   };
 
   useEffect(() => {
@@ -213,27 +222,36 @@ const Homepage = () => {
             </FilterContainer>
           ))}
         <BodyContainer>
-          <ResultsLine location={location.name} results={results}/>
+          <ResultsLine location={location.name} results={results} />
           <DataContainer>
             {articles && (
               <Articles
                 firstLoad={firstLoad}
+                error={error.message}
                 hasMore={hasMore}
                 fetchMoreData={fetchArticles}
                 articles={articles}
+                results={results}
               />
             )}
             {!isTabletDevice && (
               <ChartContainer>
                 <DoughnutChart
+                  firstLoad={firstLoad}
+                  error={error.message}
                   DoughnutChartData={calculateSourcesChart(articles)}
                   ChartTitle="Sources"
                 ></DoughnutChart>
-                <LineChart LineChartData={LineChartData} ChartTitle="Dates" />
-                <HorizontalChart
+                <LineChart
+                  firstLoad={firstLoad}
+                  error={error.message}
+                  LineChartData={calculateDatesChart(articles)}
+                  ChartTitle="Dates"
+                />
+                {/* <HorizontalChart
                   HorizontalChartData={HorizontalChartData}
                   ChartTitle="Tags"
-                ></HorizontalChart>
+                ></HorizontalChart> */}
               </ChartContainer>
             )}
           </DataContainer>
