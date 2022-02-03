@@ -1,4 +1,6 @@
-import exitIcon from "../../assets/icons/exit.svg"; 
+import { useMediaQuery } from "react-responsive";
+import exitIcon from "../../assets/icons/exit.svg";
+import { device } from "../../globalStyle/theme";
 import {
   Header,
   Item,
@@ -7,6 +9,10 @@ import {
   ItemContainer,
   Container,
   ClearBtn,
+  DropdownMobile,
+  ContainerMobile,
+  Title,
+  BorderBottom,
 } from "./style";
 
 export interface SearchDropdownProps {
@@ -19,7 +25,43 @@ export interface SearchDropdownProps {
 const SearchDropdown: React.FC<SearchDropdownProps> = (
   props: SearchDropdownProps
 ) => {
-  return (
+  const isMobileDevice = useMediaQuery({
+    query: device.mobile,
+  });
+
+  return isMobileDevice ? (
+    <DropdownMobile>
+      <Header>
+        <Title>recent searches</Title>
+        <ClearBtn
+          style={{ backgroundColor: "#D9DBE9", padding: "5px" }}
+          onClick={props.onClearItems}
+        >
+          clear
+        </ClearBtn>
+      </Header>
+      <ContainerMobile>
+        {props.items.map((item, index) => (
+          <>
+            <ItemContainer style={{ padding: "15px" }} key={index}>
+              <Item
+                onClick={() => {
+                  props.onChooseItem(item);
+                }}
+              >
+                {item}
+              </Item>
+              <ExIcon
+                onClick={(e) => props.onDeleteItem(item)}
+                src={exitIcon}
+              />
+            </ItemContainer>
+            <BorderBottom />
+          </>
+        ))}
+      </ContainerMobile>
+    </DropdownMobile>
+  ) : (
     <Dropdown>
       <Header>
         <p>recent searches</p>

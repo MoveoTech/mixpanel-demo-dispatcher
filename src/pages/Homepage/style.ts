@@ -4,6 +4,7 @@ import { theme, device } from "../../globalStyle/theme";
 export const HomepageContainer = styled.div`
   background-color: ${theme.colors.bright_purple_blue};
   min-width: 1225px;
+  height: 100%;
 
   @media ${device.tablet} {
     min-width: 768px;
@@ -23,9 +24,11 @@ export const MainLayout = styled.div`
   }
   @media ${device.mobile} {
     min-width: 480px;
-    margin-left: 8%;
   }
 `;
+export const SearchContainer = styled.div`
+
+`
 export const FilterContainer = styled.div`
   display: flex;
   flex-direction: row;

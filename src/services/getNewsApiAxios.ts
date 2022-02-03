@@ -1,5 +1,4 @@
 import axios from "axios";
-import urlJoin from "url-join";
 import { ENDPOINTS } from "../utils/types";
 
 const apiAxios = axios.create({
