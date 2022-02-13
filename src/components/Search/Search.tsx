@@ -41,11 +41,6 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
     props.searchFunc(searchValue);
   };
 
-  const setOnFocus = () => {
-    if (recentItems.length) {
-      setIsTouched(true);
-    }
-  };
   const filterRecentItems = recentItems.filter(
     (search) => search.includes(searchValue) && searchValue !== search
   );
@@ -75,19 +70,19 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
         id="search"
         value={searchValue}
         onChange={searchChangeHandler}
-        onFocus={setOnFocus}
+        onFocus={() => setIsTouched(true)}
         placeholder="Search"
         autoComplete="off"
         onKeyDown={keyDownHandler}
       ></Input>
-      {isTouched && (
+      {isTouched && filterRecentItems.length ? (
         <SearchDropdown
           items={filterRecentItems}
           onChooseItem={onChooseRecentItem}
           onDeleteItem={onDeleteRecentItem}
           onClearItems={onClearRecentItems}
         />
-      )}
+      ) : null }
       {props.filter && (
         <FilterContainer>
           <Filter

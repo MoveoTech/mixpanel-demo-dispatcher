@@ -18,7 +18,6 @@ import {
   categoryOptions,
   sortByOptions,
   filterNavbarOptions,
-  LineChartData,
 } from "../MockData";
 import {
   BodyContainer,
@@ -38,6 +37,7 @@ import {
   calculateSourcesChart,
   handleError,
 } from "../../utils/utils";
+import FilterMobile from "../../components/Mobile/components/FilterMobile/FilterMobile";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -154,6 +154,7 @@ const Homepage = () => {
           YC
         </Navbar>
       )}
+      { isTabletDevice && <FilterMobile sources={sourcesOptions}/>}
       <MainLayout>
         {!isTabletDevice &&
           (filtersState.endpoint === ENDPOINTS.everything ? (
