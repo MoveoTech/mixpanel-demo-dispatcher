@@ -166,10 +166,6 @@ export const languageOptions = [
     name: "Northern Sami",
     value: "se",
   },
-  // {
-  //   name: "",
-  //   value: "ud",
-  // },
   {
     name: "Zhuang",
     value: "zh",
@@ -229,13 +225,4 @@ export const HorizontalChartData = [
   { name: "Economy", value: 43 },
   { name: "Corona", value: 11 },
   { name: "LA", value: 5 },
-];
-export const LineChartData = [
-  { name: "MAR", value: 12 },
-  { name: "APR", value: 6 },
-  { name: "MAY", value: 6 },
-  { name: "JUN", value: 3 },
-  { name: "JUL", value: 23 },
-  { name: "AUG", value: 9 },
-  { name: "SEP", value: 3 },
 ];

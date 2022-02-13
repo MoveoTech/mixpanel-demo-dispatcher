@@ -10,6 +10,14 @@ export const NavbarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+export const SearchContainer = styled.div`
+  height: 75px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -37,6 +45,18 @@ export const PersonalArea = styled.div`
   @media ${device.mobile} {
     padding-right: 30px;
   }
+`;
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: ${theme.colors.purple_blue};
+`;
+export const IconSearch = styled.img`
+  padding-right: 15px;
+  padding-left: 15px;
+  height: 24px;
+  width: 24px;
 `;
 export const Icon = styled.img`
   height: 24px;

@@ -26,7 +26,9 @@ export const ArticleContainer = styled.div`
     align-self: center;
   }
 `;
-
+export const ContainerError = styled.div`
+  width: 100%;
+`;
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,4 +40,5 @@ export const Text = styled.p`
   color: ${theme.colors.purple_blue};
   font-size: 14px;
   text-align: center;
+  font-weight: bold;
 `;

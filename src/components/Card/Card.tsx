@@ -1,7 +1,5 @@
-import { useMediaQuery } from "react-responsive";
-import { device } from "../../globalStyle/theme";
 import { Source } from "../../utils/types";
-import { convertDateFromUrl, renderTags } from "../../utils/utils";
+import { convertDateFromUrl } from "../../utils/utils";
 import { ButtonProps } from "../Button/Button";
 import {
   BodyCard,
@@ -10,8 +8,6 @@ import {
   ImageCard,
   Description,
   Title,
-  TagsContainer,
-  Tag,
   Row,
   SourceCard,
   DateCard,
@@ -28,9 +24,6 @@ export interface CardProps {
 }
 
 const Card = (props: CardProps) => {
-  const isMobileDevice = useMediaQuery({
-    query: device.mobile,
-  });
   return (
     <CardStyled>
       <ImageCard src={props.image} />

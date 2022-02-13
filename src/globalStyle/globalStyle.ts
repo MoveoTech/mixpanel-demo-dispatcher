@@ -38,4 +38,28 @@ export default createGlobalStyle`
     background-color:${theme.colors.grayscale} !important;
     color:${theme.colors.white};
 }
+.slide-pane__title-wrapper {
+    margin:15px !important;
+    width: 100% !important;
+    height: 100% !important;
+    justify-content: center !important;
+}
+.slide-pane__header {
+    background-color: ${theme.colors.white} !important;
+}
+.slide-pane__close {
+    opacity: unset !important;
+    margin-left: 0;
+}
+.slide-pane__title {
+   max-width: 100% !important;
+   height: 100% !important;
+   display: flex;
+}
+.slide-pane__content{
+    padding: 0 !important;
+}
+.slide-pane {
+    width: 100% !important
+}
 `;

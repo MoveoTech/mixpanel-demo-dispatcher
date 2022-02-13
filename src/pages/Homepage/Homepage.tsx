@@ -12,6 +12,7 @@ import { Article, ENDPOINTS, ErrorType } from "../../utils/types";
 import { filtersActions } from "../../store/slicers/filtersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
+
 import {
   countryOptions,
   languageOptions,
@@ -128,7 +129,8 @@ const Homepage = () => {
 
   return (
     <HomepageContainer>
-      {!isTabletDevice ? (
+      {
+       !isTabletDevice ? (
         <Navbar
           filter={{
             name: "Top Headlines",
@@ -249,10 +251,6 @@ const Homepage = () => {
                   LineChartData={calculateDatesChart(articles)}
                   ChartTitle="Dates"
                 />
-                {/* <HorizontalChart
-                  HorizontalChartData={HorizontalChartData}
-                  ChartTitle="Tags"
-                ></HorizontalChart> */}
               </ChartContainer>
             )}
           </DataContainer>

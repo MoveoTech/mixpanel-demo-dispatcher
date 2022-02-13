@@ -1,6 +1,19 @@
 import styled from "styled-components";
 import { theme } from "../../globalStyle/theme";
 
+export const DropdownMobile = styled.div`
+  width: 100%;
+  height: 100%;
+  background: ${theme.colors.background_grey};
+`;
+export const Title = styled.p`
+  display: flex;
+  align-items: center;
+`;
+export const BorderBottom = styled.div`
+  width: "100%";
+  border-bottom: 1px solid #d9dbe9;
+`;
 export const Dropdown = styled.div`
   position: absolute;
   top: 115%;
@@ -11,6 +24,10 @@ export const Dropdown = styled.div`
   font-size: 12px;
   line-height: 16px;
   z-index: 2;
+`;
+export const ContainerMobile = styled.div`
+  height: 100%;
+  padding: 8px;
 `;
 export const Container = styled.div`
   overflow: auto;
