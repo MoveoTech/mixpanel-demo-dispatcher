@@ -1,6 +1,6 @@
 import { useMediaQuery } from "react-responsive";
 import exitIcon from "../../assets/icons/exit.svg";
-import { device } from "../../globalStyle/theme";
+import { device, theme } from "../../globalStyle/theme";
 import {
   Header,
   Item,
@@ -34,7 +34,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = (
       <Header>
         <Title>recent searches</Title>
         <ClearBtn
-          style={{ backgroundColor: "#D9DBE9", padding: "5px" }}
+          style={{ backgroundColor: theme.colors.secondary_grey, padding: "5px" }}
           onClick={props.onClearItems}
         >
           clear

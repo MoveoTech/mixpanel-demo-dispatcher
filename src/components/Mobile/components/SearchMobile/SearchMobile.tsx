@@ -1,17 +1,13 @@
-import { useRef, useState } from "react";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import { Input } from "../../../Search/style";
 import backIcon from "../../../../assets/icons/back.svg";
-import useInput from "../../../../hooks/useInput";
-import useLocalStorage from "../../../../hooks/useLocalStorage";
-import { isNotEmpty } from "../../../../utils/utils";
+import useInput from "../../../../hooks/useSearch";
 import { SearchForm, Icon } from "./style";
 import SearchDropdown from "../../../SearchDropdown/SearchDropdown";
 import deleteIcon from "../../../../assets/icons/exit.svg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
-import { filtersActions } from "../../../../store/slicers/filtersSlice";
 
 export interface SearchMobileProps {
   isPaneOpen: boolean;
@@ -19,51 +15,31 @@ export interface SearchMobileProps {
 }
 const SearchMobile = (props: SearchMobileProps) => {
   const filtersState = useSelector((state: RootState) => state.filters);
-  const [recentItems, setRecentItems] = useLocalStorage<string[]>("items", []);
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
-  const [searchValue, setSearchValue] = useState(filtersState.searchInput);
-  const dispatch = useDispatch();
+  const {
+    searchValue,
+    setSearchValue,
+    valueChangeHandler,
+    submitHandler,
+    reset,
+    searchInputRef,
+    filterRecentItems,
+    onChooseRecentItem,
+    onDeleteRecentItem,
+    onClearRecentItems,
+  } = useInput(filtersState.searchInput);
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
       submitHandler(event);
+      props.onClose(false);
     }
-  };
-  const submitHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (!recentItems.includes(searchValue) && isNotEmpty(searchValue)) {
-      setRecentItems((recentItems) => [...recentItems, searchValue]);
-    }
-    searchInputRef.current?.blur();
-    props.onClose(false);
-    dispatch(filtersActions.setSearchInput(searchValue));
-  };
-  const filterRecentItems = recentItems.filter(
-    (search) => search.includes(searchValue) && searchValue !== search
-  );
-  const reset = () => {
-    setSearchValue("");
-    dispatch(filtersActions.setSearchInput(searchValue));
-  };
-  const onChooseRecentItem = (item: string) => {
-    setSearchValue(item);
-  };
-  const valueChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    setSearchValue(e.currentTarget.value);
-  };
-  const onDeleteRecentItem = (item: string) => {
-    const newArray = recentItems.filter((element) => element !== item);
-    setRecentItems(newArray);
-  };
-  const onClearRecentItems = () => {
-    setRecentItems([]);
   };
 
   return (
     <SlidingPane
       isOpen={props.isPaneOpen}
       closeIcon={<Icon src={backIcon} />}
-      width={"100%"}
+      width="100%"
       title={
         <SearchForm>
           <Input
@@ -78,6 +54,7 @@ const SearchMobile = (props: SearchMobileProps) => {
           ></Input>
           {searchValue && (
             <img
+              alt="deleteIcon"
               style={{ width: "17px", height: "17px" }}
               onClick={() => setSearchValue("")}
               src={deleteIcon}
