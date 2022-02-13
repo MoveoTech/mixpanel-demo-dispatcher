@@ -42,7 +42,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = (
       </Header>
       <ContainerMobile>
         {props.items.map((item, index) => (
-          <>
+          <div key={index}>
             <ItemContainer style={{ padding: "15px" }} key={index}>
               <Item
                 onClick={() => {
@@ -57,7 +57,7 @@ const SearchDropdown: React.FC<SearchDropdownProps> = (
               />
             </ItemContainer>
             <BorderBottom />
-          </>
+          </div>
         ))}
       </ContainerMobile>
     </DropdownMobile>

@@ -39,7 +39,7 @@ export default createGlobalStyle`
     color:${theme.colors.white};
 }
 .slide-pane__title-wrapper {
-    margin:15px !important;
+    margin:0 !important;
     width: 100% !important;
     height: 100% !important;
     justify-content: center !important;
@@ -55,11 +55,9 @@ export default createGlobalStyle`
    max-width: 100% !important;
    height: 100% !important;
    display: flex;
+   align-items: center;
 }
 .slide-pane__content{
     padding: 0 !important;
-}
-.slide-pane {
-    width: 100% !important
 }
 `;

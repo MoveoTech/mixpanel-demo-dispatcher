@@ -1,29 +1,60 @@
 import {
   Body,
+  Container,
   ContainerFilter,
   FilterIcon,
-  Row,
-  SortByFilter,
+  Footer,
   Title,
 } from "./style";
 import filterIcon from "../../../../assets/icons/filter.svg";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import FilterModal from "./FilterModal";
+import {
+  countryOptions,
+  languageOptions,
+  categoryOptions,
+  sortByOptions,
+  filterNavbarOptions,
+} from "../../../../pages/MockData";
+import { ENDPOINTS, Option, SIZE_TYPE, VARIANT } from "../../../../utils/types";
+import Button from "../../../Button/Button";
 
-export interface FilterModalProps {
-  sources: { name: string; value: string }[];
+export interface FilterMobileProps {
+  sources: Option[];
 }
-
-const FilterMobile = (props: FilterModalProps) => {
+const FilterMobile = (props: FilterMobileProps) => {
   const [isPaneOpen, setPaneOpen] = useState(false);
   const filtersState = useSelector((state: RootState) => state.filters);
+  const [filters, setFilters] = useState<
+    { name: string; value: string; options: Option[] }[]
+  >([]);
+
+  const filtersTopHeadlines = [
+    { name: "Search In", value: "endpoint", options: filterNavbarOptions },
+    { name: "Country", value: "country", options: countryOptions },
+    { name: "Category", value: "category", options: categoryOptions },
+    { name: "Sources", value: "source", options: props.sources },
+  ];
+
+  const filtersEverything = [
+    { name: "Search In", value: "endpoint", options: filterNavbarOptions },
+    { name: "Sort By", value: "sortBy", options: sortByOptions },
+    { name: "Sources", value: "source", options: props.sources },
+    { name: "Language", value: "language", options: languageOptions },
+
+  ];
+  useEffect(() => {
+    filtersState.endpoint === ENDPOINTS.topheadlines
+      ? setFilters(filtersTopHeadlines)
+      : setFilters(filtersEverything);
+  }, [filtersState.endpoint]);
+
   return (
     <ContainerFilter>
-      <SortByFilter></SortByFilter>
       <FilterIcon onClick={() => setPaneOpen(true)} src={filterIcon} />
       <SlidingPane
         closeIcon={<Title>Filter</Title>}
@@ -35,13 +66,30 @@ const FilterMobile = (props: FilterModalProps) => {
         }}
       >
         {
-          <Body>
-            <Row>
-              <p>Search in</p>
-              <p>{filtersState.endpoint}</p>
-            </Row>
-            <FilterModal sources={props.sources} />
-          </Body>
+          <Container>
+            <Body>
+              {filters.map((filter, index) => {
+                return (
+                  <FilterModal
+                    key={index}
+                    value={filter.value}
+                    name={filter.name}
+                    options={filter.options}
+                    onCloseModal = {() => setPaneOpen(false)}
+                  />
+                );
+              })}
+            </Body>
+            <Footer>
+              <Button
+                size={SIZE_TYPE.small}
+                variant={VARIANT.primary}
+                onClick={() => setPaneOpen(false)}
+              >
+                VIEW RESULTS
+              </Button>
+            </Footer>
+          </Container>
         }
       </SlidingPane>
     </ContainerFilter>

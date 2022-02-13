@@ -57,6 +57,7 @@ export const IconSearch = styled.img`
   padding-left: 15px;
   height: 24px;
   width: 24px;
+  cursor: pointer;
 `;
 export const Icon = styled.img`
   height: 24px;

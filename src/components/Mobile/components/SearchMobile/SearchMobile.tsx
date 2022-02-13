@@ -63,6 +63,7 @@ const SearchMobile = (props: SearchMobileProps) => {
     <SlidingPane
       isOpen={props.isPaneOpen}
       closeIcon={<Icon src={backIcon} />}
+      width={"100%"}
       title={
         <SearchForm>
           <Input

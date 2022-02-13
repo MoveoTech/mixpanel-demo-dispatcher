@@ -3,11 +3,8 @@ import { Content, Dropdown, Header } from "./style";
 import dropdownIcon from "../../assets/icons/dropdown.svg";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import FilterItem from "./FilterItem";
+import { Option } from "../../utils/types";
 
-interface Option {
-  name: string;
-  value: string;
-}
 export interface FilterProps {
   options?: Option[];
   name: string;
