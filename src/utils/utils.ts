@@ -51,6 +51,15 @@ export const convertDateFromUi = (date: string | null) => {
   }
 };
 
+export const convertDateToDatePicker = (inputDate: string) => {
+  var date = new Date(inputDate);
+  if (!isNaN(date.getTime())) {
+    return (
+      date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+    );
+  }
+};
+
 // export const checkLengthDescription = (title: string) => {
 //   var trimmedString = title.slice(0, 200);
 //   trimmedString = trimmedString.slice(

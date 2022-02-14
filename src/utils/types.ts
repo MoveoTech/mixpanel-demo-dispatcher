@@ -3,6 +3,8 @@ export enum SIZE_TYPE {
   medium = "medium",
   small = "small",
 }
+export type dateType = null | Date;
+
 export enum ENDPOINTS {
   topheadlines = "top-headlines",
   everything = "everything",

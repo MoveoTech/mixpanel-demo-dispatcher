@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { Dropdown, Header } from "./style";
 import dateIcon from "../../assets/icons/date.svg";
-import { convertDateFromUi } from "../../utils/utils";
+import { convertDateFromUi, convertDateToDatePicker } from "../../utils/utils";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import { Dropdown, Header } from "../Filter/style";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
+import { dateType } from "../../utils/types";
 
 export interface DateFilterProps {
   name: string;
@@ -14,11 +16,17 @@ export interface DateFilterProps {
     EndDate: string | undefined
   ) => void;
 }
-type dateType = null | Date;
 
 const DateFilter = (props: DateFilterProps) => {
-  const [startDate, setStartDate] = useState<dateType>();
-  const [endDate, setEndDate] = useState<dateType>();
+  const filtersState: { [key: string]: string } = useSelector(
+    (state: RootState) => state.filters
+  );
+  const [startDate, setStartDate] = useState<dateType>(
+    filtersState.dateFrom ? new Date(filtersState.dateFrom) : null
+  );
+  const [endDate, setEndDate] = useState<dateType>(
+    filtersState.dateTo ? new Date(filtersState.dateTo) : null
+  );
   const ref = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const handleClickOutside = () => {
@@ -34,12 +42,17 @@ const DateFilter = (props: DateFilterProps) => {
     const end = date[1] ? convertDateFromUi(date[1].toString()) : "";
     props.onChangeValue(start, end);
   }
-
   return (
     <Dropdown border={false} ref={ref}>
       <Header disabled={false} onClick={() => setIsActive(!isActive)}>
-        {props.name}
-        <img alt="dateIcon" src={dateIcon} />
+        {filtersState.dateFrom && filtersState.dateTo
+          ? `${convertDateToDatePicker(
+              filtersState.dateFrom
+            )} - ${convertDateToDatePicker(filtersState.dateTo)}`
+          : filtersState.dateFrom
+          ? convertDateToDatePicker(filtersState.dateFrom)
+          : props.name}
+        <img style={{ paddingLeft: "10px" }} alt="dateIcon" src={dateIcon} />
       </Header>
       {isActive && (
         <DatePicker
