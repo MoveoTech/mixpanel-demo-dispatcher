@@ -1,7 +1,7 @@
 import { Key } from "react";
 import Card from "../../../../components/Card/Card";
 import { Article, SIZE_TYPE, VARIANT } from "../../../../utils/types";
-import { ArticleContainer, Container, Text } from "./style";
+import { ArticleContainer, Container, ContainerError, Text } from "./style";
 import InfiniteScroll from "react-infinite-scroll-component";
 import notFoundIcon from "../../../../assets/icons/not-found.svg";
 import SkeletonCard from "../Skeleton/SkeletonCard";
@@ -21,9 +21,9 @@ const Articles = (props: ArticlesProps) => {
     cards.push(<SkeletonCard key={i} />);
   }
   return props.error ? (
-    <Container>
+    <ContainerError>
       <Text>{props.error} </Text>
-    </Container>
+    </ContainerError>
   ) : props.firstLoad ? (
     <ArticleContainer>
       {cards.map((card) => card)}
@@ -37,7 +37,7 @@ const Articles = (props: ArticlesProps) => {
         hasMore={props.hasMore}
         loader={<SkeletonCard />}
         scrollThreshold="100%"
-        height={1220}
+        height={850}
         endMessage={<Text>You have seen it all!</Text>}
       >
         {props.articles.map((article: Article, i: Key) => {

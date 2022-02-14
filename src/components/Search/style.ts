@@ -15,6 +15,12 @@ export const SearchForm = styled.form<{ hasFocus: boolean }>`
   font-family: "Roboto";
   transition: all 0.45s ease-in-out;
   flex-grow: ${({ hasFocus }) => hasFocus && 0.3};
+
+  @media ${device.tablet} {
+    min-width: 380px;
+    transition: all 0.5s ease-in-out;
+    flex-grow: ${({ hasFocus }) => hasFocus && 1.5};
+  }
 `;
 export const Input = styled.input`
   width: 60%;

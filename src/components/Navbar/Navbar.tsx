@@ -1,4 +1,4 @@
-import "./style";
+
 import {
   Avatar,
   Container,
@@ -7,17 +7,23 @@ import {
   PersonalArea,
   Icon,
   SignoutBox,
+  SearchContainer,
+  IconSearch,
+  Row,
 } from "./style";
 import logo from "../../assets/icons/logo.svg";
-import settingsIcon from "../../assets/icons/settings.svg";
-import notifyIcon from "../../assets/icons/notifications.svg";
 import searchIcon from "../../assets/icons/search.svg";
+import backIcon from "../../assets/icons/back.svg";
 import { useMediaQuery } from "react-responsive";
 import Search from "../Search/Search";
 import { FilterProps } from "../Filter/Filter";
 import { useState } from "react";
 import { device } from "../../globalStyle/theme";
 import OutsideClickHandler from "react-outside-click-handler";
+import SearchMobile from "../Mobile/components/SearchMobile/SearchMobile";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { filtersActions } from "../../store/slicers/filtersSlice";
 
 export interface NavbarProps {
   children: string;
@@ -28,6 +34,9 @@ export interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
   const [showSignoutBox, setShowSignoutBox] = useState(false);
+  const filtersState = useSelector((state: RootState) => state.filters);
+  const dispatch = useDispatch();
+  const [isPaneOpen, setPaneOpen] = useState(false);
   const isMobileDevice = useMediaQuery({
     query: device.mobile,
   });
@@ -35,7 +44,24 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
     setShowSignoutBox(!showSignoutBox);
   };
 
-  return (
+  return isMobileDevice && filtersState.searchInput ? (
+    <SearchContainer>
+      <Row>
+        <IconSearch
+          onClick={() => {
+            dispatch(filtersActions.setSearchInput(""));
+          }}
+          src={backIcon}
+        />
+        <p>"{filtersState.searchInput}"</p>
+      </Row>
+      <IconSearch onClick={() => setPaneOpen(true)} src={searchIcon} />
+      <SearchMobile
+        isPaneOpen={isPaneOpen}
+        onClose={(value: boolean) => setPaneOpen(value)}
+      />
+    </SearchContainer>
+  ) : (
     <NavbarContainer>
       <Logo src={logo} />
       <Container>
@@ -48,9 +74,13 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
           />
         )}
         <PersonalArea>
-          {isMobileDevice && <Icon onClick={() => {}} src={searchIcon} />}
-          <Icon src={settingsIcon}></Icon>
-          <Icon src={notifyIcon}></Icon>
+          {isMobileDevice && (
+            <Icon onClick={() => setPaneOpen(true)} src={searchIcon} />
+          )}
+          <SearchMobile
+            isPaneOpen={isPaneOpen}
+            onClose={(value: boolean) => setPaneOpen(value)}
+          />
           <OutsideClickHandler onOutsideClick={() => setShowSignoutBox(false)}>
             <Avatar onClick={() => handleAvatarBox()}>
               {props.children}

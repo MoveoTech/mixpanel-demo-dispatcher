@@ -51,6 +51,15 @@ export const convertDateFromUi = (date: string | null) => {
   }
 };
 
+// export const checkLengthDescription = (title: string) => {
+//   var trimmedString = title.slice(0, 200);
+//   trimmedString = trimmedString.slice(
+//     0,
+//     Math.min(trimmedString.length, trimmedString.lastIndexOf(" "))
+//   );
+//   return trimmedString;
+// };
+
 export const renderTags = (tags: string[], isMobileDevice: boolean) => {
   const newTagsArr: string[] = [];
   if (isMobileDevice && tags) {

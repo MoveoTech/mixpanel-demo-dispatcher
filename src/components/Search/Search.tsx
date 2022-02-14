@@ -1,13 +1,11 @@
 import React, { useRef } from "react";
-import useInput from "../../hooks/useInput";
+import useInput from "../../hooks/useSearch";
 import "./style";
 import searchIcon from "../../assets/icons/search.svg";
 import { FilterContainer, Icon, Input, SearchForm } from "./style";
 import Filter, { FilterProps } from "../Filter/Filter";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
-import useLocalStorage from "../../hooks/useLocalStorage";
-import { isNotEmpty } from "../../utils/utils";
 
 export interface SearchProps {
   searchFunc: (value: string) => void;
@@ -16,54 +14,26 @@ export interface SearchProps {
 
 const Search: React.FC<SearchProps> = (props: SearchProps) => {
   const {
-    value: searchValue,
-    setEnteredValue,
-    valueChangeHandler: searchChangeHandler,
+    searchValue,
+    valueChangeHandler,
     isTouched,
     setIsTouched,
+    submitHandler,
+    searchInputRef,
+    filterRecentItems,
+    onChooseRecentItem,
+    onDeleteRecentItem,
+    onClearRecentItems,
   } = useInput("");
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
   const searchFormRef = useRef(null);
-  const [recentItems, setRecentItems] = useLocalStorage<string[]>("items", []);
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
       submitHandler(event);
-    }
-  };
-  const submitHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (!recentItems.includes(searchValue) && isNotEmpty(searchValue)) {
-      setRecentItems((recentItems) => [...recentItems, searchValue]);
-    }
-    setIsTouched(false);
-    searchInputRef.current?.blur();
-    props.searchFunc(searchValue);
-  };
-
-  const setOnFocus = () => {
-    if (recentItems.length) {
-      setIsTouched(true);
-    }
-  };
-  const filterRecentItems = recentItems.filter(
-    (search) => search.includes(searchValue) && searchValue !== search
-  );
-
-  const onChooseRecentItem = (item: string) => {
-    setEnteredValue(item);
-    setIsTouched(false);
-  };
-  const onDeleteRecentItem = (item: string) => {
-    const newArray = recentItems.filter((element) => element !== item);
-    setRecentItems(newArray);
-    if (!newArray.length) {
       setIsTouched(false);
     }
   };
-  const onClearRecentItems = () => {
-    setRecentItems([]);
-  };
+
   useOnClickOutside(searchFormRef, () => setIsTouched(false));
 
   return (
@@ -74,26 +44,27 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
         type="text"
         id="search"
         value={searchValue}
-        onChange={searchChangeHandler}
-        onFocus={setOnFocus}
+        onChange={valueChangeHandler}
+        onFocus={() => setIsTouched(true)}
         placeholder="Search"
         autoComplete="off"
         onKeyDown={keyDownHandler}
       ></Input>
-      {isTouched && (
+      {isTouched && filterRecentItems.length ? (
         <SearchDropdown
           items={filterRecentItems}
           onChooseItem={onChooseRecentItem}
           onDeleteItem={onDeleteRecentItem}
           onClearItems={onClearRecentItems}
         />
-      )}
+      ) : null}
       {props.filter && (
         <FilterContainer>
           <Filter
             border={false}
             options={props.filter.options}
             name={props.filter.name}
+            value={props.filter.value}
             onChangeValue={(value: string) => {
               props.filter?.onChangeValue(value);
             }}

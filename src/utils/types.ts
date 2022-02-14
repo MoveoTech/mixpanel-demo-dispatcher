@@ -32,3 +32,7 @@ export interface Article {
   url: string;
   tags?: string[];
 }
+export interface Option {
+  name: string;
+  value: string;
+}

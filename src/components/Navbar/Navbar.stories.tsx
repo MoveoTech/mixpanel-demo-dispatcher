@@ -27,6 +27,7 @@ Navbar1.args = {
       },
     ],
     name: "Top Headlines",
+    value:"top-headlines",
     onChangeValue: () => {},
   },
   signOutFunc: () => {},

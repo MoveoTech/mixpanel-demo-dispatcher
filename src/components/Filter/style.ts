@@ -3,7 +3,8 @@ import { theme } from "../../globalStyle/theme";
 import { FilterProps } from "./Filter";
 import { FilterItemProps } from "./FilterItem";
 
-export const Dropdown = styled.div<FilterProps>`
+export const Dropdown = styled.div<{ border: Boolean }>`
+  min-height: 50px;
   min-width: 175px;
   position: relative;
   background: ${theme.colors.white};
@@ -12,7 +13,7 @@ export const Dropdown = styled.div<FilterProps>`
   border: ${(props) =>
     props.border ? "1px solid rgba(223, 224, 235, 0.41)" : "none"};
 `;
-export const Header = styled.div<FilterProps>`
+export const Header = styled.div<{disabled : Boolean}>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

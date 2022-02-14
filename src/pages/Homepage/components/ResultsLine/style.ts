@@ -17,5 +17,5 @@ export const Headline = styled.div`
   padding-bottom: 12px;
 `;
 export const ContainerResultsLine = styled.div`
-  height: 70px;
+  height: 10%;
 `;

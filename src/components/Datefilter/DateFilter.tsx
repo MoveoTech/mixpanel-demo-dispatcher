@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Dropdown, Header } from "./style";
+// import { Dropdown, Header } from "./style";
 import dateIcon from "../../assets/icons/date.svg";
 import { convertDateFromUi } from "../../utils/utils";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { Dropdown, Header } from "../Filter/style";
 
 export interface DateFilterProps {
   name: string;
@@ -35,8 +36,8 @@ const DateFilter = (props: DateFilterProps) => {
   }
 
   return (
-    <Dropdown ref={ref}>
-      <Header onClick={() => setIsActive(!isActive)}>
+    <Dropdown border={false} ref={ref}>
+      <Header disabled={false} onClick={() => setIsActive(!isActive)}>
         {props.name}
         <img alt="dateIcon" src={dateIcon} />
       </Header>
