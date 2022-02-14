@@ -22,6 +22,7 @@ export interface FilterModalProps {
   value: string;
   options: { name: string; value: string }[];
   onCloseModal: () => void;
+  disabled: Boolean;
 }
 
 const FilterModal = (props: FilterModalProps) => {
@@ -67,64 +68,80 @@ const FilterModal = (props: FilterModalProps) => {
   const handleSelectFilter = (option: { name: string; value: string }) => {
     if (option.value === selected) {
       setSelected("");
+      setIsSelect(false);
     } else {
       setSelected(option.value);
     }
   };
-  console.log(filtersState[props.value]);
   return (
-    <FilterContainer selected={false}>
-      <Row
-        onClick={() => {
-          setPaneOpen(true);
-        }}
-      >
-        <p>{props.name}</p>
-        <Select select={isSelect}>
-          {filtersState[props.value]
-            ? props.options.find(
-                ({ value }) => value === filtersState[props.value]
-              )?.name
-            : "All"}
-        </Select>
-      </Row>
-      <SlidingPane
-        closeIcon={<img src={backIcon} />}
-        isOpen={isPaneOpen}
-        width={"80%"}
-        title={<TitleFilter>{props.name}</TitleFilter>}
-        onRequestClose={() => {
-          setPaneOpen(false);
-        }}
-      >
-        <Container>
-          <Body>
-            {props.options &&
-              props.options.map((option: any, i) => {
-                return (
-                  <FilterContainer
-                    key={i}
-                    onClick={() => handleSelectFilter(option)}
-                    selected={selected === option.value}
-                  >
-                    <Row>
-                      <p>{option.name}</p>
-                    </Row>
-                  </FilterContainer>
-                );
-              })}
-          </Body>
-          <Footer>
-            <Button
-              size={SIZE_TYPE.small}
-              variant={VARIANT.primary}
-              onClick={handleCloseModal}
-            >
-              VIEW RESULTS
-            </Button>
-          </Footer>
-        </Container>
-      </SlidingPane>
+    <FilterContainer disabled={props.disabled} selected={false}>
+      {!props.disabled ? (
+        <Row
+          onClick={() => {
+            setPaneOpen(true);
+          }}
+        >
+          <p>{props.name}</p>
+          <Select select={isSelect}>
+            {filtersState[props.value]
+              ? props.options.find(
+                  ({ value }) => value === filtersState[props.value]
+                )?.name
+              : "All"}
+          </Select>
+        </Row>
+      ) : (
+        <Row style={{ cursor: "auto", opacity: "0.5" }}>
+          <p>{props.name}</p>
+          <Select select={isSelect}>
+            {filtersState[props.value]
+              ? props.options.find(
+                  ({ value }) => value === filtersState[props.value]
+                )?.name
+              : "All"}
+          </Select>
+        </Row>
+      )}
+      {!props.disabled && (
+        <SlidingPane
+          closeIcon={<img src={backIcon} />}
+          isOpen={isPaneOpen}
+          width={"80%"}
+          title={<TitleFilter>{props.name}</TitleFilter>}
+          onRequestClose={() => {
+            setPaneOpen(false);
+          }}
+        >
+          <Container>
+            <Body>
+              {props.options &&
+                props.options.map((option: any, i) => {
+                  return (
+                    <FilterContainer
+                      disabled={false}
+                      key={i}
+                      onClick={() => handleSelectFilter(option)}
+                      selected={selected === option.value}
+                    >
+                      <Row>
+                        <p>{option.name}</p>
+                      </Row>
+                    </FilterContainer>
+                  );
+                })}
+            </Body>
+            <Footer>
+              <Button
+                size={SIZE_TYPE.small}
+                variant={VARIANT.primary}
+                onClick={handleCloseModal}
+              >
+                VIEW RESULTS
+              </Button>
+            </Footer>
+          </Container>
+        </SlidingPane>
+      )}
     </FilterContainer>
   );
 };

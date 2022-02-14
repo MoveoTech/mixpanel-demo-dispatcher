@@ -45,7 +45,6 @@ const FilterMobile = (props: FilterMobileProps) => {
     { name: "Sort By", value: "sortBy", options: sortByOptions },
     { name: "Sources", value: "source", options: props.sources },
     { name: "Language", value: "language", options: languageOptions },
-
   ];
   useEffect(() => {
     filtersState.endpoint === ENDPOINTS.topheadlines
@@ -53,6 +52,15 @@ const FilterMobile = (props: FilterMobileProps) => {
       : setFilters(filtersEverything);
   }, [filtersState.endpoint]);
 
+  const checkDisabled = (filterValue: string) => {
+    return (filtersState.country || filtersState.category) &&
+      filterValue === "source"
+      ? true
+      : filtersState.source &&
+        (filterValue === "category" || filterValue === "category")
+      ? true
+      : false;
+  };
   return (
     <ContainerFilter>
       <FilterIcon onClick={() => setPaneOpen(true)} src={filterIcon} />
@@ -75,7 +83,8 @@ const FilterMobile = (props: FilterMobileProps) => {
                     value={filter.value}
                     name={filter.name}
                     options={filter.options}
-                    onCloseModal = {() => setPaneOpen(false)}
+                    onCloseModal={() => setPaneOpen(false)}
+                    disabled={checkDisabled(filter.value)}
                   />
                 );
               })}

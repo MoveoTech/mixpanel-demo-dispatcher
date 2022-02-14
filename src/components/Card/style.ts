@@ -13,17 +13,14 @@ export const CardStyled = styled.div`
   align-items: center;
   padding: 0px 16px 0px 0px;
   margin-right: 10px;
-  height:300px;
+  height: 300px;
   margin-bottom: 15px;
 
-  @media ${device.tablet} {
-    width: 728px;
-  }
   @media ${device.mobile} {
-    width: 343px;
     height: 450px;
     flex-direction: column;
     padding: 0px 0px 16px 0px;
+    margin-right: 0;
   }
 `;
 export const ImageCard = styled.img`
@@ -33,12 +30,9 @@ export const ImageCard = styled.img`
   border-radius: 20px 0px 0px 20px;
   object-fit: cover;
 
-  @media ${device.tablet} {
-    height: 242px;
-  }
   @media ${device.mobile} {
-    width: 343px;
-    height: 150px;
+    width: 100%;
+    height: 35%;
     border-radius: 20px 20px 0px 0px;
   }
 `;
@@ -49,14 +43,12 @@ export const BodyCard = styled.div`
   font-size: 14px;
   width: 65%;
   height: 100%;
+  position: relative;
 
-  @media ${device.tablet} {
-    width: 728px;
-  }
   @media ${device.mobile} {
-    width: 343px;
-    height: 450px;
-    padding: 0px 16px 0px 16px;
+    width: 90%;
+    height: 65%;
+    padding: 0;
   }
 `;
 export const DateCard = styled.p`
@@ -65,9 +57,6 @@ export const DateCard = styled.p`
 export const SourceCard = styled.p`
   color: ${theme.colors.text_lightblue};
   margin: 0px;
-  @media ${device.mobile} {
-    padding-left: 16px;
-  }
 `;
 export const Title = styled.p`
   font-weight: bold;
@@ -77,30 +66,22 @@ export const Title = styled.p`
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
-
-  @media ${device.mobile} {
-    width: 310px;
-    padding: 10px 16px 10px 16px;
-  }
 `;
 export const Description = styled.p`
   color: ${theme.colors.purple_blue};
   margin: 0;
   padding-top: 20px;
-  padding-bottom: 15px;
   height: 100%;
-
-  @media ${device.mobile} {
-    height: 100px;
-    padding: 10px 16px 10px 16px;
-  }
 `;
 export const CardBtn = styled(Button)`
   align-self: flex-end;
   margin-bottom: 10px;
+  position: absolute;
+  bottom: 0;
   @media ${device.mobile} {
     align-self: center;
     width: 90%;
+    margin-bottom: 0px;
   }
 `;
 export const TagsContainer = styled.div`
@@ -123,8 +104,4 @@ export const Row = styled.div`
   padding-top: 14px;
   align-items: center;
   height: 30px;
-
-  @media ${device.mobile} {
-    padding: 10px 16px 0px 16px;
-  }
 `;

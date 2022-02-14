@@ -4,9 +4,12 @@ import dropdownIcon from "../../assets/icons/dropdown.svg";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import FilterItem from "./FilterItem";
 import { Option } from "../../utils/types";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 export interface FilterProps {
-  options?: Option[];
+  options: Option[];
+  value: string;
   name: string;
   border?: boolean;
   disabled?: boolean;
@@ -14,12 +17,26 @@ export interface FilterProps {
 }
 
 const Filter = (props: FilterProps) => {
+  const filtersState: { [key: string]: string } = useSelector(
+    (state: RootState) => state.filters
+  );
   const [isActive, setIsActive] = useState(false);
-  const [selected, setSelected] = useState(props.name);
+  const [selected, setSelected] = useState(
+    filtersState[props.value]
+      ? props.options.find(({ value }) => value === filtersState[props.value])
+          ?.name
+      : props.name
+  );
   const ref = useRef(null);
 
   useEffect(() => {
-    setSelected(props.name);
+    setSelected(
+      filtersState[props.value]
+      ? props.options.find(({ value }) => value === filtersState[props.value])
+          ?.name
+      : props.name
+    );
+    console.log(selected)
   }, [props.options]);
 
   const handleClickOutside = () => {
@@ -40,8 +57,11 @@ const Filter = (props: FilterProps) => {
   useOnClickOutside(ref, handleClickOutside);
 
   return (
-    <Dropdown {...props} ref={ref}>
-      <Header {...props} onClick={() => setIsActive(!isActive)}>
+    <Dropdown border={props.border ? true : false} ref={ref}>
+      <Header
+        disabled={props.disabled ? true : false}
+        onClick={() => setIsActive(!isActive)}
+      >
         {selected}
         <img style={{ paddingLeft: "10px" }} alt="" src={dropdownIcon} />
       </Header>

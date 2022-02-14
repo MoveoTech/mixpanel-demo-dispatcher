@@ -37,7 +37,7 @@ const Articles = (props: ArticlesProps) => {
         hasMore={props.hasMore}
         loader={<SkeletonCard />}
         scrollThreshold="100%"
-        height={1220}
+        height={850}
         endMessage={<Text>You have seen it all!</Text>}
       >
         {props.articles.map((article: Article, i: Key) => {

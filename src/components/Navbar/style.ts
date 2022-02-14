@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme, device } from "../../globalStyle/theme";
 
 export const NavbarContainer = styled.div`
-  height: 75px;
+  height: 8%;
   width: 100%;
   background: ${theme.colors.grayscale};
   border: none;
@@ -24,8 +24,7 @@ export const Container = styled.div`
   width: 82%;
 
   @media ${device.mobile} {
-    width: 30%;
-    justify-content: space-around;
+    justify-content: flex-end;
   }
 `;
 export const Logo = styled.img`
@@ -36,15 +35,8 @@ export const PersonalArea = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  width: 150px;
   align-items: center;
   padding-right: 20px;
-  @media ${device.tablet} {
-    padding-right: 12px;
-  }
-  @media ${device.mobile} {
-    padding-right: 30px;
-  }
 `;
 export const Row = styled.div`
   display: flex;
@@ -65,9 +57,7 @@ export const Icon = styled.img`
   cursor: pointer;
 
   @media ${device.mobile} {
-    width: 18px;
-    height: 16px;
-    padding-right: 8px;
+    padding-right: 13px;
   }
 `;
 export const Avatar = styled.div`
@@ -83,7 +73,6 @@ export const Avatar = styled.div`
   line-height: 16px;
   position: relative;
   cursor: pointer;
-
   @media ${device.mobile} {
     width: 35px;
     height: 35px;

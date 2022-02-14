@@ -1,4 +1,4 @@
-import "./style";
+
 import {
   Avatar,
   Container,
@@ -12,8 +12,6 @@ import {
   Row,
 } from "./style";
 import logo from "../../assets/icons/logo.svg";
-import settingsIcon from "../../assets/icons/settings.svg";
-import notifyIcon from "../../assets/icons/notifications.svg";
 import searchIcon from "../../assets/icons/search.svg";
 import backIcon from "../../assets/icons/back.svg";
 import { useMediaQuery } from "react-responsive";
@@ -83,8 +81,6 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
             isPaneOpen={isPaneOpen}
             onClose={(value: boolean) => setPaneOpen(value)}
           />
-          <Icon src={settingsIcon}></Icon>
-          <Icon src={notifyIcon}></Icon>
           <OutsideClickHandler onOutsideClick={() => setShowSignoutBox(false)}>
             <Avatar onClick={() => handleAvatarBox()}>
               {props.children}

@@ -64,6 +64,7 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
             border={false}
             options={props.filter.options}
             name={props.filter.name}
+            value={props.filter.value}
             onChangeValue={(value: string) => {
               props.filter?.onChangeValue(value);
             }}

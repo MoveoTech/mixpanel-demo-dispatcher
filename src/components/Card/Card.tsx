@@ -33,7 +33,7 @@ const Card = (props: CardProps) => {
         </Row>
         <Title>{props.title}</Title>
         <SourceCard>{props.source.name}</SourceCard>
-        <Description>{props.description}</Description>
+        <Description>{props.description}...</Description>
         <CardBtn {...props.button} />
       </BodyCard>
     </CardStyled>

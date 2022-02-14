@@ -27,6 +27,7 @@ import {
   HomepageContainer,
   MainLayout,
   DataContainer,
+  ArticlesContainer,
 } from "./style";
 import {
   getArticlesFromApi,
@@ -129,11 +130,11 @@ const Homepage = () => {
 
   return (
     <HomepageContainer>
-      {
-       !isTabletDevice ? (
+      {!isTabletDevice ? (
         <Navbar
           filter={{
             name: "Top Headlines",
+            value: "top-headlines",
             options: filterNavbarOptions,
             disabled: false,
             onChangeValue: (value) =>
@@ -156,7 +157,7 @@ const Homepage = () => {
           YC
         </Navbar>
       )}
-      { isTabletDevice && <FilterMobile sources={sourcesOptions}/>}
+      {isTabletDevice && <FilterMobile sources={sourcesOptions} />}
       <MainLayout>
         {!isTabletDevice &&
           (filtersState.endpoint === ENDPOINTS.everything ? (
@@ -171,23 +172,25 @@ const Homepage = () => {
                   dispatch(filtersActions.setDateTo(endDate));
                 }}
               ></DateFilter>
-
-              <Filter
-                name="Sources"
-                onChangeValue={(value) =>
-                  dispatch(filtersActions.setSource(value))
-                }
-                options={sourcesOptions}
-              ></Filter>
               <Filter
                 name="Language"
+                value="language"
                 options={languageOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setLanguage(value));
                 }}
               ></Filter>
               <Filter
+                name="Source"
+                value="source"
+                onChangeValue={(value) =>
+                  dispatch(filtersActions.setSource(value))
+                }
+                options={sourcesOptions}
+              ></Filter>
+              <Filter
                 name="Sort By"
+                value="sortBy"
                 options={sortByOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setSortBy(value));
@@ -198,6 +201,7 @@ const Homepage = () => {
             <FilterContainer>
               <Filter
                 name="Country"
+                value="country"
                 disabled={filtersState.source ? true : false}
                 options={countryOptions}
                 onChangeValue={(value) => {
@@ -206,6 +210,7 @@ const Homepage = () => {
               ></Filter>
               <Filter
                 name="Category"
+                value="category"
                 disabled={filtersState.source ? true : false}
                 options={categoryOptions}
                 onChangeValue={(value) => {
@@ -213,7 +218,8 @@ const Homepage = () => {
                 }}
               ></Filter>
               <Filter
-                name="Sources"
+                name="Source"
+                value="source"
                 disabled={
                   filtersState.country || filtersState.category ? true : false
                 }
@@ -227,17 +233,20 @@ const Homepage = () => {
         <BodyContainer>
           <ResultsLine location={location.name} results={results} />
           <DataContainer>
-            {articles && (
-              <Articles
-                firstLoad={firstLoad}
-                error={error.message}
-                hasMore={hasMore}
-                fetchMoreData={fetchArticles}
-                articles={articles}
-                results={results}
-              />
-            )}
-            {!isTabletDevice && (
+            <ArticlesContainer>
+              {articles && (
+                <Articles
+                  firstLoad={firstLoad}
+                  error={error.message}
+                  hasMore={hasMore}
+                  fetchMoreData={fetchArticles}
+                  articles={articles}
+                  results={results}
+                />
+              )}
+            </ArticlesContainer>
+
+            {!isTabletDevice ? (
               <ChartContainer>
                 <DoughnutChart
                   firstLoad={firstLoad}
@@ -252,6 +261,8 @@ const Homepage = () => {
                   ChartTitle="Dates"
                 />
               </ChartContainer>
+            ) : (
+              <ChartContainer></ChartContainer>
             )}
           </DataContainer>
         </BodyContainer>

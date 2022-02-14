@@ -20,16 +20,14 @@ const filtersSlice = createSlice({
       switch (action.payload) {
         case ENDPOINTS.topheadlines: {
           return (state = {
-            ...initialState,
+            ...state,
             endpoint: ENDPOINTS.topheadlines,
-            searchInput: state.searchInput,
           });
         }
         case ENDPOINTS.everything:
           return (state = {
-            ...initialState,
+            ...state,
             endpoint: ENDPOINTS.everything,
-            searchInput: state.searchInput,
           });
       }
     },
@@ -40,6 +38,7 @@ const filtersSlice = createSlice({
       state.country = action.payload;
     },
     setLanguage(state, action) {
+      state.source = "";
       state.language = action.payload;
     },
     setSortBy(state, action) {

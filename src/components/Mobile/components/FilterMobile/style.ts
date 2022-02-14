@@ -63,14 +63,18 @@ export const Container = styled.div`
   flex-direction: column;
   height: 100%;
 `;
-export const FilterContainer = styled.div<{ selected: Boolean }>`
+export const FilterContainer = styled.div<{
+  selected: Boolean;
+  disabled: Boolean;
+}>`
   padding: 5px 15px 5px 15px;
   color: ${theme.colors.purple_blue};
   border-bottom: 1px solid ${theme.colors.secondary_grey};
   cursor: pointer;
-  background-color: ${(props) => (props.selected && "rgba(90, 90, 137, 0.05)" )};
+  background-color: ${(props) => props.selected && "rgba(90, 90, 137, 0.05)"};
   &:hover {
-    background-color: rgba(90, 90, 137, 0.05);
+    background-color: ${(props) =>
+      !props.disabled && "rgba(90, 90, 137, 0.05)"};
   }
 `;
 export const Select = styled.div<{ select: Boolean }>`
