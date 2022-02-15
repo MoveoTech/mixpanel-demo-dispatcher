@@ -1,14 +1,24 @@
 import styled from "styled-components";
 import { theme } from "../../../../globalStyle/theme";
+import { Dropdown, Header } from "../../../Filter/style";
 
 export const ContainerFilter = styled.div`
   background-color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
   border: 1px solid ${theme.colors.secondary_grey};
+`;
+export const DropdownMobile = styled(Dropdown)`
+  min-height: 0;
+  min-width: 100px;
+`;
+export const HeaderMobile = styled(Header)`
+  padding: 5px;
+  padding-left: 15px;
+  font-size: 16px;
 `;
 export const Title = styled.p`
   text-transform: uppercase;
@@ -30,6 +40,7 @@ export const Body = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     background: ${theme.colors.purple_blue};
+    border-radius: 50px;
   }
   ::-webkit-scrollbar-track {
     padding: 10px;
@@ -73,7 +84,7 @@ export const FilterContainer = styled.div<{
   disabled: Boolean;
 }>`
   position: relative;
-  padding: 5px 15px 5px 15px;
+  padding: 5px 20px 5px 20px;
   color: ${theme.colors.purple_blue};
   border-bottom: 1px solid ${theme.colors.secondary_grey};
   cursor: pointer;

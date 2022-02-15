@@ -25,6 +25,7 @@ export const SearchForm = styled.form<{ hasFocus: boolean }>`
 export const Input = styled.input`
   width: 60%;
   border: 0;
+  font-size: 14px;
   color: ${theme.colors.text_lightblue};
   border-right: 1px solid ${theme.colors.secondary_grey};
   outline: none;

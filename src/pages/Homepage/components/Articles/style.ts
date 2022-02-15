@@ -3,23 +3,13 @@ import { device, theme } from "../../../../globalStyle/theme";
 
 export const ArticleContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   overflow: auto;
   overflow-x: hidden;
   flex-direction: column-reverse;
   & > div:not(:last-child) {
     margin-bottom: 24px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: ${theme.colors.grey};
-    border-radius: 40px;
-  }
-  ::-webkit-scrollbar-track {
-    padding: 10px;
   }
 
   @media ${device.tablet} {
@@ -38,7 +28,7 @@ export const Container = styled.div`
 `;
 export const Text = styled.p`
   color: ${theme.colors.purple_blue};
-  font-size: 14px;
+  font-size: 18px;
   text-align: center;
   font-weight: bold;
 `;

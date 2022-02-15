@@ -2,17 +2,20 @@ import {
   Body,
   Container,
   ContainerFilter,
+  DropdownMobile,
   FilterIcon,
   Footer,
+  HeaderMobile,
   Title,
 } from "./style";
 import filterIcon from "../../../../assets/icons/filter.svg";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store";
 import FilterModal from "./FilterModal";
+import dropdownIcon from "../../../../assets/icons/dropdown.svg";
 import {
   countryOptions,
   languageOptions,
@@ -22,6 +25,10 @@ import {
 } from "../../../../pages/MockData";
 import { ENDPOINTS, Option, SIZE_TYPE, VARIANT } from "../../../../utils/types";
 import Button from "../../../Button/Button";
+import { Content, Dropdown, DropdownIcon, Header } from "../../../Filter/style";
+import FilterItem from "../../../Filter/FilterItem";
+import { filtersActions } from "../../../../store/slicers/filtersSlice";
+import useOnClickOutside from "../../../../hooks/useOnClickOutside";
 
 export interface FilterMobileProps {
   sourcesTopheadlines: Option[];
@@ -33,6 +40,10 @@ const FilterMobile = (props: FilterMobileProps) => {
   const [filters, setFilters] = useState<
     { name: string; value: string; options: Option[] }[]
   >([]);
+  const dispatch = useDispatch();
+  const [isActive, setIsActive] = useState(false);
+  const [selected, setSelected] = useState<String | undefined>("");
+  const ref = useRef(null);
 
   const filtersTopHeadlines = [
     { name: "Search In", value: "endpoint", options: filterNavbarOptions },
@@ -47,7 +58,6 @@ const FilterMobile = (props: FilterMobileProps) => {
 
   const filtersEverything = [
     { name: "Search In", value: "endpoint", options: filterNavbarOptions },
-    { name: "Sort By", value: "sortBy", options: sortByOptions },
     {
       name: "Source",
       value: "sourceEverything",
@@ -60,7 +70,21 @@ const FilterMobile = (props: FilterMobileProps) => {
     filtersState.endpoint === ENDPOINTS.topheadlines
       ? setFilters(filtersTopHeadlines)
       : setFilters(filtersEverything);
-  }, [filtersState.endpoint, props.sourcesEverything,props.sourcesTopheadlines]);
+  }, [
+    filtersState.endpoint,
+    props.sourcesEverything,
+    props.sourcesTopheadlines,
+  ]);
+
+  useEffect(() => {
+    if (filtersState.sortBy) {
+      setSelected(
+        sortByOptions.find(({ value }) => value === filtersState.sortBy)?.name
+      );
+    } else {
+      setSelected("Sort By");
+    }
+  }, [sortByOptions]);
 
   const checkDisabled = (filterValue: string) => {
     return (filtersState.country || filtersState.category) &&
@@ -71,8 +95,40 @@ const FilterMobile = (props: FilterMobileProps) => {
       ? true
       : false;
   };
+  const handleChangeSortBy = (option: Option) => {
+    if (option.name === selected) {
+      setSelected(option.name);
+      dispatch(filtersActions.setSortBy(""));
+    } else {
+      setSelected(option.name);
+      setIsActive(false);
+      dispatch(filtersActions.setSortBy(option.value));
+    }
+  };
+  const handleClickOutside = () => {
+    setIsActive(false);
+  };
+  useOnClickOutside(ref, handleClickOutside);
   return (
     <ContainerFilter>
+      <DropdownMobile disabled={false} ref={ref}>
+        <HeaderMobile disabled={false} onClick={() => setIsActive(!isActive)}>
+          {selected}
+          <DropdownIcon alt="dropdownIcon" src={dropdownIcon} />
+        </HeaderMobile>
+        {isActive && (
+          <Content>
+            {sortByOptions.map((option, index) => (
+              <FilterItem
+                key={index}
+                name={option.name}
+                selected={selected === option.name}
+                onFunc={() => handleChangeSortBy(option)}
+              />
+            ))}
+          </Content>
+        )}
+      </DropdownMobile>
       <FilterIcon onClick={() => setPaneOpen(true)} src={filterIcon} />
       <SlidingPane
         closeIcon={<Title>Filter</Title>}
@@ -115,3 +171,6 @@ const FilterMobile = (props: FilterMobileProps) => {
   );
 };
 export default FilterMobile;
+function handleClickOutside(ref: any, handleClickOutside: any) {
+  throw new Error("Function not implemented.");
+}

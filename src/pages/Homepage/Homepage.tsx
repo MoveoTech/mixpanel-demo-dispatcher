@@ -175,7 +175,7 @@ const Homepage = () => {
           searchFunc={(value: string) =>
             dispatch(filtersActions.setSearchInput(value))
           }
-          signOutFunc={() => {}}
+          signOutFunc={() => navigate(`/`)}
         >
           YC
         </Navbar>

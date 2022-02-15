@@ -14,6 +14,7 @@ export const DataContainer = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     background: ${theme.colors.purple_blue};
+    border-radius: 50px;
   }
   ::-webkit-scrollbar-track {
     padding: 10px;

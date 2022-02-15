@@ -18,6 +18,10 @@ export const SearchContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+export const SearchInput = styled.p`
+  font-weight: 500;
+  font-size: 14px;
+`;
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
