@@ -4,13 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import dateIcon from "../../assets/icons/date.svg";
 import { convertDateFromUi, convertDateToDatePicker } from "../../utils/utils";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
-import { Dropdown, Header } from "../Filter/style";
+import { ContainerDatePicker, DateIcon, Dropdown, Header } from "../Filter/style";
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { dateType } from "../../utils/types";
 
 export interface DateFilterProps {
   name: string;
+  portal?: boolean;
   onChangeValue: (
     startDate: string | undefined,
     EndDate: string | undefined
@@ -42,7 +43,7 @@ const DateFilter = (props: DateFilterProps) => {
     const end = date[1] ? convertDateFromUi(date[1].toString()) : "";
     props.onChangeValue(start, end);
   }
-  return (
+  return !props.portal ? (
     <Dropdown border={false} ref={ref}>
       <Header disabled={false} onClick={() => setIsActive(!isActive)}>
         {filtersState.dateFrom && filtersState.dateTo
@@ -52,20 +53,30 @@ const DateFilter = (props: DateFilterProps) => {
           : filtersState.dateFrom
           ? convertDateToDatePicker(filtersState.dateFrom)
           : props.name}
-        <img style={{ paddingLeft: "10px" }} alt="dateIcon" src={dateIcon} />
+        <DateIcon alt="dateIcon" src={dateIcon} />
       </Header>
       {isActive && (
-        <DatePicker
-          selectsRange
-          onChange={(e) => handleDateChange(e)}
-          selectsStart={true}
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
-          inline
-        />
+        <ContainerDatePicker>
+          <DatePicker
+            selectsRange
+            onChange={(e) => handleDateChange(e)}
+            startDate={startDate}
+            endDate={endDate}
+            inline
+          />
+        </ContainerDatePicker>
       )}
     </Dropdown>
+  ) : (
+    props.portal && (
+      <DatePicker
+        selectsRange
+        onChange={(e) => handleDateChange(e)}
+        startDate={startDate}
+        endDate={endDate}
+        withPortal={true}
+      />
+    )
   );
 };
 export default DateFilter;

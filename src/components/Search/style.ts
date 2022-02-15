@@ -19,7 +19,7 @@ export const SearchForm = styled.form<{ hasFocus: boolean }>`
   @media ${device.tablet} {
     min-width: 380px;
     transition: all 0.5s ease-in-out;
-    flex-grow: ${({ hasFocus }) => hasFocus && 1.5};
+    flex-grow: ${({ hasFocus }) => hasFocus && 0.5};
   }
 `;
 export const Input = styled.input`

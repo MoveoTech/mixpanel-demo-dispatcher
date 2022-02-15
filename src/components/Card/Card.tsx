@@ -1,6 +1,7 @@
 import { Source } from "../../utils/types";
 import { convertDateFromUrl } from "../../utils/utils";
 import { ButtonProps } from "../Button/Button";
+import logo from "../../assets/icons/imageNotFound.svg";
 import {
   BodyCard,
   CardBtn,
@@ -11,6 +12,8 @@ import {
   Row,
   SourceCard,
   DateCard,
+  ImageNotFound,
+  ContainerImage,
 } from "./style";
 
 export interface CardProps {
@@ -26,7 +29,14 @@ export interface CardProps {
 const Card = (props: CardProps) => {
   return (
     <CardStyled>
-      <ImageCard src={props.image} />
+      {props.image ? (
+        <ImageCard src={props.image} />
+      ) : (
+        <ContainerImage>
+          <ImageNotFound src={logo} />
+          <p>Image not found</p>
+        </ContainerImage>
+      )}
       <BodyCard>
         <Row>
           <DateCard>{convertDateFromUrl(props.date)}</DateCard>

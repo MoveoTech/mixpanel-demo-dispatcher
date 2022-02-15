@@ -15,7 +15,8 @@ const ResultsLine = (props: ResultsLineProps) => {
     <ContainerResultsLine>
       {filtersState.country ||
       filtersState.category ||
-      filtersState.source ||
+      filtersState.sourceEverything ||
+      filtersState.sourceTopheadlines ||
       filtersState.dateFrom ||
       filtersState.dateTo ||
       filtersState.language ||

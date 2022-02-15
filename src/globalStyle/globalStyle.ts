@@ -3,8 +3,25 @@ import { theme } from "./theme";
 
 export default createGlobalStyle`
 
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0;
+}
+.react-datepicker__portal {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
 .react-datepicker{
-    position:absolute !important;
     z-index:2;
     top: 115%;
     border: 1px solid ${theme.colors.secondary_grey};
@@ -59,5 +76,8 @@ export default createGlobalStyle`
 }
 .slide-pane__content{
     padding: 0 !important;
+}
+.slide-pane__overlay.overlay-after-open {
+    background-color: rgba(0, 0, 0, 0.55);
 }
 `;

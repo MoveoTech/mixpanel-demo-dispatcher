@@ -5,12 +5,12 @@ import { theme, device } from "../../globalStyle/theme";
 export const LoginContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 100vh;
+  min-width: 1120px;
+  height: 100%;
 
-  @media ${(props) => props.theme.tablet} {
+  @media ${device.tablet} {
+    min-width: 600px;
     flex-direction: column;
-    width: 100vw;
   }
 `;
 export const Header = styled.div`

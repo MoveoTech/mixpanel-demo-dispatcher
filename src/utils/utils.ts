@@ -110,6 +110,9 @@ export const calculateSourcesChart = (articles: Article[]) => {
     source.name = source.name.split(".")[0];
     source.value = Math.round((source.value * 100) / articles.length);
   });
+  sourcesChart.sort((a, b) => {
+    return b.value - a.value;
+});
   return sourcesChart;
 };
 export const calculateDatesChart = (articles: Article[]) => {

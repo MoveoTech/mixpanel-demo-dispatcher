@@ -40,11 +40,13 @@ import {
   handleError,
 } from "../../utils/utils";
 import FilterMobile from "../../components/Mobile/components/FilterMobile/FilterMobile";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
     query: device.tablet,
   });
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const filtersState = useSelector((state: RootState) => state.filters);
   const [results, setResults] = useState(0);
@@ -54,7 +56,10 @@ const Homepage = () => {
   const [hasMore, setHasMore] = useState(true);
   const [firstLoad, setFirstLoad] = useState(true);
   const [error, setError] = useState<ErrorType>({ number: 0, message: "" });
-  const [sourcesOptions, setSourcesOptions] = useState<
+  const [sourcesEverythingOptions, setSourcesEverythingOptions] = useState<
+    { value: string; name: string }[]
+  >([]);
+  const [sourcesTopheadlinesOptions, setSourcesTopheadlinesOptions] = useState<
     { value: string; name: string }[]
   >([]);
 
@@ -115,26 +120,44 @@ const Homepage = () => {
   useEffect(() => {
     try {
       getSourcesFromApi(filtersState).then((res) => {
-        setSourcesOptions([]);
+        setSourcesTopheadlinesOptions([]);
         res.data.sources.forEach((source: any) => {
-          setSourcesOptions((recentItems) => [
+          setSourcesTopheadlinesOptions((recentItems) => [
             ...recentItems,
             { value: `${source.id}`, name: `${source.name}` },
           ]);
         });
       });
     } catch (error) {
-      setSourcesOptions([]);
+      setSourcesTopheadlinesOptions([]);
     }
-  }, [filtersState.language, filtersState.country, filtersState.category]);
+  }, [filtersState.country, filtersState.category]);
 
+  useEffect(() => {
+    try {
+      getSourcesFromApi(filtersState).then((res) => {
+        setSourcesEverythingOptions([]);
+        res.data.sources.forEach((source: any) => {
+          setSourcesEverythingOptions((recentItems) => [
+            ...recentItems,
+            { value: `${source.id}`, name: `${source.name}` },
+          ]);
+        });
+      });
+    } catch (error) {
+      setSourcesEverythingOptions([]);
+    }
+  }, [filtersState.language]);
+  
   return (
     <HomepageContainer>
       {!isTabletDevice ? (
         <Navbar
           filter={{
-            name: "Top Headlines",
-            value: "top-headlines",
+            name: filterNavbarOptions.find(
+              ({ value }) => value === filtersState.endpoint
+            )?.name,
+            value: filtersState.endpoint,
             options: filterNavbarOptions,
             disabled: false,
             onChangeValue: (value) =>
@@ -143,7 +166,7 @@ const Homepage = () => {
           searchFunc={(value: string) =>
             dispatch(filtersActions.setSearchInput(value))
           }
-          signOutFunc={() => {}}
+          signOutFunc={() => navigate(`/`)}
         >
           YC
         </Navbar>
@@ -157,7 +180,12 @@ const Homepage = () => {
           YC
         </Navbar>
       )}
-      {isTabletDevice && <FilterMobile sources={sourcesOptions} />}
+      {isTabletDevice && (
+        <FilterMobile
+          sourcesTopheadlines={sourcesTopheadlinesOptions}
+          sourcesEverything={sourcesEverythingOptions}
+        />
+      )}
       <MainLayout>
         {!isTabletDevice &&
           (filtersState.endpoint === ENDPOINTS.everything ? (
@@ -182,11 +210,12 @@ const Homepage = () => {
               ></Filter>
               <Filter
                 name="Source"
-                value="source"
+                value="sourceEverything"
                 onChangeValue={(value) =>
-                  dispatch(filtersActions.setSource(value))
+                  dispatch(filtersActions.setSourceEverything(value))
                 }
-                options={sourcesOptions}
+                disabled={sourcesEverythingOptions.length <= 0 ? true : false}
+                options={sourcesEverythingOptions}
               ></Filter>
               <Filter
                 name="Sort By"
@@ -202,7 +231,7 @@ const Homepage = () => {
               <Filter
                 name="Country"
                 value="country"
-                disabled={filtersState.source ? true : false}
+                disabled={filtersState.sourceTopheadlines ? true : false}
                 options={countryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCountry(value));
@@ -211,7 +240,7 @@ const Homepage = () => {
               <Filter
                 name="Category"
                 value="category"
-                disabled={filtersState.source ? true : false}
+                disabled={filtersState.sourceTopheadlines ? true : false}
                 options={categoryOptions}
                 onChangeValue={(value) => {
                   dispatch(filtersActions.setCategory(value));
@@ -219,14 +248,18 @@ const Homepage = () => {
               ></Filter>
               <Filter
                 name="Source"
-                value="source"
+                value="sourceTopheadlines"
                 disabled={
-                  filtersState.country || filtersState.category ? true : false
+                  filtersState.country ||
+                  filtersState.category ||
+                  sourcesTopheadlinesOptions.length <= 0
+                    ? true
+                    : false
                 }
                 onChangeValue={(value) =>
-                  dispatch(filtersActions.setSource(value))
+                  dispatch(filtersActions.setSourceTopheadlines(value))
                 }
-                options={sourcesOptions}
+                options={sourcesTopheadlinesOptions}
               ></Filter>
             </FilterContainer>
           ))}
