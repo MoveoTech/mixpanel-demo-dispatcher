@@ -5,12 +5,13 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import FilterItem from "./FilterItem";
 import { Option } from "../../utils/types";
 import { RootState } from "../../store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { filtersActions } from "../../store/slicers/filtersSlice";
 
 export interface FilterProps {
   options: Option[];
   value: string;
-  name: string;
+  name: string | undefined;
   border?: boolean;
   disabled?: boolean;
   onChangeValue: (value: string) => void;
@@ -21,22 +22,18 @@ const Filter = (props: FilterProps) => {
     (state: RootState) => state.filters
   );
   const [isActive, setIsActive] = useState(false);
-  const [selected, setSelected] = useState(
-    filtersState[props.value]
-      ? props.options.find(({ value }) => value === filtersState[props.value])
-          ?.name
-      : props.name
-  );
+  const [selected, setSelected] = useState<String | undefined>("");
   const ref = useRef(null);
 
   useEffect(() => {
-    setSelected(
-      filtersState[props.value]
-      ? props.options.find(({ value }) => value === filtersState[props.value])
+    if (filtersState[props.value] && props.options.length > 0) {
+      setSelected(
+        props.options.find(({ value }) => value === filtersState[props.value])
           ?.name
-      : props.name
-    );
-    console.log(selected)
+      );
+    } else {
+      setSelected(props.name);
+    }
   }, [props.options]);
 
   const handleClickOutside = () => {

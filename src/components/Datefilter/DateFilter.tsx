@@ -11,6 +11,7 @@ import { dateType } from "../../utils/types";
 
 export interface DateFilterProps {
   name: string;
+  portal?: boolean;
   onChangeValue: (
     startDate: string | undefined,
     EndDate: string | undefined
@@ -42,7 +43,7 @@ const DateFilter = (props: DateFilterProps) => {
     const end = date[1] ? convertDateFromUi(date[1].toString()) : "";
     props.onChangeValue(start, end);
   }
-  return (
+  return !props.portal ? (
     <Dropdown border={false} ref={ref}>
       <Header disabled={false} onClick={() => setIsActive(!isActive)}>
         {filtersState.dateFrom && filtersState.dateTo
@@ -55,17 +56,27 @@ const DateFilter = (props: DateFilterProps) => {
         <img style={{ paddingLeft: "10px" }} alt="dateIcon" src={dateIcon} />
       </Header>
       {isActive && (
-        <DatePicker
-          selectsRange
-          onChange={(e) => handleDateChange(e)}
-          selectsStart={true}
-          selected={startDate}
-          startDate={startDate}
-          endDate={endDate}
-          inline
-        />
+        <div style={{ position: "absolute" }}>
+          <DatePicker
+            selectsRange
+            onChange={(e) => handleDateChange(e)}
+            startDate={startDate}
+            endDate={endDate}
+            inline
+          />
+        </div>
       )}
     </Dropdown>
+  ) : (
+    props.portal && (
+      <DatePicker
+        selectsRange
+        onChange={(e) => handleDateChange(e)}
+        startDate={startDate}
+        endDate={endDate}
+        withPortal={true}
+      />
+    )
   );
 };
 export default DateFilter;

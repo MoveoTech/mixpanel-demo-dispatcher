@@ -3,8 +3,20 @@ import { theme } from "./theme";
 
 export default createGlobalStyle`
 
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    opacity: 0;
+}
+
 .react-datepicker{
-    position:absolute !important;
     z-index:2;
     top: 115%;
     border: 1px solid ${theme.colors.secondary_grey};

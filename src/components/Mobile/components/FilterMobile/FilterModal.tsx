@@ -16,6 +16,8 @@ import { RootState } from "../../../../store";
 import { filtersActions } from "../../../../store/slicers/filtersSlice";
 import Button from "../../../Button/Button";
 import { SIZE_TYPE, VARIANT } from "../../../../utils/types";
+import DateFilter from "../../../Datefilter/DateFilter";
+import { convertDateToDatePicker } from "../../../../utils/utils";
 
 export interface FilterModalProps {
   name: string;
@@ -32,10 +34,17 @@ const FilterModal = (props: FilterModalProps) => {
   const [isPaneOpen, setPaneOpen] = useState(false);
   const [isSelect, setIsSelect] = useState(false);
   const [selected, setSelected] = useState(filtersState[props.value]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     filtersState[props.value] && setIsSelect(true);
+    if (
+      (filtersState.dateTo || filtersState.dateFrom) &&
+      props.name === "Dates"
+    ) {
+      setIsSelect(true);
+    }
   }, [filtersState[props.value]]);
 
   useEffect(() => {
@@ -49,8 +58,11 @@ const FilterModal = (props: FilterModalProps) => {
       case "category":
         dispatch(filtersActions.setCategory(selected));
         break;
-      case "source":
-        dispatch(filtersActions.setSource(selected));
+      case "sourceTopheadlines":
+        dispatch(filtersActions.setSourceTopheadlines(selected));
+        break;
+      case "sourceEverything":
+        dispatch(filtersActions.setSourceEverything(selected));
         break;
       case "language":
         dispatch(filtersActions.setLanguage(selected));
@@ -66,16 +78,18 @@ const FilterModal = (props: FilterModalProps) => {
     props.onCloseModal();
   };
   const handleSelectFilter = (option: { name: string; value: string }) => {
-    if (option.value === selected) {
+    console.log(option.value);
+    if (option.value === selected && option.value !== "top-headlines" && option.value !== "everything") {
       setSelected("");
       setIsSelect(false);
     } else {
       setSelected(option.value);
     }
   };
+
   return (
     <FilterContainer disabled={props.disabled} selected={false}>
-      {!props.disabled ? (
+      {!props.disabled && props.name !== "Dates" ? (
         <Row
           onClick={() => {
             setPaneOpen(true);
@@ -87,6 +101,19 @@ const FilterModal = (props: FilterModalProps) => {
               ? props.options.find(
                   ({ value }) => value === filtersState[props.value]
                 )?.name
+              : "All"}
+          </Select>
+        </Row>
+      ) : props.name === "Dates" ? (
+        <Row>
+          <p>{props.name}</p>
+          <Select select={isSelect}>
+            {filtersState.dateFrom && filtersState.dateTo
+              ? `${convertDateToDatePicker(
+                  filtersState.dateFrom
+                )} - ${convertDateToDatePicker(filtersState.dateTo)}`
+              : filtersState.dateFrom
+              ? convertDateToDatePicker(filtersState.dateFrom)
               : "All"}
           </Select>
         </Row>
@@ -102,7 +129,21 @@ const FilterModal = (props: FilterModalProps) => {
           </Select>
         </Row>
       )}
-      {!props.disabled && (
+      {props.name === "Dates" && (
+        <DateFilter
+          name="Dates"
+          portal
+          onChangeValue={(
+            startDate: string | undefined,
+            endDate: string | undefined
+          ) => {
+            setIsSelect(true);
+            dispatch(filtersActions.setDateFrom(startDate));
+            dispatch(filtersActions.setDateTo(endDate));
+          }}
+        ></DateFilter>
+      )}
+      {!props.disabled && props.name !== "Dates" && (
         <SlidingPane
           closeIcon={<img src={backIcon} />}
           isOpen={isPaneOpen}

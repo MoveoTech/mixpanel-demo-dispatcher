@@ -24,7 +24,8 @@ import { ENDPOINTS, Option, SIZE_TYPE, VARIANT } from "../../../../utils/types";
 import Button from "../../../Button/Button";
 
 export interface FilterMobileProps {
-  sources: Option[];
+  sourcesTopheadlines: Option[];
+  sourcesEverything: Option[];
 }
 const FilterMobile = (props: FilterMobileProps) => {
   const [isPaneOpen, setPaneOpen] = useState(false);
@@ -37,14 +38,23 @@ const FilterMobile = (props: FilterMobileProps) => {
     { name: "Search In", value: "endpoint", options: filterNavbarOptions },
     { name: "Country", value: "country", options: countryOptions },
     { name: "Category", value: "category", options: categoryOptions },
-    { name: "Sources", value: "source", options: props.sources },
+    {
+      name: "Source",
+      value: "sourceTopheadlines",
+      options: props.sourcesTopheadlines,
+    },
   ];
 
   const filtersEverything = [
     { name: "Search In", value: "endpoint", options: filterNavbarOptions },
     { name: "Sort By", value: "sortBy", options: sortByOptions },
-    { name: "Sources", value: "source", options: props.sources },
+    {
+      name: "Source",
+      value: "sourceEverything",
+      options: props.sourcesEverything,
+    },
     { name: "Language", value: "language", options: languageOptions },
+    { name: "Dates", value: "", options: [] },
   ];
   useEffect(() => {
     filtersState.endpoint === ENDPOINTS.topheadlines
@@ -54,10 +64,10 @@ const FilterMobile = (props: FilterMobileProps) => {
 
   const checkDisabled = (filterValue: string) => {
     return (filtersState.country || filtersState.category) &&
-      filterValue === "source"
+      filterValue === "sourceTopheadlines"
       ? true
-      : filtersState.source &&
-        (filterValue === "category" || filterValue === "category")
+      : filtersState.sourceTopheadlines &&
+        (filterValue === "category" || filterValue === "country")
       ? true
       : false;
   };

@@ -4,7 +4,8 @@ import { ENDPOINTS } from "../../utils/types";
 const initialState = {
   endpoint: "top-headlines",
   searchInput: "",
-  source: "",
+  sourceEverything: "",
+  sourceTopheadlines: "",
   dateFrom: "",
   dateTo: "",
   language: "",
@@ -38,7 +39,7 @@ const filtersSlice = createSlice({
       state.country = action.payload;
     },
     setLanguage(state, action) {
-      state.source = "";
+      state.sourceEverything = "";
       state.language = action.payload;
     },
     setSortBy(state, action) {
@@ -53,8 +54,11 @@ const filtersSlice = createSlice({
     setSearchInput(state, action) {
       state.searchInput = action.payload;
     },
-    setSource(state, action) {
-      state.source = action.payload;
+    setSourceEverything(state, action) {
+      state.sourceEverything = action.payload;
+    },
+    setSourceTopheadlines(state, action) {
+      state.sourceTopheadlines = action.payload;
     },
   },
 });

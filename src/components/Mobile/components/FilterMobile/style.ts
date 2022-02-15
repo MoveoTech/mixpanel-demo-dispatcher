@@ -22,7 +22,8 @@ export const Body = styled.div`
   flex-direction: column;
   height: 88%;
   font-size: 14px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   ::-webkit-scrollbar {
     width: 5px;
@@ -67,6 +68,7 @@ export const FilterContainer = styled.div<{
   selected: Boolean;
   disabled: Boolean;
 }>`
+  position: relative;
   padding: 5px 15px 5px 15px;
   color: ${theme.colors.purple_blue};
   border-bottom: 1px solid ${theme.colors.secondary_grey};
