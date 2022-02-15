@@ -11,12 +11,3 @@ const Template: Story<DoughnutChartProps> = (args) => (
 );
 
 export const Doughnut1 = Template.bind({});
-Doughnut1.args = {
-  DoughnutChartData: [
-    { name: "NBC", value: 10 },
-    { name: "Vulture", value: 15 },
-    { name: "CNN", value: 30 },
-    { name: "ESPN", value: 48 },
-  ],
-  ChartTitle: "Sources",
-};

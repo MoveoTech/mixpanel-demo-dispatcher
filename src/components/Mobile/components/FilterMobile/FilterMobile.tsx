@@ -25,7 +25,7 @@ import {
 } from "../../../../pages/MockData";
 import { ENDPOINTS, Option, SIZE_TYPE, VARIANT } from "../../../../utils/types";
 import Button from "../../../Button/Button";
-import { Content, Dropdown, DropdownIcon, Header } from "../../../Filter/style";
+import { Content, DropdownIcon } from "../../../Filter/style";
 import FilterItem from "../../../Filter/FilterItem";
 import { filtersActions } from "../../../../store/slicers/filtersSlice";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";

@@ -1,3 +1,4 @@
+import { first } from "lodash";
 import { Article, DataChart } from "./types";
 
 export const handleError = (error: any) => {
@@ -95,7 +96,7 @@ export const isNotEmpty = (value: string) => {
 };
 
 export const calculateSourcesChart = (articles: Article[]) => {
-  const sourcesChart: DataChart[] = [];
+  let sourcesChart: DataChart[] = [];
   articles.forEach((article) => {
     const index = sourcesChart.findIndex(
       ({ name }) => name === article.source.name
@@ -112,8 +113,17 @@ export const calculateSourcesChart = (articles: Article[]) => {
   });
   sourcesChart.sort((a, b) => {
     return b.value - a.value;
-});
-  return sourcesChart;
+  });
+  if (sourcesChart.length > 5) {
+    let sumOfother = 0;
+    for (let i = 4; i < sourcesChart.length; i++) {
+      sumOfother = sumOfother + sourcesChart[i].value;
+    }
+    const newArray = sourcesChart.slice(0, 4);
+    newArray.push({ name: "Other", value: sumOfother });
+    return { array: newArray, numberOfArticles: sourcesChart.length };
+  }
+  return { array: sourcesChart, numberOfArticles: sourcesChart.length };
 };
 export const calculateDatesChart = (articles: Article[]) => {
   let isEmpty = true;

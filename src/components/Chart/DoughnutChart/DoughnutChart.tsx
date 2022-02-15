@@ -15,7 +15,7 @@ import {
 import SkeletonDoughnutChart from "../../../pages/Homepage/components/Skeleton/SkeletonDoughnutChart";
 
 export interface DoughnutChartProps {
-  DoughnutChartData: DataChart[];
+  DoughnutChartData: { array: DataChart[]; numberOfArticles: number };
   ChartTitle: string;
   firstLoad: Boolean;
   error: string;
@@ -32,30 +32,30 @@ const DoughnutChart = (props: DoughnutChartProps) => {
           <Chart.NoData />
         ) : props.firstLoad ? (
           <SkeletonDoughnutChart />
-        ) : !props.DoughnutChartData.length ? (
+        ) : !props.DoughnutChartData.numberOfArticles ? (
           <Chart.NoData />
         ) : (
           <PieContainer>
             <PieChart width={380} height={165}>
               <Pie
-                data={props.DoughnutChartData}
+                data={props.DoughnutChartData.array}
                 cx={180}
                 cy={70}
                 innerRadius={63}
                 outerRadius={73}
                 dataKey="value"
               >
-                {props.DoughnutChartData.map((entry, index) => (
+                {props.DoughnutChartData.array.map((entry, index) => (
                   <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}
                 <Label
-                  value={props.DoughnutChartData.length}
+                  value={props.DoughnutChartData.numberOfArticles}
                   position="center"
                 />
               </Pie>
             </PieChart>
             <DataContainer>
-              {props.DoughnutChartData.map((entry, index) => {
+              {props.DoughnutChartData.array.map((entry, index) => {
                 return (
                   <Row key={index}>
                     <Dot
