@@ -16,7 +16,12 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import { RootState } from "../../../../store";
 import { filtersActions } from "../../../../store/slicers/filtersSlice";
 import Button from "../../../Button/Button";
-import { ENDPOINTS, FILTERS, SIZE_TYPE, VARIANT } from "../../../../utils/types";
+import {
+  ENDPOINTS,
+  FILTERS,
+  SIZE_TYPE,
+  VARIANT,
+} from "../../../../utils/types";
 import DateFilter from "../../../Datefilter/DateFilter";
 import { convertDateToDatePicker } from "../../../../utils/utils";
 
@@ -67,9 +72,6 @@ const FilterModal = (props: FilterModalProps) => {
         break;
       case FILTERS.language:
         dispatch(filtersActions.setLanguage(selected));
-        break;
-      case FILTERS.sortBy:
-        dispatch(filtersActions.setSortBy(selected));
         break;
     }
   }, [selected]);

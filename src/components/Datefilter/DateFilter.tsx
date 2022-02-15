@@ -44,7 +44,7 @@ const DateFilter = (props: DateFilterProps) => {
     props.onChangeValue(start, end);
   }
   return !props.portal ? (
-    <Dropdown border={false} ref={ref}>
+    <Dropdown  disabled={false} ref={ref}>
       <Header disabled={false} onClick={() => setIsActive(!isActive)}>
         {filtersState.dateFrom && filtersState.dateTo
           ? `${convertDateToDatePicker(

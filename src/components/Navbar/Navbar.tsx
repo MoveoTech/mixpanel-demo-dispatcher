@@ -10,6 +10,7 @@ import {
   SearchContainer,
   IconSearch,
   Row,
+  SearchInput,
 } from "./style";
 import logo from "../../assets/icons/logo.svg";
 import searchIcon from "../../assets/icons/search.svg";
@@ -53,7 +54,7 @@ const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
           }}
           src={backIcon}
         />
-        <p>"{filtersState.searchInput}"</p>
+        <SearchInput>"{filtersState.searchInput}"</SearchInput>
       </Row>
       <IconSearch onClick={() => setPaneOpen(true)} src={searchIcon} />
       <SearchMobile

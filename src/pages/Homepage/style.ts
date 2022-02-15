@@ -3,7 +3,7 @@ import { theme, device } from "../../globalStyle/theme";
 
 export const HomepageContainer = styled.div`
   background-color: ${theme.colors.bright_purple_blue};
-  min-width: 1120px;
+  min-width: 1300px;
   height: 100%;
   overflow: scroll;
   @media ${device.tablet} {
@@ -42,11 +42,12 @@ export const FilterContainer = styled.div`
   }
 `;
 export const BodyContainer = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin-left: 5px;
   margin-right: 5px;
-  height: 85%;
+  padding-bottom: 50px;
 `;
 
 export const DataContainer = styled.div`

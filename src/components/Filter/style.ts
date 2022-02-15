@@ -1,17 +1,22 @@
 import styled from "styled-components";
 import { theme } from "../../globalStyle/theme";
-import { FilterProps } from "./Filter";
 import { FilterItemProps } from "./FilterItem";
 
-export const Dropdown = styled.div<{ border: Boolean }>`
+export const Dropdown = styled.div<{
+  disabled: Boolean;
+  filterSearch?: Boolean;
+}>`
   min-height: 50px;
   min-width: 175px;
   position: relative;
   background: ${theme.colors.white};
   color: ${theme.colors.purple_blue};
-  border-radius: 10px;
-  border: ${(props) =>
-    props.border ? "1px solid rgba(223, 224, 235, 0.41)" : "none"};
+  border-radius: ${(props) => (props.filterSearch ? "0" : "10px")};
+  border: none;
+
+  &:hover {
+    background: ${(props) => !props.disabled && "rgba(223, 224, 235, 0.41)"};
+  }
 `;
 
 export const ContainerDatePicker = styled.div`
@@ -55,6 +60,9 @@ export const Content = styled.div`
   ::-webkit-scrollbar-track {
     padding: 10px;
   }
+`;
+export const DropdownIcon = styled.img`
+  padding-left: 10px;
 `;
 export const Item = styled.div<FilterItemProps>`
   cursor: pointer;

@@ -1,10 +1,11 @@
-import React, { useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import useInput from "../../hooks/useSearch";
 import "./style";
 import searchIcon from "../../assets/icons/search.svg";
 import { FilterContainer, Icon, Input, SearchForm } from "./style";
 import Filter, { FilterProps } from "../Filter/Filter";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
+import { debounce } from "lodash";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export interface SearchProps {
@@ -15,8 +16,8 @@ export interface SearchProps {
 const Search: React.FC<SearchProps> = (props: SearchProps) => {
   const {
     searchValue,
-    valueChangeHandler,
     isTouched,
+    setSearchValue,
     setIsTouched,
     submitHandler,
     searchInputRef,
@@ -29,9 +30,25 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
-      submitHandler(event);
+      searchInputRef.current?.blur();
+      submitHandler();
       setIsTouched(false);
     }
+  };
+
+  const updateQuery = () => {
+    submitHandler();
+  };
+
+  const delayedQuery = useCallback(debounce(updateQuery, 500), [searchValue]);
+
+  useEffect(() => {
+    delayedQuery();
+    return delayedQuery.cancel;
+  }, [searchValue, delayedQuery]);
+
+  const valueChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    setSearchValue(e.currentTarget.value);
   };
 
   useOnClickOutside(searchFormRef, () => setIsTouched(false));
@@ -61,7 +78,7 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
       {props.filter && (
         <FilterContainer>
           <Filter
-            border={false}
+            filterSearch
             options={props.filter.options}
             name={props.filter.name}
             value={props.filter.value}

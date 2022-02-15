@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { Content, Dropdown, Header } from "./style";
+import { Content, Dropdown, DropdownIcon, Header } from "./style";
 import dropdownIcon from "../../assets/icons/dropdown.svg";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import FilterItem from "./FilterItem";
 import { Option } from "../../utils/types";
 import { RootState } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
-import { filtersActions } from "../../store/slicers/filtersSlice";
+import { useSelector } from "react-redux";
 
 export interface FilterProps {
   options: Option[];
   value: string;
   name: string | undefined;
-  border?: boolean;
   disabled?: boolean;
+  filterSearch?: boolean;
   onChangeValue: (value: string) => void;
 }
 
@@ -54,13 +53,13 @@ const Filter = (props: FilterProps) => {
   useOnClickOutside(ref, handleClickOutside);
 
   return (
-    <Dropdown border={props.border ? true : false} ref={ref}>
+    <Dropdown filterSearch={props.filterSearch ? true : false} ref={ref} disabled={props.disabled ? true : false}>
       <Header
         disabled={props.disabled ? true : false}
         onClick={() => setIsActive(!isActive)}
       >
         {selected}
-        <img style={{ paddingLeft: "10px" }} alt="" src={dropdownIcon} />
+        <DropdownIcon alt="" src={dropdownIcon} />
       </Header>
       {isActive && !props.disabled && (
         <Content>

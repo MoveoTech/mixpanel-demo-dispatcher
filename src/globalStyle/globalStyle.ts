@@ -66,7 +66,7 @@ export default createGlobalStyle`
 }
 .slide-pane__close {
     opacity: unset !important;
-    margin-left: 0;
+    margin-left: 3px;
 }
 .slide-pane__title {
    max-width: 100% !important;
@@ -79,5 +79,20 @@ export default createGlobalStyle`
 }
 .slide-pane__overlay.overlay-after-open {
     background-color: rgba(0, 0, 0, 0.55);
+}
+.infinite-scroll-component {
+    ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.colors.grey};
+    border-radius: 40px;
+  }
+  ::-webkit-scrollbar-track {
+    padding: 10px;
+  }
+}
+.infinite-scroll-component__outerdiv {
+    overflow: hidden;
 }
 `;
