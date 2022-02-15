@@ -73,6 +73,30 @@ export const Description = styled.p`
   padding-top: 20px;
   height: 100%;
 `;
+export const ContainerImage = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 36%;
+  border-radius: 20px 0px 0px 20px;
+  font-size: 14px;
+  color: ${theme.colors.purple_blue};
+  border-right: 1.5px solid rgb(168,166,181);
+
+  @media ${device.mobile} {
+    width: 100%;
+    height: 36%;
+    border-radius: 20px 20px 0px 0px;
+    border-right: 0;
+    border-bottom: 1.5px solid rgb(168,166,181);
+  }
+`;
+export const ImageNotFound = styled.img`
+  opacity: 0.5;
+  height: 40%;
+`;
 export const CardBtn = styled(Button)`
   align-self: flex-end;
   margin-bottom: 10px;

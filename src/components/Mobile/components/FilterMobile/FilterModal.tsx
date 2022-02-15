@@ -4,6 +4,7 @@ import {
   FilterContainer,
   Footer,
   Row,
+  RowDisabled,
   Select,
   TitleFilter,
 } from "./style";
@@ -15,7 +16,7 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import { RootState } from "../../../../store";
 import { filtersActions } from "../../../../store/slicers/filtersSlice";
 import Button from "../../../Button/Button";
-import { SIZE_TYPE, VARIANT } from "../../../../utils/types";
+import { ENDPOINTS, FILTERS, SIZE_TYPE, VARIANT } from "../../../../utils/types";
 import DateFilter from "../../../Datefilter/DateFilter";
 import { convertDateToDatePicker } from "../../../../utils/utils";
 
@@ -41,7 +42,7 @@ const FilterModal = (props: FilterModalProps) => {
     filtersState[props.value] && setIsSelect(true);
     if (
       (filtersState.dateTo || filtersState.dateFrom) &&
-      props.name === "Dates"
+      props.name === FILTERS.dates
     ) {
       setIsSelect(true);
     }
@@ -49,25 +50,25 @@ const FilterModal = (props: FilterModalProps) => {
 
   useEffect(() => {
     switch (props.value) {
-      case "endpoint":
+      case FILTERS.endpoint:
         dispatch(filtersActions.changeEndpoint(selected));
         break;
-      case "country":
+      case FILTERS.country:
         dispatch(filtersActions.setCountry(selected));
         break;
-      case "category":
+      case FILTERS.category:
         dispatch(filtersActions.setCategory(selected));
         break;
-      case "sourceTopheadlines":
+      case FILTERS.sourceTopheadlines:
         dispatch(filtersActions.setSourceTopheadlines(selected));
         break;
-      case "sourceEverything":
+      case FILTERS.sourceEverything:
         dispatch(filtersActions.setSourceEverything(selected));
         break;
-      case "language":
+      case FILTERS.language:
         dispatch(filtersActions.setLanguage(selected));
         break;
-      case "sortBy":
+      case FILTERS.sortBy:
         dispatch(filtersActions.setSortBy(selected));
         break;
     }
@@ -78,8 +79,11 @@ const FilterModal = (props: FilterModalProps) => {
     props.onCloseModal();
   };
   const handleSelectFilter = (option: { name: string; value: string }) => {
-    console.log(option.value);
-    if (option.value === selected && option.value !== "top-headlines" && option.value !== "everything") {
+    if (
+      option.value === selected &&
+      option.value !== ENDPOINTS.topheadlines &&
+      option.value !== ENDPOINTS.everything
+    ) {
       setSelected("");
       setIsSelect(false);
     } else {
@@ -89,7 +93,7 @@ const FilterModal = (props: FilterModalProps) => {
 
   return (
     <FilterContainer disabled={props.disabled} selected={false}>
-      {!props.disabled && props.name !== "Dates" ? (
+      {!props.disabled && props.name !== FILTERS.dates ? (
         <Row
           onClick={() => {
             setPaneOpen(true);
@@ -104,7 +108,7 @@ const FilterModal = (props: FilterModalProps) => {
               : "All"}
           </Select>
         </Row>
-      ) : props.name === "Dates" ? (
+      ) : props.name === FILTERS.dates ? (
         <Row>
           <p>{props.name}</p>
           <Select select={isSelect}>
@@ -118,7 +122,7 @@ const FilterModal = (props: FilterModalProps) => {
           </Select>
         </Row>
       ) : (
-        <Row style={{ cursor: "auto", opacity: "0.5" }}>
+        <RowDisabled>
           <p>{props.name}</p>
           <Select select={isSelect}>
             {filtersState[props.value]
@@ -127,11 +131,11 @@ const FilterModal = (props: FilterModalProps) => {
                 )?.name
               : "All"}
           </Select>
-        </Row>
+        </RowDisabled>
       )}
-      {props.name === "Dates" && (
+      {props.name === FILTERS.dates && (
         <DateFilter
-          name="Dates"
+          name={FILTERS.dates}
           portal
           onChangeValue={(
             startDate: string | undefined,
@@ -143,7 +147,7 @@ const FilterModal = (props: FilterModalProps) => {
           }}
         ></DateFilter>
       )}
-      {!props.disabled && props.name !== "Dates" && (
+      {!props.disabled && props.name !== FILTERS.dates && (
         <SlidingPane
           closeIcon={<img src={backIcon} />}
           isOpen={isPaneOpen}

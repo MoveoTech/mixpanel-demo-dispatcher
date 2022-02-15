@@ -13,7 +13,12 @@ export const Dropdown = styled.div<{ border: Boolean }>`
   border: ${(props) =>
     props.border ? "1px solid rgba(223, 224, 235, 0.41)" : "none"};
 `;
-export const Header = styled.div<{disabled : Boolean}>`
+
+export const ContainerDatePicker = styled.div`
+  position: absolute;
+  top: 115%;
+`;
+export const Header = styled.div<{ disabled: Boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -22,6 +27,9 @@ export const Header = styled.div<{disabled : Boolean}>`
   line-height: 22px;
   cursor: ${(props) => !props.disabled && "pointer"};
   opacity: ${(props) => props.disabled && "0.5"};
+`;
+export const DateIcon = styled.img`
+  padding-left: 10px;
 `;
 export const Content = styled.div`
   font-family: "Mulish";

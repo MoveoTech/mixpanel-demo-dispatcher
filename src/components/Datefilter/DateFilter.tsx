@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import dateIcon from "../../assets/icons/date.svg";
 import { convertDateFromUi, convertDateToDatePicker } from "../../utils/utils";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
-import { Dropdown, Header } from "../Filter/style";
+import { ContainerDatePicker, DateIcon, Dropdown, Header } from "../Filter/style";
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { dateType } from "../../utils/types";
@@ -53,10 +53,10 @@ const DateFilter = (props: DateFilterProps) => {
           : filtersState.dateFrom
           ? convertDateToDatePicker(filtersState.dateFrom)
           : props.name}
-        <img style={{ paddingLeft: "10px" }} alt="dateIcon" src={dateIcon} />
+        <DateIcon alt="dateIcon" src={dateIcon} />
       </Header>
       {isActive && (
-        <div style={{ position: "absolute" }}>
+        <ContainerDatePicker>
           <DatePicker
             selectsRange
             onChange={(e) => handleDateChange(e)}
@@ -64,7 +64,7 @@ const DateFilter = (props: DateFilterProps) => {
             endDate={endDate}
             inline
           />
-        </div>
+        </ContainerDatePicker>
       )}
     </Dropdown>
   ) : (

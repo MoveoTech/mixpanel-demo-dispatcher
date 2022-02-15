@@ -47,9 +47,6 @@ export const BodyContainer = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   height: 85%;
-  @media ${device.mobile} {
-    align-items: center;
-  }
 `;
 
 export const DataContainer = styled.div`

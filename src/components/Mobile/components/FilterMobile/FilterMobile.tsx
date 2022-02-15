@@ -60,7 +60,7 @@ const FilterMobile = (props: FilterMobileProps) => {
     filtersState.endpoint === ENDPOINTS.topheadlines
       ? setFilters(filtersTopHeadlines)
       : setFilters(filtersEverything);
-  }, [filtersState.endpoint]);
+  }, [filtersState.endpoint, props.sourcesEverything,props.sourcesTopheadlines]);
 
   const checkDisabled = (filterValue: string) => {
     return (filtersState.country || filtersState.category) &&

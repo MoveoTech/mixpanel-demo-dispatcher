@@ -148,6 +148,7 @@ const Homepage = () => {
       setSourcesEverythingOptions([]);
     }
   }, [filtersState.language]);
+  
   return (
     <HomepageContainer>
       {!isTabletDevice ? (

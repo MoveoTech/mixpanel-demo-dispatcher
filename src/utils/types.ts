@@ -5,6 +5,16 @@ export enum SIZE_TYPE {
 }
 export type dateType = null | Date;
 
+export enum FILTERS {
+  endpoint = "endpoint",
+  country = "country",
+  category = "category",
+  sourceTopheadlines = "sourceTopheadlines",
+  sourceEverything = "sourceEverything",
+  language = "language",
+  sortBy = 'sortBy',
+  dates = 'Dates'
+}
 export enum ENDPOINTS {
   topheadlines = "top-headlines",
   everything = "everything",

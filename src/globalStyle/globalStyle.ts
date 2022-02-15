@@ -15,6 +15,11 @@ export default createGlobalStyle`
     left: 0;
     opacity: 0;
 }
+.react-datepicker__portal {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.55);
+}
 
 .react-datepicker{
     z-index:2;
@@ -71,5 +76,8 @@ export default createGlobalStyle`
 }
 .slide-pane__content{
     padding: 0 !important;
+}
+.slide-pane__overlay.overlay-after-open {
+    background-color: rgba(0, 0, 0, 0.55);
 }
 `;

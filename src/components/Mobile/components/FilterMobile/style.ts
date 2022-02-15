@@ -41,6 +41,10 @@ export const Row = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+export const RowDisabled = styled(Row)`
+  cursor: auto;
+  opacity: 0.5;
+`;
 export const TitleFilter = styled.p`
   font-size: 14px;
   color: ${theme.colors.purple_blue};
