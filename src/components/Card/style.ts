@@ -20,7 +20,7 @@ export const CardStyled = styled.div`
     height: 450px;
     flex-direction: column;
     padding: 0px 0px 16px 0px;
-    margin-right: 0;
+    margin-right: 10px;
   }
 `;
 export const ImageCard = styled.img`

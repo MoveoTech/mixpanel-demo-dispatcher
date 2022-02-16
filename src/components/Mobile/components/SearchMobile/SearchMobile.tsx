@@ -30,8 +30,7 @@ const SearchMobile = (props: SearchMobileProps) => {
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
-      searchInputRef.current?.blur();
-      submitHandler();
+      submitHandler(event);
       props.onClose(false);
     }
   };

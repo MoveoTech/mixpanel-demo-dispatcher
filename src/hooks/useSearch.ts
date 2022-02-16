@@ -19,12 +19,12 @@ const useInput = (value: string) => {
     (search) => search.includes(searchValue) && searchValue !== search
   );
 
-  const submitHandler = () => {
-    // e.preventDefault();
+  const submitHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (!recentItems.includes(searchValue) && isNotEmpty(searchValue)) {
       setRecentItems((recentItems) => [...recentItems, searchValue]);
     }
-    // searchInputRef.current?.blur();
+    searchInputRef.current?.blur();
     dispatch(filtersActions.setSearchInput(searchValue));
   };
   const reset = () => {

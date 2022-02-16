@@ -30,22 +30,21 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
-      searchInputRef.current?.blur();
-      submitHandler();
+      submitHandler(event);
       setIsTouched(false);
     }
   };
 
-  const updateQuery = () => {
-    submitHandler();
-  };
+  // const updateQuery = () => {
+  //   submitHandler();
+  // };
 
-  const delayedQuery = useCallback(debounce(updateQuery, 500), [searchValue]);
+  // const delayedQuery = useCallback(debounce(updateQuery, 500), [searchValue]);
 
-  useEffect(() => {
-    delayedQuery();
-    return delayedQuery.cancel;
-  }, [searchValue, delayedQuery]);
+  // useEffect(() => {
+  //   delayedQuery();
+  //   return delayedQuery.cancel;
+  // }, [searchValue, delayedQuery]);
 
   const valueChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value);

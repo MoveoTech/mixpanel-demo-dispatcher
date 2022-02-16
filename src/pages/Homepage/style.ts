@@ -15,13 +15,16 @@ export const HomepageContainer = styled.div`
 `;
 export const MainLayout = styled.div`
   width: 70%;
-  height: 92%;
+  height: 900px;
+  min-height: 900px;
   margin-left: auto;
   margin-right: auto;
   min-width: 80%;
 
   @media ${device.tablet} {
     min-width: 90%;
+    height: 100%;
+    min-height: 100%;
   }
 `;
 export const ArticlesContainer = styled.div`
@@ -35,7 +38,6 @@ export const FilterContainer = styled.div`
   border-bottom: 1px solid #d9dbe9;
   padding-top: 20px;
   padding-bottom: 20px;
-  height: 5%;
 
   & > div:not(:last-child) {
     margin-right: 10px;
@@ -61,5 +63,9 @@ export const ChartContainer = styled.div`
   padding-left: 20px;
   & > div:not(:last-child) {
     margin-bottom: 24px;
+  }
+
+  @media ${device.tablet} {
+    padding-left: 0px;
   }
 `;

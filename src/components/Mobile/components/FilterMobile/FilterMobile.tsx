@@ -111,24 +111,26 @@ const FilterMobile = (props: FilterMobileProps) => {
   useOnClickOutside(ref, handleClickOutside);
   return (
     <ContainerFilter>
-      <DropdownMobile disabled={false} ref={ref}>
-        <HeaderMobile disabled={false} onClick={() => setIsActive(!isActive)}>
-          {selected}
-          <DropdownIcon alt="dropdownIcon" src={dropdownIcon} />
-        </HeaderMobile>
-        {isActive && (
-          <Content>
-            {sortByOptions.map((option, index) => (
-              <FilterItem
-                key={index}
-                name={option.name}
-                selected={selected === option.name}
-                onFunc={() => handleChangeSortBy(option)}
-              />
-            ))}
-          </Content>
-        )}
-      </DropdownMobile>
+      {filtersState.endpoint !== ENDPOINTS.topheadlines ? (
+        <DropdownMobile disabled={false} ref={ref}>
+          <HeaderMobile disabled={false} onClick={() => setIsActive(!isActive)}>
+            {selected}
+            <DropdownIcon alt="dropdownIcon" src={dropdownIcon} />
+          </HeaderMobile>
+          {isActive && (
+            <Content>
+              {sortByOptions.map((option, index) => (
+                <FilterItem
+                  key={index}
+                  name={option.name}
+                  selected={selected === option.name}
+                  onFunc={() => handleChangeSortBy(option)}
+                />
+              ))}
+            </Content>
+          )}
+        </DropdownMobile>
+      ) : <div></div>}
       <FilterIcon onClick={() => setPaneOpen(true)} src={filterIcon} />
       <SlidingPane
         closeIcon={<Title>Filter</Title>}

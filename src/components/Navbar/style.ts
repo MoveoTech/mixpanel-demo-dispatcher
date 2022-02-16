@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme, device } from "../../globalStyle/theme";
 
 export const NavbarContainer = styled.div`
-  height: 8%;
+  height: 75px;
   width: 100%;
   background: ${theme.colors.grayscale};
   border: none;
