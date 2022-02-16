@@ -173,16 +173,16 @@ export const languageOptions = [
 ];
 export const sortByOptions = [
   {
-    name: "relevancy",
+    name: "Relevancy",
     value: "relevancy",
   },
   {
-    name: "popularity",
+    name: "Popularity",
     value: "popularity",
   },
 
   {
-    name: "publishedAt",
+    name: "Date",
     value: "publishedAt",
   },
 ];

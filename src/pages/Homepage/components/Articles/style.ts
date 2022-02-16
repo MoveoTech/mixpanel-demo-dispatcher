@@ -7,6 +7,7 @@ export const ArticleContainer = styled.div`
   display: flex;
   overflow: auto;
   overflow-x: hidden;
+  justify-content: flex-end;
   flex-direction: column-reverse;
   & > div:not(:last-child) {
     margin-bottom: 24px;

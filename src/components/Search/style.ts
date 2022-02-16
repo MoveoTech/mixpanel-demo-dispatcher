@@ -23,7 +23,7 @@ export const SearchForm = styled.form<{ hasFocus: boolean }>`
   }
 `;
 export const Input = styled.input`
-  width: 60%;
+  width: 70%;
   border: 0;
   font-size: 14px;
   color: ${theme.colors.text_lightblue};

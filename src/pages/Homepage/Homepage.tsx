@@ -83,7 +83,7 @@ const Homepage = () => {
     getArticlesFromApi(filtersState, location.value, 1)
       .then((res) => {
         setError({ number: 0, message: "" });
-        setResults(res.data.articles.length);
+        setResults(res.data.totalResults);
         res.data.articles.length < 10 ? setHasMore(false) : setHasMore(true);
         setArticles(res.data.articles);
         setPageNumber(2);
@@ -137,6 +137,7 @@ const Homepage = () => {
     try {
       getSourcesFromApi(filtersState).then((res) => {
         setSourcesEverythingOptions([]);
+        dispatch(filtersActions.setSourceEverything(""));
         res.data.sources.forEach((source: any) => {
           setSourcesEverythingOptions((recentItems) => [
             ...recentItems,

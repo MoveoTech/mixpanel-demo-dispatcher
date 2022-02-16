@@ -39,7 +39,6 @@ const filtersSlice = createSlice({
       state.country = action.payload;
     },
     setLanguage(state, action) {
-      state.sourceEverything = "";
       state.language = action.payload;
     },
     setSortBy(state, action) {

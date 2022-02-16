@@ -27,7 +27,6 @@ export interface CardProps {
 }
 
 const Card = (props: CardProps) => {
-  console.log(props.image)
   return (
     <CardStyled>
       {props.image != "null" && props.image ? (
