@@ -31,5 +31,4 @@ export const Text = styled.p`
   color: ${theme.colors.purple_blue};
   font-size: 18px;
   text-align: center;
-  font-weight: bold;
 `;

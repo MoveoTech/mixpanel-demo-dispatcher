@@ -120,7 +120,7 @@ const Homepage = () => {
   useEffect(() => {
     try {
       getSourcesFromApi(filtersState).then((res) => {
-        setSourcesTopheadlinesOptions([]);
+        setSourcesTopheadlinesOptions([{ value: "", name: "All" }]);
         res.data.sources.forEach((source: any) => {
           setSourcesTopheadlinesOptions((recentItems) => [
             ...recentItems,
@@ -136,7 +136,7 @@ const Homepage = () => {
   useEffect(() => {
     try {
       getSourcesFromApi(filtersState).then((res) => {
-        setSourcesEverythingOptions([]);
+        setSourcesEverythingOptions([{ value: "", name: "All" }]);
         dispatch(filtersActions.setSourceEverything(""));
         res.data.sources.forEach((source: any) => {
           setSourcesEverythingOptions((recentItems) => [
@@ -270,6 +270,7 @@ const Homepage = () => {
             <ArticlesContainer>
               {articles && (
                 <Articles
+                  location={location}
                   firstLoad={firstLoad}
                   error={error.message}
                   hasMore={hasMore}

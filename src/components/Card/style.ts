@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme, device } from "../../globalStyle/theme";
 import Button from "../Button/Button";
 
-export const CardStyled = styled.div`
+export const CardStyled = styled.div<{ rtl?: boolean }>`
   background: ${theme.colors.white};
   border: 1px solid ${theme.colors.secondary_grey};
   box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
@@ -11,7 +11,7 @@ export const CardStyled = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 16px 0px 0px;
+  padding: ${(props) => (props.rtl ? "0px 0px 0px 16px" : "0px 16px 0px 0px")};
   margin-right: 10px;
   height: 300px;
   margin-bottom: 15px;
@@ -23,11 +23,12 @@ export const CardStyled = styled.div`
     margin-right: 10px;
   }
 `;
-export const ImageCard = styled.img`
+export const ImageCard = styled.img<{ rtl?: boolean }>`
   height: 100%;
   max-height: 100%;
   width: 35%;
-  border-radius: 20px 0px 0px 20px;
+  border-radius: ${(props) =>
+    props.rtl ? "0px 20px 20px 0px" : "20px 0px 0px 20px"};
   object-fit: cover;
 
   @media ${device.mobile} {
@@ -39,7 +40,7 @@ export const ImageCard = styled.img`
 export const BodyCard = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 16px;
+  margin-inline-start: 16px;
   font-size: 14px;
   width: 65%;
   height: 100%;
@@ -54,11 +55,12 @@ export const BodyCard = styled.div`
 export const DateCard = styled.p`
   color: ${theme.colors.text_lightblue};
 `;
-export const SourceCard = styled.p`
+export const SourceCard = styled.p<{ rtl: boolean }>`
   color: ${theme.colors.text_lightblue};
   margin: 0px;
+  display: flex;
 `;
-export const Title = styled.p`
+export const Title = styled.p<{ rtl: boolean }>`
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
@@ -66,31 +68,44 @@ export const Title = styled.p`
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
+  display: flex;
 `;
-export const Description = styled.p`
+export const Description = styled.p<{ rtl: boolean }>`
   color: ${theme.colors.purple_blue};
   margin: 0;
   padding-top: 20px;
-  height: 100%;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  overflow: hidden;
+  font-size: 14px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  display: flex;
 `;
-export const ContainerImage = styled.div`
+export const ContainerImage = styled.div<{ rtl: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   width: 36%;
-  border-radius: 20px 0px 0px 20px;
+  border-radius: ${(props) =>
+    props.rtl ? "0px 20px 20px 0px" : "20px 0px 0px 20px"};
   font-size: 14px;
   color: ${theme.colors.purple_blue};
-  border-right: 1.5px solid rgb(168,166,181);
+  border-right: ${(props) =>
+    props.rtl ? "none" : "1.5px solid rgb(168, 166, 181)"}; 
+  border-left: ${(props) =>
+    props.rtl ? "1.5px solid rgb(168, 166, 181)" : "none"};
 
   @media ${device.mobile} {
     width: 100%;
     height: 36%;
     border-radius: 20px 20px 0px 0px;
     border-right: 0;
-    border-bottom: 1.5px solid rgb(168,166,181);
+    border-bottom: 1.5px solid rgb(168, 166, 181);
   }
 `;
 export const ImageNotFound = styled.img`
@@ -102,6 +117,7 @@ export const CardBtn = styled(Button)`
   margin-bottom: 10px;
   position: absolute;
   bottom: 0;
+
   @media ${device.mobile} {
     align-self: center;
     width: 90%;
@@ -122,7 +138,7 @@ export const Tag = styled.p`
   font-size: 12px;
   line-height: 14px;
 `;
-export const Row = styled.div`
+export const Row = styled.div<{ rtl: boolean }>`
   display: flex;
   justify-content: space-between;
   padding-top: 14px;

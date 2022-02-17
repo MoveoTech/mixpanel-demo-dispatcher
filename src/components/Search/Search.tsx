@@ -1,12 +1,20 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import useInput from "../../hooks/useSearch";
 import "./style";
 import searchIcon from "../../assets/icons/search.svg";
-import { FilterContainer, Icon, Input, SearchForm } from "./style";
+import {
+  DeleteIcon,
+  FilterContainer,
+  Icon,
+  IconHover,
+  Input,
+  InputContainer,
+  SearchForm,
+} from "./style";
 import Filter, { FilterProps } from "../Filter/Filter";
 import SearchDropdown from "../SearchDropdown/SearchDropdown";
-import { debounce } from "lodash";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import deleteIcon from "../../assets/icons/exit.svg";
 
 export interface SearchProps {
   searchFunc: (value: string) => void;
@@ -55,17 +63,28 @@ const Search: React.FC<SearchProps> = (props: SearchProps) => {
   return (
     <SearchForm hasFocus={isTouched} ref={searchFormRef}>
       <Icon onClick={submitHandler} type="image" src={searchIcon} />
-      <Input
-        ref={searchInputRef}
-        type="text"
-        id="search"
-        value={searchValue}
-        onChange={valueChangeHandler}
-        onFocus={() => setIsTouched(true)}
-        placeholder="Search"
-        autoComplete="off"
-        onKeyDown={keyDownHandler}
-      ></Input>
+      <InputContainer>
+        <Input
+          ref={searchInputRef}
+          type="text"
+          id="search"
+          value={searchValue}
+          onChange={valueChangeHandler}
+          onFocus={() => setIsTouched(true)}
+          placeholder="Search"
+          autoComplete="off"
+          onKeyDown={keyDownHandler}
+        ></Input>
+        {searchValue && (
+          <IconHover>
+            <DeleteIcon
+              alt="deleteIcon"
+              onClick={() => setSearchValue("")}
+              src={deleteIcon}
+            />
+         </IconHover>
+        )}
+      </InputContainer>
       {isTouched && filterRecentItems.length ? (
         <SearchDropdown
           items={filterRecentItems}

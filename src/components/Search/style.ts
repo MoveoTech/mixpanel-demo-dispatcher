@@ -22,12 +22,42 @@ export const SearchForm = styled.form<{ hasFocus: boolean }>`
     flex-grow: ${({ hasFocus }) => hasFocus && 0.5};
   }
 `;
+export const InputContainer = styled.div`
+  border-right: 1px solid ${theme.colors.secondary_grey};
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media ${device.tablet} {
+    border-right: none;
+  }
+`;
+export const IconHover = styled.div`
+  margin-right: 7px;
+  cursor: pointer;
+  border-radius: 50px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: -10;;
+  :hover {
+    background-color: ${theme.colors.secondary_grey};
+  }
+`;
+export const DeleteIcon = styled.img`
+  width: 17px;
+  height: 17px;
+  text-align: center;
+  align-self: center;
+`;
 export const Input = styled.input`
   width: 70%;
   border: 0;
   font-size: 14px;
   color: ${theme.colors.text_lightblue};
-  border-right: 1px solid ${theme.colors.secondary_grey};
+
   outline: none;
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -36,9 +66,6 @@ export const Input = styled.input`
     font-size: 14px;
     line-height: 22px;
     color: ${theme.colors.text_lightblue};
-  }
-  @media ${device.tablet} {
-    border-right: none;
   }
 `;
 export const Icon = styled.input`

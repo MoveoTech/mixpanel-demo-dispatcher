@@ -25,8 +25,11 @@ export const SearchInput = styled.p`
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 82%;
+  width:90%;
 
+  @media ${device.tablet} {
+    width:80%;
+  }
   @media ${device.mobile} {
     justify-content: flex-end;
   }

@@ -40,7 +40,8 @@ const Filter = (props: FilterProps) => {
   };
 
   const handleChange = (option: Option) => {
-    if (option.name === selected) {
+    if (option.name === selected || option.name === "All") {
+      option.name === "All" &&  setIsActive(false);
       setSelected(props.name);
       props.onChangeValue("");
     } else {
@@ -51,9 +52,13 @@ const Filter = (props: FilterProps) => {
   };
 
   useOnClickOutside(ref, handleClickOutside);
-
+  console.log(selected)
   return (
-    <Dropdown filterSearch={props.filterSearch ? true : false} ref={ref} disabled={props.disabled ? true : false}>
+    <Dropdown
+      filterSearch={props.filterSearch ? true : false}
+      ref={ref}
+      disabled={props.disabled ? true : false}
+    >
       <Header
         disabled={props.disabled ? true : false}
         onClick={() => setIsActive(!isActive)}

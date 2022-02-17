@@ -11,10 +11,7 @@ export const filterNavbarOptions = [
   },
 ];
 export const countryOptions = [
-  {
-    name: "UAE",
-    value: "ae",
-  },
+  { value: "", name: "All" },
   {
     name: "Argentina",
     value: "ar",
@@ -28,7 +25,7 @@ export const countryOptions = [
     value: "au",
   },
   {
-    name: "	Belgium",
+    name: "Belgium",
     value: "be",
   },
   {
@@ -42,10 +39,6 @@ export const countryOptions = [
   {
     name: "Canada",
     value: "ca",
-  },
-  {
-    name: "Switzerland",
-    value: "ch",
   },
   {
     name: "China",
@@ -74,10 +67,6 @@ export const countryOptions = [
   {
     name: "France",
     value: "fr",
-  },
-  {
-    name: "UK",
-    value: "gb",
   },
   {
     name: "Greece",
@@ -115,8 +104,25 @@ export const countryOptions = [
     name: "Japan",
     value: "jp",
   },
+  {
+    name: "Switzerland",
+    value: "ch",
+  },
+  {
+    name: "UAE",
+    value: "ae",
+  },
+  {
+    name: "UK",
+    value: "gb",
+  },
+  {
+    name: "US",
+    value: "us",
+  },
 ];
 export const languageOptions = [
+  { value: "", name: "All" },
   {
     name: "Arabic",
     value: "ar",
@@ -172,6 +178,7 @@ export const languageOptions = [
   },
 ];
 export const sortByOptions = [
+  { value: "", name: "All" },
   {
     name: "Relevancy",
     value: "relevancy",
@@ -187,6 +194,7 @@ export const sortByOptions = [
   },
 ];
 export const categoryOptions = [
+  { value: "", name: "All" },
   {
     name: "business",
     value: "business",

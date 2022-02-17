@@ -1,6 +1,6 @@
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import { Input } from "../../../Search/style";
+import { DeleteIcon, IconHover, Input } from "../../../Search/style";
 import backIcon from "../../../../assets/icons/back.svg";
 import useInput from "../../../../hooks/useSearch";
 import { SearchForm, Icon } from "./style";
@@ -53,12 +53,13 @@ const SearchMobile = (props: SearchMobileProps) => {
             onKeyDown={keyDownHandler}
           ></Input>
           {searchValue && (
-            <img
-              alt="deleteIcon"
-              style={{ width: "17px", height: "17px" }}
-              onClick={() => setSearchValue("")}
-              src={deleteIcon}
-            />
+            <IconHover style={{marginRight: '20px'}}>
+              <DeleteIcon
+                alt="deleteIcon"
+                onClick={() => setSearchValue("")}
+                src={deleteIcon}
+              />
+            </IconHover>
           )}
         </SearchForm>
       }

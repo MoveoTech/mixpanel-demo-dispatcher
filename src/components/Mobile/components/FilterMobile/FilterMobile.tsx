@@ -111,7 +111,7 @@ const FilterMobile = (props: FilterMobileProps) => {
   useOnClickOutside(ref, handleClickOutside);
   return (
     <ContainerFilter>
-      <DropdownMobile disabled={false} ref={ref}>
+       {filtersState.endpoint !== ENDPOINTS.topheadlines ? <DropdownMobile disabled={false} ref={ref}>
         <HeaderMobile disabled={false} onClick={() => setIsActive(!isActive)}>
           {selected}
           <DropdownIcon alt="dropdownIcon" src={dropdownIcon} />
@@ -128,7 +128,7 @@ const FilterMobile = (props: FilterMobileProps) => {
             ))}
           </Content>
         )}
-      </DropdownMobile>
+      </DropdownMobile> : <div></div> }
       <FilterIcon onClick={() => setPaneOpen(true)} src={filterIcon} />
       <SlidingPane
         closeIcon={<Title>Filter</Title>}

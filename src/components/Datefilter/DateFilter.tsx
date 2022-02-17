@@ -4,7 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import dateIcon from "../../assets/icons/date.svg";
 import { convertDateFromUi, convertDateToDatePicker } from "../../utils/utils";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
-import { ContainerDatePicker, DateIcon, Dropdown, Header } from "../Filter/style";
+import {
+  ButtonDatePicker,
+  ContainerDatePicker,
+  DateIcon,
+  Dropdown,
+  Header,
+  TextReset,
+} from "../Filter/style";
 import { RootState } from "../../store";
 import { useSelector } from "react-redux";
 import { dateType } from "../../utils/types";
@@ -43,8 +50,15 @@ const DateFilter = (props: DateFilterProps) => {
     const end = date[1] ? convertDateFromUi(date[1].toString()) : "";
     props.onChangeValue(start, end);
   }
+
+  const resetDate = () => {
+    setEndDate(null);
+    setStartDate(null);
+    props.onChangeValue("", "");
+    setIsActive(false);
+  };
   return !props.portal ? (
-    <Dropdown  disabled={false} ref={ref}>
+    <Dropdown disabled={false} ref={ref}>
       <Header disabled={false} onClick={() => setIsActive(!isActive)}>
         {filtersState.dateFrom && filtersState.dateTo
           ? `${convertDateToDatePicker(
@@ -63,7 +77,18 @@ const DateFilter = (props: DateFilterProps) => {
             startDate={startDate}
             endDate={endDate}
             inline
+            minDate={
+              new Date(
+                new Date().getFullYear(),
+                new Date().getMonth() - 1,
+                new Date().getDate()
+              )
+            }
+            maxDate={new Date()}
           />
+          <ButtonDatePicker onClick={resetDate}>
+            <TextReset>Reset</TextReset>
+          </ButtonDatePicker>
         </ContainerDatePicker>
       )}
     </Dropdown>
@@ -75,7 +100,17 @@ const DateFilter = (props: DateFilterProps) => {
         startDate={startDate}
         endDate={endDate}
         withPortal={true}
+        isClearable={true}
+        minDate={
+          new Date(
+            new Date().getFullYear(),
+            new Date().getMonth() - 1,
+            new Date().getDate()
+          )
+        }
+        maxDate={new Date()}
       />
+      
     )
   );
 };

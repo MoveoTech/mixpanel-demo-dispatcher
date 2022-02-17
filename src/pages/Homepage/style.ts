@@ -3,7 +3,7 @@ import { theme, device } from "../../globalStyle/theme";
 
 export const HomepageContainer = styled.div`
   background-color: ${theme.colors.bright_purple_blue};
-  min-width: 1300px;
+  min-width: 1200px;
   height: 100%;
   overflow: scroll;
   @media ${device.tablet} {

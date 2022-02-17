@@ -23,7 +23,7 @@ export const theme = {
 
 const size = {
   mobile: "600px",
-  tablet: "990px",
+  tablet: "1190px",
 };
 export const device = {
   mobile: `(max-width: ${size.mobile})`,

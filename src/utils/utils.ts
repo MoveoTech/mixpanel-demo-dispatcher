@@ -1,8 +1,10 @@
-import { first } from "lodash";
+
 import { Article, DataChart } from "./types";
 
 export const handleError = (error: any) => {
-  switch (error.response.status) {
+
+  if(error && error.response)
+  switch (  error.response.status) {
     case 429:
       return {
         number: 429,
@@ -26,6 +28,11 @@ export const handleError = (error: any) => {
         message: "Something went wrong please try again",
       };
   }
+  else return {
+    number: 56,
+    message: "Something went wrong please try again",
+  };
+  
 };
 export const convertDateFromUrl = (propsDate: string) => {
   const date = new Date(propsDate);
@@ -60,15 +67,6 @@ export const convertDateToDatePicker = (inputDate: string) => {
     );
   }
 };
-
-// export const checkLengthDescription = (title: string) => {
-//   var trimmedString = title.slice(0, 200);
-//   trimmedString = trimmedString.slice(
-//     0,
-//     Math.min(trimmedString.length, trimmedString.lastIndexOf(" "))
-//   );
-//   return trimmedString;
-// };
 
 export const renderTags = (tags: string[], isMobileDevice: boolean) => {
   const newTagsArr: string[] = [];
@@ -127,14 +125,14 @@ export const calculateSourcesChart = (articles: Article[]) => {
 };
 export const calculateDatesChart = (articles: Article[]) => {
   let isEmpty = true;
-  const datesChart: { name: string; value: number }[] = [
-    { name: "SUN", value: 0 },
-    { name: "MON", value: 0 },
-    { name: "TUE", value: 0 },
-    { name: "WED", value: 0 },
-    { name: "THU", value: 0 },
-    { name: "FRI", value: 0 },
-    { name: "SAT", value: 0 },
+  const datesChart: { name: string; amount: number }[] = [
+    { name: "SUN", amount: 0 },
+    { name: "MON", amount: 0 },
+    { name: "TUE", amount: 0 },
+    { name: "WED", amount: 0 },
+    { name: "THU", amount: 0 },
+    { name: "FRI", amount: 0 },
+    { name: "SAT", amount: 0 },
   ];
   articles.forEach((article) => {
     const day = convertDateFromUrl(article.publishedAt)
@@ -143,19 +141,30 @@ export const calculateDatesChart = (articles: Article[]) => {
       .slice(0, 3);
     const index = datesChart.findIndex(({ name }) => name === day);
     if (index !== -1) {
-      datesChart[index].value++;
+      datesChart[index].amount++;
     } else {
-      datesChart.push({ name: day, value: 1 });
+      datesChart.push({ name: day, amount: 1 });
     }
   });
   datesChart.forEach((day) => {
-    if (day.value > 0) {
+    if (day.amount > 0) {
       isEmpty = false;
     }
-    day.value = (day.value * 100) / articles.length;
+    // day.value = (day.value * 100) / articles.length;
   });
   return isEmpty ? [] : datesChart;
 };
+
+export const isRTL = (s : string) => {
+  var ltrChars =
+      "A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF" +
+      "\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF",
+    rtlChars = "\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC",
+    rtlDirCheck = new RegExp("^[^" + ltrChars + "]*[" + rtlChars + "]");
+
+  return rtlDirCheck.test(s);
+}
+
 export const calculateTagsChart = (articles: Article[]) => {
   const tagsChart: DataChart[] = [];
   articles.forEach((article) => {

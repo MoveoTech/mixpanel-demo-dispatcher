@@ -1,11 +1,10 @@
-import { AreaChart, Area, XAxis } from "recharts";
+import { AreaChart, Area, XAxis, Tooltip } from "recharts";
 import { theme } from "../../../globalStyle/theme";
 import SkeletonLineChart from "../../../pages/Homepage/components/Skeleton/SkeletonLineChart";
-import { DataChart } from "../../../utils/types";
 import Chart from "../Chart";
 
 export interface LineChartProps {
-  LineChartData: DataChart[];
+  LineChartData: { name: string; amount: number }[];
   ChartTitle: string;
   firstLoad: Boolean;
   error: string;
@@ -40,7 +39,7 @@ const LineChart = (props: LineChartProps) => {
             </defs>
             <Area
               type="monotone"
-              dataKey="value"
+              dataKey="amount"
               stroke={theme.colors.primary_blue}
               strokeWidth={5}
               fillOpacity={4}
@@ -57,6 +56,8 @@ const LineChart = (props: LineChartProps) => {
                 fontWeight: 700,
               }}
             />
+            {/* <CartesianGrid strokeDasharray="3 3" /> */}
+            <Tooltip />
           </AreaChart>
         )}
       </Chart.Body>

@@ -18,7 +18,22 @@ export const Dropdown = styled.div<{
     background: ${(props) => !props.disabled && "rgba(223, 224, 235, 0.41)"};
   }
 `;
-
+export const TextReset = styled.div`
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+`
+export const ButtonDatePicker = styled.div`
+  width: 100%;
+  background-color: ${theme.colors.grayscale};
+  height: 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 export const ContainerDatePicker = styled.div`
   position: absolute;
   top: 115%;
