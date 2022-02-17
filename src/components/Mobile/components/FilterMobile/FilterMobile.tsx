@@ -29,6 +29,7 @@ import { Content, DropdownIcon } from "../../../Filter/style";
 import FilterItem from "../../../Filter/FilterItem";
 import { filtersActions } from "../../../../store/slicers/filtersSlice";
 import useOnClickOutside from "../../../../hooks/useOnClickOutside";
+import { TextMsg } from "../../../../pages/Homepage/style";
 
 export interface FilterMobileProps {
   sourcesTopheadlines: Option[];
@@ -110,67 +111,87 @@ const FilterMobile = (props: FilterMobileProps) => {
   };
   useOnClickOutside(ref, handleClickOutside);
   return (
-    <ContainerFilter>
-       {filtersState.endpoint !== ENDPOINTS.topheadlines ? <DropdownMobile disabled={false} ref={ref}>
-        <HeaderMobile disabled={false} onClick={() => setIsActive(!isActive)}>
-          {selected}
-          <DropdownIcon alt="dropdownIcon" src={dropdownIcon} />
-        </HeaderMobile>
-        {isActive && (
-          <Content>
-            {sortByOptions.map((option, index) => (
-              <FilterItem
-                key={index}
-                name={option.name}
-                selected={selected === option.name}
-                onFunc={() => handleChangeSortBy(option)}
-              />
-            ))}
-          </Content>
-        )}
-      </DropdownMobile> : <div></div> }
-      <FilterIcon onClick={() => setPaneOpen(true)} src={filterIcon} />
-      <SlidingPane
-        closeIcon={<Title>Filter</Title>}
-        isOpen={isPaneOpen}
-        width={"80%"}
-        title={<p></p>}
-        onRequestClose={() => {
-          setPaneOpen(false);
-        }}
-      >
-        {
-          <Container>
-            <Body>
-              {filters.map((filter, index) => {
-                return (
-                  <FilterModal
+    <div>
+      <ContainerFilter>
+        {filtersState.endpoint !== ENDPOINTS.topheadlines ? (
+          <DropdownMobile disabled={false} ref={ref}>
+            <HeaderMobile
+              disabled={false}
+              onClick={() => setIsActive(!isActive)}
+            >
+              {selected}
+              <DropdownIcon alt="dropdownIcon" src={dropdownIcon} />
+            </HeaderMobile>
+            {isActive && (
+              <Content>
+                {sortByOptions.map((option, index) => (
+                  <FilterItem
                     key={index}
-                    value={filter.value}
-                    name={filter.name}
-                    options={filter.options}
-                    onCloseModal={() => setPaneOpen(false)}
-                    disabled={checkDisabled(filter.value)}
+                    name={option.name}
+                    selected={selected === option.name}
+                    onFunc={() => handleChangeSortBy(option)}
                   />
-                );
-              })}
-            </Body>
-            <Footer>
-              <Button
-                size={SIZE_TYPE.small}
-                variant={VARIANT.primary}
-                onClick={() => setPaneOpen(false)}
-              >
-                VIEW RESULTS
-              </Button>
-            </Footer>
-          </Container>
-        }
-      </SlidingPane>
-    </ContainerFilter>
+                ))}
+              </Content>
+            )}
+          </DropdownMobile>
+        ) : (
+          <div></div>
+        )}
+        <FilterIcon onClick={() => setPaneOpen(true)} src={filterIcon} />
+        <SlidingPane
+          closeIcon={<Title>Filter</Title>}
+          isOpen={isPaneOpen}
+          width={"80%"}
+          title={<p></p>}
+          onRequestClose={() => {
+            setPaneOpen(false);
+          }}
+        >
+          {
+            <Container>
+              <Body>
+                <div>
+                  {filters.map((filter, index) => {
+                    return (
+                      <FilterModal
+                        key={index}
+                        value={filter.value}
+                        name={filter.name}
+                        options={filter.options}
+                        onCloseModal={() => setPaneOpen(false)}
+                        disabled={checkDisabled(filter.value)}
+                      />
+                    );
+                  })}
+                  {filtersState.category || filtersState.country ? (
+                    <TextMsg style={{paddingLeft:'19px'}}>
+                      Be aware that you cant mix with source filter
+                    </TextMsg>
+                  ) : (
+                    filtersState.sourceTopheadlines && (
+                      <TextMsg style={{paddingLeft:'19px'}}>
+                        Be aware that you cant mix with category or country
+                        filter{" "}
+                      </TextMsg>
+                    )
+                  )}
+                </div>
+              </Body>
+              <Footer>
+                <Button
+                  size={SIZE_TYPE.small}
+                  variant={VARIANT.primary}
+                  onClick={() => setPaneOpen(false)}
+                >
+                  VIEW RESULTS
+                </Button>
+              </Footer>
+            </Container>
+          }
+        </SlidingPane>
+      </ContainerFilter>
+    </div>
   );
 };
 export default FilterMobile;
-function handleClickOutside(ref: any, handleClickOutside: any) {
-  throw new Error("Function not implemented.");
-}

@@ -27,6 +27,11 @@ export const MainLayout = styled.div`
     min-height: 100%;
   }
 `;
+export const TextMsg = styled.div`
+padding-top: 10px;
+  font-size: 14px;
+  color: ${theme.colors.purple_blue};
+`
 export const ArticlesContainer = styled.div`
   width: 100%;
 `;

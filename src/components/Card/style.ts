@@ -28,11 +28,14 @@ export const ImageCard = styled.div`
   width: 35%;
   border-radius: 20px 0px 0px 20px;
   object-fit: cover;
+  border-right: 1px solid #d9dbe9;
 
   @media ${device.mobile} {
     width: 100%;
     height: 35%;
     border-radius: 20px 20px 0px 0px;
+    border-bottom: 1px solid #d9dbe9;
+    border-right: 0;
   }
 `;
 export const BodyCard = styled.div`
@@ -89,11 +92,11 @@ export const ContainerImage = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  width: 36%;
+  width: 35%;
   border-radius: 20px 0px 0px 20px;
   font-size: 14px;
   color: ${theme.colors.purple_blue};
-  border-right: 1.5px solid rgb(168, 166, 181);
+  border-right: 1px solid #d9dbe9;
 
   @media ${device.mobile} {
     width: 100%;

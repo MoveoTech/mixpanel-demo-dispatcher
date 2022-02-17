@@ -28,6 +28,7 @@ import {
   MainLayout,
   DataContainer,
   ArticlesContainer,
+  TextMsg,
 } from "./style";
 import {
   getArticlesFromApi,
@@ -41,6 +42,7 @@ import {
 } from "../../utils/utils";
 import FilterMobile from "../../components/Mobile/components/FilterMobile/FilterMobile";
 import { useNavigate } from "react-router-dom";
+import { filter } from "lodash";
 
 const Homepage = () => {
   const isTabletDevice = useMediaQuery({
@@ -228,41 +230,44 @@ const Homepage = () => {
               ></Filter>
             </FilterContainer>
           ) : (
-            <FilterContainer>
-              <Filter
-                name="Country"
-                value="country"
-                disabled={filtersState.sourceTopheadlines ? true : false}
-                options={countryOptions}
-                onChangeValue={(value) => {
-                  dispatch(filtersActions.setCountry(value));
-                }}
-              ></Filter>
-              <Filter
-                name="Category"
-                value="category"
-                disabled={filtersState.sourceTopheadlines ? true : false}
-                options={categoryOptions}
-                onChangeValue={(value) => {
-                  dispatch(filtersActions.setCategory(value));
-                }}
-              ></Filter>
-              <Filter
-                name="Source"
-                value="sourceTopheadlines"
-                disabled={
-                  filtersState.country ||
-                  filtersState.category ||
-                  sourcesTopheadlinesOptions.length <= 0
-                    ? true
-                    : false
-                }
-                onChangeValue={(value) =>
-                  dispatch(filtersActions.setSourceTopheadlines(value))
-                }
-                options={sourcesTopheadlinesOptions}
-              ></Filter>
-            </FilterContainer>
+            <div>
+              <FilterContainer>
+                <Filter
+                  name="Country"
+                  value="country"
+                  disabled={filtersState.sourceTopheadlines ? true : false}
+                  options={countryOptions}
+                  onChangeValue={(value) => {
+                    dispatch(filtersActions.setCountry(value));
+                  }}
+                ></Filter>
+                <Filter
+                  name="Category"
+                  value="category"
+                  disabled={filtersState.sourceTopheadlines ? true : false}
+                  options={categoryOptions}
+                  onChangeValue={(value) => {
+                    dispatch(filtersActions.setCategory(value));
+                  }}
+                ></Filter>
+                <Filter
+                  name="Source"
+                  value="sourceTopheadlines"
+                  disabled={
+                    filtersState.country ||
+                    filtersState.category ||
+                    sourcesTopheadlinesOptions.length <= 0
+                      ? true
+                      : false
+                  }
+                  onChangeValue={(value) =>
+                    dispatch(filtersActions.setSourceTopheadlines(value))
+                  }
+                  options={sourcesTopheadlinesOptions}
+                ></Filter>
+              </FilterContainer>
+              { filtersState.category || filtersState.country ? <TextMsg>Be aware that you cant mix with source filter</TextMsg> : filtersState.sourceTopheadlines && <TextMsg>Be aware that you cant mix with category or country filter </TextMsg>}
+            </div>
           ))}
         <BodyContainer>
           <ResultsLine location={location.name} results={results} />
