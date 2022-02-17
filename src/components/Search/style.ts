@@ -24,7 +24,7 @@ export const SearchForm = styled.form<{ hasFocus: boolean }>`
 `;
 export const InputContainer = styled.div`
   border-right: 1px solid ${theme.colors.secondary_grey};
-  width: 70%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +41,7 @@ export const IconHover = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: -10;;
+  padding-bottom: -10;
   :hover {
     background-color: ${theme.colors.secondary_grey};
   }

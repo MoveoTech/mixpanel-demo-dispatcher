@@ -4,7 +4,7 @@ import SkeletonLineChart from "../../../pages/Homepage/components/Skeleton/Skele
 import Chart from "../Chart";
 
 export interface LineChartProps {
-  LineChartData: { name: string; amount: number }[];
+  LineChartData: { name: string; amount: number; }[];
   ChartTitle: string;
   firstLoad: Boolean;
   error: string;
@@ -56,7 +56,6 @@ const LineChart = (props: LineChartProps) => {
                 fontWeight: 700,
               }}
             />
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
             <Tooltip />
           </AreaChart>
         )}

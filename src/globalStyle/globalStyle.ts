@@ -45,6 +45,15 @@ export default createGlobalStyle`
         color:${theme.colors.white};
     }
 }
+.react-datepicker__day--disabled{
+    cursor: default;
+    color: #ccc;
+
+    :hover{
+        background-color:transparent;
+        color: #ccc;
+    }
+}
 .react-datepicker__day--keyboard-selected,
 .react-datepicker__day--selected,
 .react-datepicker__day--in-range{

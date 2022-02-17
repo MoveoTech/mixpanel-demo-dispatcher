@@ -1,8 +1,11 @@
 import { Source } from "../../utils/types";
-import { convertDateFromUrl } from "../../utils/utils";
-import moment from 'moment';
+import moment from "moment";
 import { ButtonProps } from "../Button/Button";
 import logo from "../../assets/icons/imageNotFound.svg";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import { isRTL } from "../../utils/utils";
+
 import {
   BodyCard,
   CardBtn,
@@ -16,7 +19,9 @@ import {
   ImageNotFound,
   ContainerImage,
 } from "./style";
-import {  useState } from "react";
+import { useEffect, useState } from "react";
+import { device } from "../../globalStyle/theme";
+import { useMediaQuery } from "react-responsive";
 
 export interface CardProps {
   date: string;
@@ -26,31 +31,50 @@ export interface CardProps {
   description: string;
   tags: string[];
   button: ButtonProps;
-  rtl: boolean;
+  location: { name: string; value: string };
 }
 
 const Card = (props: CardProps) => {
-  
-  const [imageUrl, setImageUrl] = useState<null | string>(props.image);
- 
+  const [imageError, setImageError] = useState<boolean>(false);
+  const rtl = (isRTL(props.description) || isRTL(props.title)) ? true : false;
+  const isMobileDevice = useMediaQuery({
+    query: device.mobile,
+  });
   return (
-    <CardStyled rtl={props.rtl} dir={props.rtl ? "rtl" : "ltr"}>
-      {imageUrl !== "null" && imageUrl ? (
-        <ImageCard rtl={props.rtl} src={props.image} onError={(e) => setImageUrl(null)} />
+    <CardStyled>
+      {props.image !== "null" && props.image && !imageError ? (
+        <ImageCard>
+          <LazyLoadImage
+            alt={props.image}
+            style={{
+              objectFit: "cover",
+              borderRadius: isMobileDevice
+                ? "20px 20px 0 0"
+                : "20px 0px 0px 20px",
+            }}
+            effect="blur"
+            height={"100%"}
+            src={props.image}
+            width={"100%"}
+            onError={(e) => setImageError(true)}
+          />
+        </ImageCard>
       ) : (
-        <ContainerImage rtl={props.rtl}>
+        <ContainerImage>
           <ImageNotFound src={logo} />
           <p>Image not found</p>
         </ContainerImage>
       )}
-      <BodyCard>
-        <Row rtl={props.rtl}>
-          <DateCard>{moment.utc(props.date).format("dddd MMM DD, YYYY")}</DateCard>
+      <BodyCard dir={rtl ? "rtl" : "ltr"}>
+        <Row rtl={rtl}>
+          <DateCard>
+            {moment.utc(props.date).format("dddd MMM DD, YYYY")}
+          </DateCard>
         </Row>
-        <Title rtl={props.rtl}>{props.title}</Title>
-        <SourceCard rtl={props.rtl}>{props.source.name}</SourceCard>
-        <Description rtl={props.rtl}>{props.description}</Description>
-        <CardBtn {...props.button} />
+        <Title rtl={rtl}>{props.title}</Title>
+        <SourceCard rtl={rtl}>{props.source.name}</SourceCard>
+        <Description rtl={rtl}>{props.description}</Description>
+        <CardBtn rtl={rtl} {...props.button} />
       </BodyCard>
     </CardStyled>
   );

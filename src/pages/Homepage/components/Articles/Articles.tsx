@@ -1,4 +1,4 @@
-import { Key, useEffect, useState } from "react";
+import { Key } from "react";
 import Card from "../../../../components/Card/Card";
 import {
   Article,
@@ -9,9 +9,6 @@ import { ArticleContainer, Container, ContainerError, Text } from "./style";
 import InfiniteScroll from "react-infinite-scroll-component";
 import notFoundIcon from "../../../../assets/icons/not-found.svg";
 import SkeletonCard from "../Skeleton/SkeletonCard";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../store";
-import { isRTL } from "../../../../utils/utils";
 
 
 export interface ArticlesProps {
@@ -25,15 +22,7 @@ export interface ArticlesProps {
 }
 
 const Articles = (props: ArticlesProps) => {
-  const filtersState = useSelector((state: RootState) => state.filters);
-  const [rtl, setRtl] = useState(false);
-  useEffect(() => {
-    if(isRTL(props.articles[0]?.description)){
-       setRtl(true);
-    } else{
-      setRtl(false);
-    }
-  }, [filtersState.country, props.location, filtersState.language]);
+
   const cards = new Array(4);
   for (let i = 0; i < 4; i++) {
     cards.push(<SkeletonCard key={i} />);
@@ -75,10 +64,10 @@ const Articles = (props: ArticlesProps) => {
                 variant: VARIANT.primary,
                 size: SIZE_TYPE.medium,
                 children: "Navigate to Dispatch",
-                rtl: rtl,
+                
               }}
               date={article.publishedAt}
-              rtl={rtl}
+              location={props.location}
             ></Card>
           );
         })}

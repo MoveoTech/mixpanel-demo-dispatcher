@@ -85,6 +85,7 @@ const DateFilter = (props: DateFilterProps) => {
               )
             }
             maxDate={new Date()}
+            showDisabledMonthNavigation
           />
           <ButtonDatePicker onClick={resetDate}>
             <TextReset>Reset</TextReset>
@@ -100,7 +101,6 @@ const DateFilter = (props: DateFilterProps) => {
         startDate={startDate}
         endDate={endDate}
         withPortal={true}
-        isClearable={true}
         minDate={
           new Date(
             new Date().getFullYear(),
@@ -109,6 +109,7 @@ const DateFilter = (props: DateFilterProps) => {
           )
         }
         maxDate={new Date()}
+        showDisabledMonthNavigation
       />
       
     )

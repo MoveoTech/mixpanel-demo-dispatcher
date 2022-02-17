@@ -52,7 +52,6 @@ const Filter = (props: FilterProps) => {
   };
 
   useOnClickOutside(ref, handleClickOutside);
-  console.log(selected)
   return (
     <Dropdown
       filterSearch={props.filterSearch ? true : false}

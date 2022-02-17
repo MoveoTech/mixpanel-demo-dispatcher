@@ -39,7 +39,7 @@ export const getArticlesFromApi = async (filtersState: any, location: any, pageN
   if (filtersState.endpoint === ENDPOINTS.topheadlines) {
     country = filtersState.country
       ? filtersState.country
-      : !filtersState.sourceTopheadlines
+      : !filtersState.category && !filtersState.sourceTopheadlines
       ? location
       : "";
   }

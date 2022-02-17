@@ -5,13 +5,12 @@ import Button from "../Button/Button";
 export const CardStyled = styled.div<{ rtl?: boolean }>`
   background: ${theme.colors.white};
   border: 1px solid ${theme.colors.secondary_grey};
-  box-shadow: 0px 32px 64px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 32px 16px rgb(0 0 0 / 3%);
   border-radius: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: ${(props) => (props.rtl ? "0px 0px 0px 16px" : "0px 16px 0px 0px")};
   margin-right: 10px;
   height: 300px;
   margin-bottom: 15px;
@@ -23,12 +22,11 @@ export const CardStyled = styled.div<{ rtl?: boolean }>`
     margin-right: 10px;
   }
 `;
-export const ImageCard = styled.img<{ rtl?: boolean }>`
+export const ImageCard = styled.div`
   height: 100%;
   max-height: 100%;
   width: 35%;
-  border-radius: ${(props) =>
-    props.rtl ? "0px 20px 20px 0px" : "20px 0px 0px 20px"};
+  border-radius: 20px 0px 0px 20px;
   object-fit: cover;
 
   @media ${device.mobile} {
@@ -41,6 +39,7 @@ export const BodyCard = styled.div`
   display: flex;
   flex-direction: column;
   margin-inline-start: 16px;
+  margin-inline-end: 16px;
   font-size: 14px;
   width: 65%;
   height: 100%;
@@ -84,21 +83,17 @@ export const Description = styled.p<{ rtl: boolean }>`
   white-space: normal;
   display: flex;
 `;
-export const ContainerImage = styled.div<{ rtl: boolean }>`
+export const ContainerImage = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   width: 36%;
-  border-radius: ${(props) =>
-    props.rtl ? "0px 20px 20px 0px" : "20px 0px 0px 20px"};
+  border-radius: 20px 0px 0px 20px;
   font-size: 14px;
   color: ${theme.colors.purple_blue};
-  border-right: ${(props) =>
-    props.rtl ? "none" : "1.5px solid rgb(168, 166, 181)"}; 
-  border-left: ${(props) =>
-    props.rtl ? "1.5px solid rgb(168, 166, 181)" : "none"};
+  border-right: 1.5px solid rgb(168, 166, 181);
 
   @media ${device.mobile} {
     width: 100%;
@@ -112,11 +107,12 @@ export const ImageNotFound = styled.img`
   opacity: 0.5;
   height: 40%;
 `;
-export const CardBtn = styled(Button)`
+export const CardBtn = styled(Button)<{ rtl: boolean }>`
   align-self: flex-end;
   margin-bottom: 10px;
   position: absolute;
   bottom: 0;
+  right: ${(props) => props.rtl && "0"};
 
   @media ${device.mobile} {
     align-self: center;
