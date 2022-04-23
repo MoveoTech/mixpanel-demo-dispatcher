@@ -14,8 +14,8 @@ export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
 
   @Post()
-  create(@Body() createFavoriteDto: any) {
-    return this.favoritesService.create(createFavoriteDto);
+  createFavorite(@Body() body: { favoriteItem: any }) {
+    return this.favoritesService.create(body);
   }
 
   @Get()
@@ -33,8 +33,9 @@ export class FavoritesController {
     return this.favoritesService.update(+id, updateFavoriteDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.favoritesService.remove(+id);
+  @Delete(':title')
+  deleteFavorite(@Param('title') title: string) {
+    console.log(title);
+    return this.favoritesService.remove(title);
   }
 }

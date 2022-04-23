@@ -1,18 +1,21 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
+
 import { FavoritesModule } from './favorites/favorites.module';
 import { ArticlesModule } from './articles/articles.module';
 
 @Module({
   imports: [
     FavoritesModule,
-    MongooseModule.forRoot(process.env.MONGO_URL),
+    MongooseModule.forRoot(
+      'mongodb://localhost:27017/?readPreference=primary&directConnection=true&ssl=false',
+      { dbName: 'development' },
+    ),
     ArticlesModule,
+    ConfigModule.forRoot(),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

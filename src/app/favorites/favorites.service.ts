@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFavoriteDto } from './dto/create-favorite.dto';
-import { UpdateFavoriteDto } from './dto/update-favorite.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Favorite, FavoriteDocument } from './favorites.schema';
 
 @Injectable()
 export class FavoritesService {
-  create(createFavoriteDto: CreateFavoriteDto) {
-    return 'This action adds a new favorite';
+  constructor(
+    @InjectModel(Favorite.name)
+    private readonly FavoriteModel: Model<FavoriteDocument>,
+  ) {}
+  async create(favoriteArticle: any): Promise<Favorite> {
+    const favorite = new this.FavoriteModel(favoriteArticle);
+    return favorite.save();
+    // const doc = (await favorite.save()).toObject();
+    // return doc;
   }
 
   findAll() {
@@ -16,11 +24,7 @@ export class FavoritesService {
     return `This action returns a #${id} favorite`;
   }
 
-  update(id: number, updateFavoriteDto: UpdateFavoriteDto) {
-    return `This action updates a #${id} favorite`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} favorite`;
+  remove(title: string) {
+    return `This action removes a #${title} favorite`;
   }
 }
