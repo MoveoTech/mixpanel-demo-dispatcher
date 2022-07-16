@@ -51,7 +51,7 @@ const Articles = (props: ArticlesProps) => {
           return (
             <Card
               key={i}
-              image={article.urlToImage}
+              image={article.image}
               title={article.title}
               source={article.source}
               description={article.description}
@@ -64,7 +64,7 @@ const Articles = (props: ArticlesProps) => {
                 variant: VARIANT.primary,
                 size: SIZE_TYPE.medium,
                 children: "Navigate to Dispatch",
-                
+
               }}
               date={article.publishedAt}
               location={props.location}

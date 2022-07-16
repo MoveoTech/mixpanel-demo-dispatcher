@@ -95,16 +95,15 @@ export const calculateSourcesChart = (articles: Article[]) => {
   let sourcesChart: DataChart[] = [];
   articles.forEach((article) => {
     const index = sourcesChart.findIndex(
-      ({ name }) => name === article.source.name
+      ({ name }) => name === article.source
     );
     if (index !== -1) {
       sourcesChart[index].value++;
     } else {
-      sourcesChart.push({ name: article.source.name, value: 1 });
+      sourcesChart.push({ name: article.source, value: 1 });
     }
   });
   sourcesChart.forEach((source) => {
-    source.name = source.name.split(".")[0];
     source.value = Math.round((source.value * 100) / articles.length);
   });
   sourcesChart.sort((a, b) => {

@@ -36,9 +36,9 @@ export interface Source {
   name: string;
 }
 export interface Article {
-  urlToImage: string;
+  image: string;
   title: string;
-  source: Source;
+  source: string;
   description: string;
   publishedAt: string;
   url: string;

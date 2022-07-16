@@ -27,7 +27,7 @@ export interface CardProps {
   date: string;
   image: string;
   title: string;
-  source: Source;
+  source: string;
   description: string;
   tags: string[];
   button: ButtonProps;
@@ -72,7 +72,7 @@ const Card = (props: CardProps) => {
           </DateCard>
         </Row>
         <Title rtl={rtl}>{props.title}</Title>
-        <SourceCard rtl={rtl}>{props.source.name}</SourceCard>
+        <SourceCard rtl={rtl}>{props.source}</SourceCard>
         <Description rtl={rtl}>{props.description}</Description>
         <CardBtn rtl={rtl} {...props.button} />
       </BodyCard>

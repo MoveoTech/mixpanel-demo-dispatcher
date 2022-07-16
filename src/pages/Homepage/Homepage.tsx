@@ -84,6 +84,7 @@ const Homepage = () => {
     setPageNumber(1);
     getArticlesFromApi(filtersState, location.value, 1)
       .then((res) => {
+        debugger
         setError({ number: 0, message: "" });
         setResults(res.data.totalResults);
         res.data.articles.length < 10 ? setHasMore(false) : setHasMore(true);
@@ -134,7 +135,7 @@ const Homepage = () => {
       setSourcesTopheadlinesOptions([]);
     }
   }, [filtersState.country, filtersState.category]);
-
+ 
   useEffect(() => {
     try {
       getSourcesFromApi(filtersState).then((res) => {

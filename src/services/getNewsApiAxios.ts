@@ -1,55 +1,97 @@
 import axios from "axios";
-import { ENDPOINTS } from "../utils/types";
+
+
+const MAX_NUMBER_OF_ARTICELS = 20;
 
 const apiAxios = axios.create({
-  baseURL: `https://newsapi.org/v2/`,
+  baseURL: `http://api.mediastack.com/v1/news`,
   timeout: 10000,
 });
-const apiKey: any = process.env.REACT_APP_API_KEY;
 
-// export const getArticlesFromApi = async (
-//   filtersState: any,
-//   location: any,
-//   pageNumber: number
-// ) => {
-//   let country = "";
-//   if (filtersState.endpoint === ENDPOINTS.topheadlines) {
-//     country = filtersState.country
-//       ? filtersState.country
-//       : !filtersState.source
-//       ? location
-//       : "";
-//   }
-//   apiAxios.interceptors.request.use((config: any) => {
-//     config.url = config.url + `&apiKey=${apiKey}`;
-//     return config;
-//   });
+export const getArticlesFromApi = async (filtersState: any, location: any, pageNumber: number) => {
+  console.log(filtersState)
+  console.log('location:', location)
+  console.log('pageNumber:', pageNumber)
+  return apiAxios.get('', {
+    params: {
+      limit: MAX_NUMBER_OF_ARTICELS,
+      offset: MAX_NUMBER_OF_ARTICELS * (pageNumber - 1),
+      languages: 'en',
+      categories: filtersState?.category,
+      keywords: filtersState?.searchInput,
+      access_key: process.env.REACT_APP_API_KEY
+    }
+  }).then(res => {
+    return {
+      data: {
+        articles: [...res.data.data],
+        totalResults: res.data.pagination.total
+      }
+    }
+  })
 
-//   const url = `${filtersState.endpoint}?q=${filtersState.searchInput}&pageSize=10&page=${pageNumber}&country=${country}&category=${filtersState.category}&sources=${filtersState.source}&from=${filtersState.dateFrom}&to=${filtersState.dateTo}&language=${filtersState.language}&sortBy=${filtersState.sortBy}`;
-//   return await apiAxios(url);
-// };
-
-// export const getSourcesFromApi = async (filtersState: any) => {
-//   const url = `top-headlines/sources?country=${filtersState.country}&category=${filtersState.category}&language=${filtersState.language}`;
-//   return await apiAxios(url);
-// };
-
-export const getArticlesFromApi = async (filtersState: any, location: any, pageNumber : number) => {
-  let country = "";
-  if (filtersState.endpoint === ENDPOINTS.topheadlines) {
-    country = filtersState.country
-      ? filtersState.country
-      : !filtersState.category && !filtersState.sourceTopheadlines
-      ? location
-      : "";
-  }
-  const urlEverything = `${filtersState.endpoint}?q=${filtersState.searchInput}&pageSize=10&page=${pageNumber}&sources=${filtersState.sourceEverything}&from=${filtersState.dateFrom}&to=${filtersState.dateTo}&language=${filtersState.language}&sortBy=${filtersState.sortBy}&apiKey=${apiKey}`;
-  const urlTopheadlines = `${filtersState.endpoint}?q=${filtersState.searchInput}&pageSize=10&page=${pageNumber}&country=${country}&category=${filtersState.category}&sources=${filtersState.sourceTopheadlines}&apiKey=${apiKey}`;
-  
-  return await apiAxios.get(filtersState.endpoint === ENDPOINTS.topheadlines ? urlTopheadlines : urlEverything);
 };
 
 export const getSourcesFromApi = async (filtersState: any) => {
-  const url = `top-headlines/sources?country=${filtersState.country}&category=${filtersState.category}&language=${filtersState.language}&&apiKey=${apiKey}`;
-  return await apiAxios(url);
+  const data = {
+    "status": "ok",
+    "sources": [
+      {
+        "id": "abc-news",
+        "name": "ABC News",
+        "description": "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com.",
+        "url": "https://abcnews.go.com",
+        "category": "general",
+        "language": "en",
+        "country": "us"
+      },
+      {
+        "id": "abc-news-au",
+        "name": "ABC News (AU)",
+        "description": "Australia's most trusted source of local, national and world news. Comprehensive, independent, in-depth analysis, the latest business, sport, weather and more.",
+        "url": "http://www.abc.net.au/news",
+        "category": "general",
+        "language": "en",
+        "country": "au"
+      },
+      {
+        "id": "aftenposten",
+        "name": "Aftenposten",
+        "description": "Norges ledende nettavis med alltid oppdaterte nyheter innenfor innenriks, utenriks, sport og kultur.",
+        "url": "https://www.aftenposten.no",
+        "category": "general",
+        "language": "no",
+        "country": "no"
+      },
+      {
+        "id": "al-jazeera-english",
+        "name": "Al Jazeera English",
+        "description": "News, analysis from the Middle East and worldwide, multimedia and interactives, opinions, documentaries, podcasts, long reads and broadcast schedule.",
+        "url": "http://www.aljazeera.com",
+        "category": "general",
+        "language": "en",
+        "country": "us"
+      }]
+  }
+  return Promise.resolve({ data });
+  // const url = `top-headlines/sources?country=${filtersState.country}&category=${filtersState.category}&language=${filtersState.language}&&apiKey=${apiKey}`;
+  // return await apiAxios(url);
 };
+
+
+export const search = (source: string, limit: number, offset: number) => {
+  return apiAxios.get('', {
+    params: {
+      limit,
+      offset,
+      access_key: process.env.REACT_APP_API_KEY
+    }
+  }).then(res => {
+    return {
+      data: {
+        articles: [...res.data.data],
+        totalResults: res.data.pagination.total
+      }
+    }
+  })
+}
