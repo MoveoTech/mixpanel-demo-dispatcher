@@ -1,26 +1,21 @@
-import './style';
-import { Btn, Icon } from './style';
+import "./style";
+import icon from "../../assets/icons/back.svg";
+import { ButtonStyled, Icon, Label } from "./style";
+import { SIZE_TYPE, VARIANT } from "../../utils/types";
 
-export interface ButtonProps {
-  onClick: () => void;
-  color: string;
-  hover: string;
-  icon: string;
-  children: any;
-  size: string;
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  icon?: boolean;
+  size: SIZE_TYPE;
+  variant: VARIANT;
+  rtl?: boolean
 }
+const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
+  return (
+    <ButtonStyled {...props}>
+      <Label rtl={props.rtl} >{props.children}</Label>
+      {props.icon && <Icon rtl={props.rtl} src={icon} />}
+    </ButtonStyled>
+  );
+};
 
-const Button = ({onClick, color, hover, icon, children,size}: ButtonProps) => {
-    return (
-      <div>
-        <Btn
-          onClick={onClick}>
-          {children}
-          {size != "small" && <Icon src={icon} />}
-        </Btn>
-      </div>
-      
-    );
-  };
-  
-  export default Button;
+export default Button;
