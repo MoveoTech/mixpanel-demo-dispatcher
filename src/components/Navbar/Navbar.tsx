@@ -12,7 +12,7 @@ import {
   Row,
   SearchInput,
 } from "./style";
-import logo from "../../assets/icons/logo.svg";
+import logo from "../../assets/icons/app-logo.svg";
 import searchIcon from "../../assets/icons/search.svg";
 import backIcon from "../../assets/icons/back.svg";
 import { useMediaQuery } from "react-responsive";
